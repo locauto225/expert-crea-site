@@ -128,16 +128,16 @@ export default function RealisationsPage() {
 
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
               <Link
-                href="#cases"
+                href="/contact"
                 className="inline-flex items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2 focus:ring-offset-slate-950"
               >
-                Voir nos réalisations
+                Décrire votre situation (2 min)
               </Link>
               <Link
-                href="/contact"
+                href="#cases"
                 className="inline-flex items-center justify-center rounded-xl px-2 py-2 text-sm font-semibold text-white/90 underline decoration-white/25 underline-offset-4 hover:text-white hover:decoration-white/45 focus:outline-none focus:ring-2 focus:ring-white/30 focus:ring-offset-2 focus:ring-offset-slate-950"
               >
-                Parler de votre situation
+                Voir les projets
               </Link>
             </div>
           </div>
