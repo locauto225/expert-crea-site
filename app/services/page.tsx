@@ -1,4 +1,64 @@
+
 import Link from "next/link";
+
+function ServiceIcon({
+  name,
+  accent,
+}: {
+  name: string;
+  accent: "blue" | "green";
+}) {
+  const colorClass = accent === "green" ? "text-(--brand-green)" : "text-(--brand-blue)";
+  const bgClass = accent === "green" ? "bg-(--brand-green)/10" : "bg-(--brand-blue)/10";
+
+  const common = `inline-flex h-10 w-10 items-center justify-center rounded-2xl ${bgClass} ${colorClass}`;
+
+  // Minimal inline icons (no external deps)
+  if (name === "Attirer") {
+    return (
+      <span className={common} aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 22s7-5.2 7-12a7 7 0 1 0-14 0c0 6.8 7 12 7 12Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          <path d="M12 11.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </span>
+    );
+  }
+
+  if (name === "Convertir") {
+    return (
+      <span className={common} aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 3l1.6 5.1H19l-4.2 3 1.6 5.1L12 13.2 7.6 16.2 9.2 11 5 8.1h5.4L12 3Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
+          <path d="M4 21h16" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+        </svg>
+      </span>
+    );
+  }
+
+  if (name === "Structurer") {
+    return (
+      <span className={common} aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 4h7v7H4V4Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
+          <path d="M13 4h7v7h-7V4Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
+          <path d="M4 13h7v7H4v-7Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
+          <path d="M13 13h7v7h-7v-7Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
+        </svg>
+      </span>
+    );
+  }
+
+  // "Sécuriser" (default)
+  return (
+    <span className={common} aria-hidden="true">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2l8 4v6c0 5-3.4 9.4-8 10-4.6-.6-8-5-8-10V6l8-4Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
+        <path d="M9 12l2 2 4-4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+      </svg>
+    </span>
+  );
+}
 
 export default function ServicesPage() {
   const items = [
@@ -12,6 +72,7 @@ export default function ServicesPage() {
       ],
       href: "/services/referencement-seo",
       accent: "blue",
+      tag: "Visibilité",
     },
     {
       title: "Convertir",
@@ -23,6 +84,7 @@ export default function ServicesPage() {
       ],
       href: "/services/creation-site-web",
       accent: "green",
+      tag: "Demandes",
     },
     {
       title: "Structurer",
@@ -34,6 +96,7 @@ export default function ServicesPage() {
       ],
       href: "/services/extranet-outils-gestion",
       accent: "green",
+      tag: "Organisation",
     },
     {
       title: "Sécuriser",
@@ -45,6 +108,7 @@ export default function ServicesPage() {
       ],
       href: "/services/conformite-fne",
       accent: "blue",
+      tag: "Conformité",
     },
   ] as const;
 
@@ -97,6 +161,9 @@ export default function ServicesPage() {
           <p className="max-w-2xl text-slate-600 md:text-lg leading-relaxed">
             Choisissez votre besoin principal — on vous dit par quoi commencer.
           </p>
+          <p className="text-sm font-semibold text-slate-700">
+            Quel est votre cas aujourd’hui ? Cliquez sur le bloc qui vous ressemble le plus.
+          </p>
         </div>
 
         <div className="grid gap-6 md:grid-cols-2">
@@ -104,11 +171,23 @@ export default function ServicesPage() {
             <Link
               key={it.title}
               href={it.href}
-              className="stagger-item card-wow group rounded-3xl border border-black/10 bg-white p-6 sm:p-7 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2"
+              className={`stagger-item card-wow group relative rounded-3xl border border-black/10 bg-white p-6 sm:p-7 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2 hover:border-black/20`}
             >
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <div className="text-lg font-bold text-slate-900">{it.title}</div>
+              <div className="flex items-start gap-4">
+                <ServiceIcon name={it.title} accent={it.accent} />
+                <div className="min-w-0">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <div className="text-lg font-bold text-slate-900">{it.title}</div>
+                    <span
+                      className={
+                        it.accent === "green"
+                          ? "inline-flex rounded-full bg-(--brand-green)/10 px-2.5 py-1 text-xs font-semibold text-(--brand-green)"
+                          : "inline-flex rounded-full bg-(--brand-blue)/10 px-2.5 py-1 text-xs font-semibold text-(--brand-blue)"
+                      }
+                    >
+                      {it.tag}
+                    </span>
+                  </div>
                   <div className="mt-1 text-sm leading-relaxed text-slate-600">{it.desc}</div>
                 </div>
               </div>
@@ -121,7 +200,7 @@ export default function ServicesPage() {
                   </li>
                 ))}
               </ul>
-              <span className="mt-4 inline-flex click-hint">Découvrir</span>
+              <span className="mt-4 inline-flex click-hint">Découvrir →</span>
             </Link>
           ))}
         </div>
@@ -131,11 +210,23 @@ export default function ServicesPage() {
             <Link
               key={it.title}
               href={it.href}
-              className="stagger-item card-wow group rounded-3xl border border-black/10 bg-white p-6 sm:p-7 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2"
+              className={`stagger-item card-wow group relative rounded-3xl border border-black/10 bg-white p-6 sm:p-7 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2 hover:border-black/20`}
             >
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <div className="text-lg font-bold text-slate-900">{it.title}</div>
+              <div className="flex items-start gap-4">
+                <ServiceIcon name={it.title} accent={it.accent} />
+                <div className="min-w-0">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <div className="text-lg font-bold text-slate-900">{it.title}</div>
+                    <span
+                      className={
+                        it.accent === "green"
+                          ? "inline-flex rounded-full bg-(--brand-green)/10 px-2.5 py-1 text-xs font-semibold text-(--brand-green)"
+                          : "inline-flex rounded-full bg-(--brand-blue)/10 px-2.5 py-1 text-xs font-semibold text-(--brand-blue)"
+                      }
+                    >
+                      {it.tag}
+                    </span>
+                  </div>
                   <div className="mt-1 text-sm leading-relaxed text-slate-600">{it.desc}</div>
                 </div>
               </div>
@@ -148,7 +239,7 @@ export default function ServicesPage() {
                   </li>
                 ))}
               </ul>
-              <span className="mt-4 inline-flex click-hint">Découvrir</span>
+              <span className="mt-4 inline-flex click-hint">Découvrir →</span>
             </Link>
           ))}
         </div>
@@ -175,7 +266,7 @@ export default function ServicesPage() {
         <div className="stagger-item overflow-hidden rounded-3xl border border-black/10 bg-white">
           <div className="border-b border-black/10 bg-slate-50 px-6 py-4 sm:px-7">
             <div className="text-sm font-semibold text-slate-900">Aperçu d’un outil clair et utile</div>
-            <div className="mt-1 text-sm text-slate-600">Simple, lisible, pensé pour le quotidien — pas un mockup marketing.</div>
+            <div className="mt-1 text-sm text-slate-600">Pensé pour suivre les demandes et les actions au quotidien.</div>
           </div>
 
           <div className="p-6 sm:p-7">
