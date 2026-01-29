@@ -74,20 +74,14 @@ export default function ServicesPage() {
               Choisissez un besoin ci-dessous. On cadre, puis on livre une V1 utile — sans bloquer l’activité.
             </p>
 
-            <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-              <a
-                href="#solutions"
-                className="inline-flex items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2 focus:ring-offset-slate-950"
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-white/30"
               >
-                Voir les solutions
-              </a>
-
-              <a
-                href="#diagnostic"
-                className="inline-flex items-center justify-center px-3 py-3 text-sm font-semibold text-white/70 underline decoration-white/20 underline-offset-4 hover:text-white hover:decoration-white/35 focus:outline-none focus:ring-2 focus:ring-white/30 focus:ring-offset-2 focus:ring-offset-slate-950"
-              >
-                Décrire ma situation
-              </a>
+                Décrire votre situation (2 min)
+              </Link>
+              <div className="text-sm font-semibold text-white/70">Réponse sous 24h — sans engagement</div>
             </div>
           </div>
         </div>
@@ -117,16 +111,6 @@ export default function ServicesPage() {
                   <div className="text-lg font-bold text-slate-900">{it.title}</div>
                   <div className="mt-1 text-sm leading-relaxed text-slate-600">{it.desc}</div>
                 </div>
-
-                <span
-                  className={`mt-0.5 inline-flex rounded-full px-2 py-1 text-[11px] font-semibold ring-1 ring-inset transition md:opacity-90 group-hover:opacity-100 ${
-                    it.accent === "green"
-                      ? "bg-(--brand-green)/10 text-(--brand-green) ring-(--brand-green)/25"
-                      : "bg-(--brand-blue)/10 text-(--brand-blue) ring-(--brand-blue)/25"
-                  }`}
-                >
-                  Voir →
-                </span>
               </div>
 
               <ul className="mt-5 space-y-2 text-sm text-slate-700">
@@ -137,6 +121,7 @@ export default function ServicesPage() {
                   </li>
                 ))}
               </ul>
+              <span className="mt-4 inline-flex click-hint">Découvrir</span>
             </Link>
           ))}
         </div>
@@ -153,16 +138,6 @@ export default function ServicesPage() {
                   <div className="text-lg font-bold text-slate-900">{it.title}</div>
                   <div className="mt-1 text-sm leading-relaxed text-slate-600">{it.desc}</div>
                 </div>
-
-                <span
-                  className={`mt-0.5 inline-flex rounded-full px-2 py-1 text-[11px] font-semibold ring-1 ring-inset transition md:opacity-90 group-hover:opacity-100 ${
-                    it.accent === "green"
-                      ? "bg-(--brand-green)/10 text-(--brand-green) ring-(--brand-green)/25"
-                      : "bg-(--brand-blue)/10 text-(--brand-blue) ring-(--brand-blue)/25"
-                  }`}
-                >
-                  Voir →
-                </span>
               </div>
 
               <ul className="mt-5 space-y-2 text-sm text-slate-700">
@@ -173,6 +148,7 @@ export default function ServicesPage() {
                   </li>
                 ))}
               </ul>
+              <span className="mt-4 inline-flex click-hint">Découvrir</span>
             </Link>
           ))}
         </div>
@@ -190,7 +166,7 @@ export default function ServicesPage() {
               href="/services/identite-visuelle-supports"
               className="inline-flex items-center justify-center rounded-xl border border-black/10 bg-white px-5 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2"
             >
-              Voir →
+              Découvrir
             </Link>
           </div>
         </div>
@@ -203,19 +179,12 @@ export default function ServicesPage() {
                 Décrivez votre situation en 2 minutes — on vous dit par où commencer.
               </div>
             </div>
-
-            <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-              <a
-                href="#diagnostic"
-                className="inline-flex items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2"
-              >
-                Décrire ma situation (2 min)
-              </a>
+            <div>
               <Link
-                href="/contact?channel=whatsapp"
-                className="inline-flex items-center justify-center px-3 py-3 text-sm font-semibold text-slate-700 underline decoration-slate-300 underline-offset-4 hover:text-slate-900 hover:decoration-slate-400 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2"
+                href="/contact"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-(--brand-blue) underline decoration-(--brand-blue)/30 underline-offset-4 hover:decoration-(--brand-blue)/60 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2"
               >
-                WhatsApp (réponse rapide)
+                Décrire votre situation (2 min) →
               </Link>
             </div>
           </div>
@@ -264,71 +233,6 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* DIAGNOSTIC (capture le CTA du hero, sans sortir de la page) */}
-      <section id="diagnostic" className="reveal space-y-8 scroll-mt-28">
-        <div className="max-w-3xl space-y-2">
-          <h2 className="text-2xl font-extrabold tracking-tight md:text-3xl">
-            Décrivez votre situation (2 minutes)
-          </h2>
-          <p className="text-slate-600 md:text-lg leading-relaxed">
-            On vous répond avec un cadrage clair : ce qui est prioritaire, ce qui est optionnel, et la meilleure première étape.
-          </p>
-        </div>
-
-        <div className="grid gap-6 md:grid-cols-3">
-          {[
-            {
-              t: "Votre objectif",
-              d: "Plus de demandes, plus de clarté, conformité, organisation…",
-            },
-            {
-              t: "Votre contexte",
-              d: "Ville/quartier, secteur, équipe, outils déjà en place.",
-            },
-            {
-              t: "Vos contraintes",
-              d: "Délais, budget, continuité d’activité, priorités.",
-            },
-          ].map((x) => (
-            <div key={x.t} className="rounded-2xl border border-black/10 bg-white p-5">
-              <div className="text-sm font-semibold text-slate-900">{x.t}</div>
-              <div className="mt-2 text-sm leading-relaxed text-slate-600">{x.d}</div>
-            </div>
-          ))}
-        </div>
-
-        <div className="rounded-3xl border border-black/10 bg-slate-50 p-7 sm:p-8">
-          <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-            <div className="space-y-1">
-              <div className="text-sm font-semibold text-slate-900">
-                Zéro pression : on vous dit si c’est adapté, et par quoi commencer.
-              </div>
-              <div className="text-sm text-slate-600">
-                Vous pouvez aussi passer par WhatsApp pour un échange rapide.
-              </div>
-            </div>
-
-            <div className="flex flex-col gap-3 sm:flex-row">
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2"
-              >
-                Décrire ma situation
-              </Link>
-              <Link
-                href="/contact?channel=whatsapp"
-                className="inline-flex items-center justify-center rounded-xl border border-black/15 bg-transparent px-5 py-3 text-sm font-semibold text-slate-900 hover:bg-black/5 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2"
-              >
-                WhatsApp (réponse rapide)
-              </Link>
-            </div>
-          </div>
-
-          <div className="mt-4 text-xs font-semibold text-slate-500">
-            Conseil : commencez par les objectifs et la zone (ville/quartier) — on s’occupe du reste.
-          </div>
-        </div>
-      </section>
 
       {/* COMMENT ON INTERVIENT */}
       <section className="reveal reveal-stagger space-y-8">
@@ -390,13 +294,13 @@ export default function ServicesPage() {
         <div className="relative mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
           <Link
             href="/contact"
-            className="inline-flex items-center justify-center rounded-xl bg-(--brand-green) px-5 py-3 text-sm font-semibold text-white hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-(--brand-green) focus:ring-offset-2 focus:ring-offset-slate-950"
+            className="inline-flex items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2 focus:ring-offset-slate-950"
           >
-            Parler de votre situation
+            Décrire votre situation (2 min)
           </Link>
           <Link
             href="/realisations"
-            className="inline-flex items-center justify-center rounded-xl border border-white/15 bg-transparent px-5 py-3 text-sm font-semibold text-white/90 hover:bg-white/5 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/30 focus:ring-offset-2 focus:ring-offset-slate-950"
+            className="inline-flex items-center justify-center px-3 py-3 text-sm font-semibold text-white/80 underline decoration-white/20 underline-offset-4 hover:text-white hover:decoration-white/40 focus:outline-none focus:ring-2 focus:ring-white/30 focus:ring-offset-2 focus:ring-offset-slate-950"
           >
             Voir des réalisations
           </Link>
