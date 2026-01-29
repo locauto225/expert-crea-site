@@ -478,7 +478,7 @@ export default function HomePage() {
             <p className="mt-2 text-slate-600">
               Si vos clients ne vous trouvent pas : visibilité locale, crédibilité, présence Google.
             </p>
-            <div className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-(--brand-blue) opacity-0 transition group-hover:opacity-100">
+            <div className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-(--brand-blue) opacity-100 transition md:opacity-0 md:group-hover:opacity-100 group-focus-within:opacity-100">
               Découvrir <Icon name="arrow" className="h-4 w-4" />
             </div>
           </Link>
@@ -496,7 +496,7 @@ export default function HomePage() {
             <p className="mt-2 text-slate-600">
               Si votre site existe mais ne génère rien : un site pensé pour recevoir et convertir des demandes.
             </p>
-            <div className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-(--brand-blue) opacity-0 transition group-hover:opacity-100">
+            <div className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-(--brand-blue) opacity-100 transition md:opacity-0 md:group-hover:opacity-100 group-focus-within:opacity-100">
               Découvrir <Icon name="arrow" className="h-4 w-4" />
             </div>
           </Link>
@@ -514,7 +514,7 @@ export default function HomePage() {
             <p className="mt-2 text-slate-600">
               Si l’organisation repose sur Excel / WhatsApp : outils internes, extranet, interfaçage, FNE.
             </p>
-            <div className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-(--brand-blue) opacity-0 transition group-hover:opacity-100">
+            <div className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-(--brand-blue) opacity-100 transition md:opacity-0 md:group-hover:opacity-100 group-focus-within:opacity-100">
               Découvrir <Icon name="arrow" className="h-4 w-4" />
             </div>
           </Link>
@@ -532,7 +532,7 @@ export default function HomePage() {
             <p className="mt-2 text-slate-600">
               Si la conformité vous inquiète : FNE, données, suivi et tranquillité d’esprit.
             </p>
-            <div className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-(--brand-blue) opacity-0 transition group-hover:opacity-100">
+            <div className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-(--brand-blue) opacity-100 transition md:opacity-0 md:group-hover:opacity-100 group-focus-within:opacity-100">
               Découvrir <Icon name="arrow" className="h-4 w-4" />
             </div>
           </Link>

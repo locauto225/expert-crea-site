@@ -54,6 +54,63 @@ body::before {
 }
 
 /* =========================
+   Hint cliquable (canonique)
+   - Mobile/touch : visible (on doit comprendre ce qui est cliquable)
+   - Desktop souris : peut apparaître au hover (plus épuré)
+   Usage :
+     - Sur le lien : class="click-hint"
+     - Si tu veux l’apparition au hover : mettre le parent en `group` et le lien en `click-hint click-hint--hover`
+========================= */
+.click-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  line-height: 1.1;
+
+  /* visible, mais sobre */
+  color: rgba(15, 23, 42, 0.72);
+
+  text-decoration: none;
+  text-underline-offset: 4px;
+
+  transition: color 180ms ease, opacity 180ms ease, transform 180ms ease, text-decoration-color 180ms ease;
+}
+
+.click-hint::after {
+  content: "→";
+  font-weight: 700;
+  opacity: 0.85;
+  transform: translateY(-0.5px);
+}
+
+.click-hint:hover {
+  color: rgba(81, 112, 255, 0.95); /* brand blue */
+  text-decoration: underline;
+  text-decoration-color: rgba(81, 112, 255, 0.35);
+}
+
+/* Variante : se révèle au hover (desktop uniquement) */
+.click-hint--hover {
+  opacity: 1;
+  transform: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .click-hint--hover {
+    opacity: 0;
+    transform: translateY(2px);
+  }
+
+  .group:hover .click-hint--hover,
+  .group:focus-within .click-hint--hover {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================
    Card hover (sobre, pro)
 ========================= */
 .card-wow {
