@@ -241,7 +241,7 @@ export default function HomePage() {
                 href="/contact"
                 className="inline-flex items-center justify-center text-sm font-semibold text-white/70 underline underline-offset-4 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/30"
               >
-                Parler de votre situation
+                Décrire votre situation (2 min)
               </Link>
             </div>
           </div>
@@ -278,6 +278,10 @@ export default function HomePage() {
               Ce n’est pas un manque de volonté. Ce sont{" "}
               <span className="font-semibold">des problèmes d’outils et d’organisation</span>.
             </p>
+
+            <p className="mt-4 text-slate-700">
+              <span className="font-semibold">Ces situations ne sont pas une fatalité.</span> Voici comment nous y répondons.
+            </p>
           </div>
 
           <div className="relative">
@@ -296,7 +300,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
 
       {/* Respiration */}
       <section className="reveal rounded-3xl border border-black/10 bg-white p-7">
@@ -370,6 +373,10 @@ export default function HomePage() {
 
             <p className="text-slate-700">
               <span className="font-semibold">Le digital devient un appui</span>, pas une contrainte.
+            </p>
+
+            <p className="text-slate-700">
+              <span className="font-semibold">Selon votre situation</span>, une ou plusieurs de ces réponses peuvent être mises en place.
             </p>
           </div>
 
@@ -473,9 +480,11 @@ export default function HomePage() {
               </div>
               <div className="text-lg font-bold">Attirer</div>
             </div>
-            <p className="mt-2 text-slate-600">Visibilité locale, crédibilité, présence Google.</p>
+            <p className="mt-2 text-slate-600">
+              Si vos clients ne vous trouvent pas : visibilité locale, crédibilité, présence Google.
+            </p>
             <div className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-(--brand-blue) opacity-0 transition group-hover:opacity-100">
-              SEO local <Icon name="arrow" className="h-4 w-4" />
+              Découvrir <Icon name="arrow" className="h-4 w-4" />
             </div>
           </Link>
 
@@ -489,9 +498,11 @@ export default function HomePage() {
               </div>
               <div className="text-lg font-bold">Convertir</div>
             </div>
-            <p className="mt-2 text-slate-600">Sites pensés pour générer des demandes, pas juste exister.</p>
+            <p className="mt-2 text-slate-600">
+              Si votre site existe mais ne génère rien : un site pensé pour recevoir et convertir des demandes.
+            </p>
             <div className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-(--brand-blue) opacity-0 transition group-hover:opacity-100">
-              Site web <Icon name="arrow" className="h-4 w-4" />
+              Découvrir <Icon name="arrow" className="h-4 w-4" />
             </div>
           </Link>
 
@@ -505,14 +516,16 @@ export default function HomePage() {
               </div>
               <div className="text-lg font-bold">Structurer</div>
             </div>
-            <p className="mt-2 text-slate-600">Outils internes, extranet, interfaçage, FNE.</p>
+            <p className="mt-2 text-slate-600">
+              Si l’organisation repose sur Excel / WhatsApp : outils internes, extranet, interfaçage, FNE.
+            </p>
             <div className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-(--brand-blue) opacity-0 transition group-hover:opacity-100">
-              Extranet & outils <Icon name="arrow" className="h-4 w-4" />
+              Découvrir <Icon name="arrow" className="h-4 w-4" />
             </div>
           </Link>
 
           <Link
-            href="/contact"
+            href="/services/conformite-fne"
             className="stagger-item card-wow group rounded-3xl border border-black/10 bg-white p-6 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2"
           >
             <div className="flex items-center gap-3">
@@ -521,9 +534,11 @@ export default function HomePage() {
               </div>
               <div className="text-lg font-bold">Sécuriser</div>
             </div>
-            <p className="mt-2 text-slate-600">Conformité, données, suivi et tranquillité d’esprit.</p>
+            <p className="mt-2 text-slate-600">
+              Si la conformité vous inquiète : FNE, données, suivi et tranquillité d’esprit.
+            </p>
             <div className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-(--brand-blue) opacity-0 transition group-hover:opacity-100">
-              Échange rapide <Icon name="arrow" className="h-4 w-4" />
+              Découvrir <Icon name="arrow" className="h-4 w-4" />
             </div>
           </Link>
         </div>
@@ -573,6 +588,18 @@ export default function HomePage() {
             ))}
           </div>
         </div>
+
+        <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-slate-700">
+            <span className="font-semibold">La première étape est toujours la même :</span> comprendre votre situation.
+          </p>
+          <Link
+            href="/contact"
+            className="inline-flex items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2"
+          >
+            Décrire votre situation (2 min)
+          </Link>
+        </div>
       </section>
 
       {/* 9) SIGNATURE */}
@@ -605,14 +632,14 @@ export default function HomePage() {
             href="/contact"
             className="inline-flex items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-white/30"
           >
-            Parler de votre situation
+            Décrire votre situation (2 min)
           </Link>
 
           <Link
             href="/realisations"
             className="inline-flex items-center justify-center text-sm font-semibold text-white/70 underline underline-offset-4 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/30"
           >
-            Voir des démos
+            Consulter des exemples concrets
           </Link>
         </div>
       </section>
