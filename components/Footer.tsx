@@ -41,6 +41,14 @@ export function Footer() {
           <a className="text-slate-300 hover:text-white" href={`mailto:${site.email}`}>
             {site.email}
           </a>
+          <a
+            className="text-slate-300 hover:text-white"
+            href="https://wa.me/2250706502490?text=Bonjour%20EXPERT%20CR%C3%89A%2C%20je%20souhaite%20d%C3%A9crire%20ma%20situation%20et%20voir%20par%20o%C3%B9%20commencer."
+            target="_blank"
+            rel="noreferrer"
+          >
+            WhatsApp
+          </a>
         </div>
       </div>
 

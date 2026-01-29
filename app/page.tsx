@@ -231,18 +231,12 @@ export default function HomePage() {
 
             <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
               <Link
-                href="#solutions"
-                className="inline-flex items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-white/30"
-              >
-                Voir les solutions
-              </Link>
-
-              <Link
                 href="/contact"
-                className="inline-flex items-center justify-center text-sm font-semibold text-white/70 underline underline-offset-4 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/30"
+                className="inline-flex items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-white/30"
               >
                 Décrire votre situation (2 min)
               </Link>
+              <div className="text-sm font-semibold text-white/70">Réponse sous 24h — sans engagement</div>
             </div>
           </div>
         </div>
@@ -462,6 +456,16 @@ export default function HomePage() {
           </Bullet>
         </ul>
       </section>
+
+      {/* Direction (pour les scanners pressés) */}
+      <div className="reveal">
+        <Link
+          href="#solutions"
+          className="inline-flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-slate-900"
+        >
+          Aller directement aux solutions <span aria-hidden="true">↓</span>
+        </Link>
+      </div>
 
       {/* 7) SERVICES */}
       <section id="solutions" className="reveal reveal-stagger space-y-4 scroll-mt-28">

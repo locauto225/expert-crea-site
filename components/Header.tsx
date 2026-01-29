@@ -288,10 +288,6 @@ export function Header() {
                 <span className="text-(--brand-blue)">EXPERT</span>{" "}
                 <span className="text-(--brand-green)">CRÉA</span>
               </span>
-
-              <span className="hidden xl:block whitespace-nowrap text-[11px] font-semibold text-slate-500">
-                Digital • SEO local • Outils métiers • Conformité
-              </span>
             </span>
           </Link>
         </div>
