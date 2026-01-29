@@ -113,7 +113,7 @@ export default function ServicesPage() {
                 </div>
               </div>
 
-              <ul className="mt-5 space-y-2 text-sm text-slate-700">
+              <ul className="mt-5 hidden sm:block space-y-2 text-sm text-slate-700">
                 {it.points.map((p) => (
                   <li key={p} className="flex gap-2">
                     <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-slate-300" />
@@ -140,7 +140,7 @@ export default function ServicesPage() {
                 </div>
               </div>
 
-              <ul className="mt-5 space-y-2 text-sm text-slate-700">
+              <ul className="mt-5 hidden sm:block space-y-2 text-sm text-slate-700">
                 {it.points.map((p) => (
                   <li key={p} className="flex gap-2">
                     <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-slate-300" />
@@ -171,6 +171,73 @@ export default function ServicesPage() {
           </div>
         </div>
 
+        {/* VISUEL PROJECTIF (unique) */}
+        <div className="stagger-item overflow-hidden rounded-3xl border border-black/10 bg-white">
+          <div className="border-b border-black/10 bg-slate-50 px-6 py-4 sm:px-7">
+            <div className="text-sm font-semibold text-slate-900">Aperçu d’un outil clair et utile</div>
+            <div className="mt-1 text-sm text-slate-600">Simple, lisible, pensé pour le quotidien — pas un mockup marketing.</div>
+          </div>
+
+          <div className="p-6 sm:p-7">
+            {/* Dashboard “wireframe” (projectif, sobre) */}
+            <div className="rounded-2xl border border-black/10 bg-linear-to-b from-white to-slate-50 p-5 sm:p-6">
+              <div className="flex flex-col gap-4">
+                <div className="grid gap-3 sm:grid-cols-4">
+                  {[
+                    { k: "Demandes", v: "12" },
+                    { k: "À traiter", v: "5" },
+                    { k: "Conformité", v: "OK" },
+                    { k: "Suivi", v: "Actif" },
+                  ].map((c) => (
+                    <div key={c.k} className="rounded-xl border border-black/10 bg-white p-4">
+                      <div className="text-xs font-semibold text-slate-500">{c.k}</div>
+                      <div className="mt-1 text-lg font-extrabold tracking-tight text-slate-900">{c.v}</div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="rounded-2xl border border-black/10 bg-white p-4 sm:p-5">
+                  <div className="flex items-center justify-between">
+                    <div className="text-sm font-semibold text-slate-900">Dernières actions</div>
+                    <span className="rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-600">Aujourd’hui</span>
+                  </div>
+                  <ul className="mt-3 space-y-2 text-sm text-slate-700">
+                    {[
+                      "Facture #1042 — en attente",
+                      "Document — validé",
+                      "Client — rappel programmé",
+                    ].map((t) => (
+                      <li key={t} className="flex items-center gap-2">
+                        <span className="h-1.5 w-1.5 rounded-full bg-slate-300" />
+                        <span>{t}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="rounded-2xl border border-black/10 bg-white p-4 sm:p-5">
+                  <div className="text-sm font-semibold text-slate-900">Action principale</div>
+                  <div className="mt-3 inline-flex w-full items-center justify-center rounded-xl bg-(--brand-blue) px-4 py-3 text-sm font-semibold text-white">
+                    Créer une facture
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-4 text-sm font-semibold text-slate-900">
+              Exemple d’outil clair et utile que nous mettons en place en priorité — adapté à votre activité et à votre équipe.
+            </div>
+            <div className="mt-2">
+              <Link
+                href="/realisations"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-(--brand-blue) underline decoration-(--brand-blue)/30 underline-offset-4 hover:decoration-(--brand-blue)/60 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2"
+              >
+                Voir des réalisations concrètes →
+              </Link>
+            </div>
+          </div>
+        </div>
+
         <div className="stagger-item rounded-3xl border border-black/10 bg-slate-50 p-6 sm:p-7">
           <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
             <div>
@@ -189,90 +256,165 @@ export default function ServicesPage() {
             </div>
           </div>
         </div>
+      </section>
 
-        <div className="stagger-item rounded-3xl border border-black/10 bg-slate-50 p-7 sm:p-8">
+      {/* SECTIONS EXPLICATIVES (mobile = accordéons) */}
+      <div className="md:hidden space-y-4">
+        <details className="rounded-3xl border border-black/10 bg-slate-50">
+          <summary className="cursor-pointer list-none px-7 py-5 text-sm font-semibold text-slate-900">
+            Cadre déjà appliqué
+          </summary>
+          <div className="px-7 pb-7 pt-0">
+            <div className="text-sm font-semibold text-slate-900">
+              Cadre déjà appliqué sur des sites, des outils internes et des prototypes utilisés au quotidien en Côte d’Ivoire.
+            </div>
+            <div className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600">
+              Le but : un outil utile, clair, adopté par l’équipe.
+            </div>
+          </div>
+        </details>
+
+        <details className="rounded-3xl border border-black/10 bg-slate-50">
+          <summary className="cursor-pointer list-none px-7 py-5 text-sm font-semibold text-slate-900">
+            À retenir
+          </summary>
+          <div className="px-7 pb-7 pt-0">
+            <div className="text-xl font-extrabold tracking-tight text-slate-900">
+              Même objectif : des demandes + moins de stress au quotidien.
+            </div>
+            <div className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600">
+              Services = le cadre. On l’applique à votre secteur et à votre réalité terrain. V1 utile rapidement, continuité d’activité, puis optimisation — sans complexifier l’existant.
+            </div>
+
+            <div className="mt-5 grid gap-3">
+              <div className="rounded-2xl border border-black/10 bg-white p-5">
+                <div className="text-sm font-semibold text-slate-900">Un point d’entrée clair</div>
+                <div className="mt-1 text-sm text-slate-600">Votre situation → notre cadre → V1 utile</div>
+              </div>
+              <div className="rounded-2xl border border-black/10 bg-white p-5">
+                <div className="text-sm font-semibold text-slate-900">Un objectif concret</div>
+                <div className="mt-1 text-sm text-slate-600">Demandes, clarté, organisation au quotidien</div>
+              </div>
+              <div className="rounded-2xl border border-black/10 bg-white p-5">
+                <div className="text-sm font-semibold text-slate-900">Zéro rupture</div>
+                <div className="mt-1 text-sm text-slate-600">On améliore sans bloquer l’activité</div>
+              </div>
+            </div>
+
+            <div className="mt-5 text-xs font-semibold text-slate-500">V1 rapide • continuité d’activité • optimisation concrète</div>
+          </div>
+        </details>
+
+        <details className="rounded-3xl border border-black/10 bg-white">
+          <summary className="cursor-pointer list-none px-7 py-5 text-sm font-semibold text-slate-900">
+            Comment on intervient
+          </summary>
+          <div className="px-7 pb-7 pt-0">
+            <p className="text-slate-600 leading-relaxed">
+              Pas de projets interminables. On avance par étapes, avec une V1 utile rapidement.
+            </p>
+
+            <div className="mt-5 grid gap-3">
+              {[
+                { n: "01", t: "On comprend votre réalité", d: "Objectifs, contraintes, outils déjà en place." },
+                { n: "02", t: "On livre une V1 utile", d: "Simple, claire, utilisable par votre équipe." },
+                { n: "03", t: "On ajuste & on sécurise", d: "Optimisation, suivi, continuité d’activité." },
+              ].map((s) => (
+                <div key={s.n} className="rounded-2xl border border-black/10 bg-slate-50 p-5">
+                  <div className="text-xs font-extrabold text-slate-500">{s.n}</div>
+                  <div className="mt-1 font-semibold text-slate-900">{s.t}</div>
+                  <div className="mt-2 text-sm leading-relaxed text-slate-600">{s.d}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </details>
+      </div>
+
+      {/* SECTIONS EXPLICATIVES (desktop = visibles) */}
+      <div className="hidden md:block space-y-20 sm:space-y-24">
+        <section className="reveal rounded-3xl border border-black/10 bg-slate-50 p-7 sm:p-8">
           <div className="text-sm font-semibold text-slate-900">
             Cadre déjà appliqué sur des sites, des outils internes et des prototypes utilisés au quotidien en Côte d’Ivoire.
           </div>
           <div className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600">
             Le but : un outil utile, clair, adopté par l’équipe.
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* À RETENIR (après le choix) */}
-      <section className="reveal rounded-3xl border border-black/10 bg-slate-50 p-7 sm:p-8">
-        <div className="space-y-2">
-          <div className="text-xs font-semibold text-slate-500">À retenir</div>
-          <div className="text-xl font-extrabold tracking-tight text-slate-900">
-            Même objectif : des demandes + moins de stress au quotidien.
+        {/* À RETENIR (après le choix) */}
+        <section className="reveal rounded-3xl border border-black/10 bg-slate-50 p-7 sm:p-8">
+          <div className="space-y-2">
+            <div className="text-xs font-semibold text-slate-500">À retenir</div>
+            <div className="text-xl font-extrabold tracking-tight text-slate-900">
+              Même objectif : des demandes + moins de stress au quotidien.
+            </div>
+            <div className="max-w-3xl text-sm leading-relaxed text-slate-600">
+              Services = le cadre. On l’applique à votre secteur et à votre réalité terrain.
+              V1 utile rapidement, continuité d’activité, puis optimisation — sans complexifier l’existant.
+            </div>
           </div>
-          <div className="max-w-3xl text-sm leading-relaxed text-slate-600">
-            Services = le cadre. On l’applique à votre secteur et à votre réalité terrain.
-            V1 utile rapidement, continuité d’activité, puis optimisation — sans complexifier l’existant.
-          </div>
-        </div>
 
-        <div className="mt-6 grid gap-4 md:grid-cols-3">
-          <div className="rounded-2xl border border-black/10 bg-white p-5">
-            <div className="text-sm font-semibold text-slate-900">Un point d’entrée clair</div>
-            <div className="mt-1 text-sm text-slate-600">Votre situation → notre cadre → V1 utile</div>
+          <div className="mt-6 grid gap-4 md:grid-cols-3">
+            <div className="rounded-2xl border border-black/10 bg-white p-5">
+              <div className="text-sm font-semibold text-slate-900">Un point d’entrée clair</div>
+              <div className="mt-1 text-sm text-slate-600">Votre situation → notre cadre → V1 utile</div>
+            </div>
+            <div className="rounded-2xl border border-black/10 bg-white p-5">
+              <div className="text-sm font-semibold text-slate-900">Un objectif concret</div>
+              <div className="mt-1 text-sm text-slate-600">Demandes, clarté, organisation au quotidien</div>
+            </div>
+            <div className="rounded-2xl border border-black/10 bg-white p-5">
+              <div className="text-sm font-semibold text-slate-900">Zéro rupture</div>
+              <div className="mt-1 text-sm text-slate-600">On améliore sans bloquer l’activité</div>
+            </div>
           </div>
-          <div className="rounded-2xl border border-black/10 bg-white p-5">
-            <div className="text-sm font-semibold text-slate-900">Un objectif concret</div>
-            <div className="mt-1 text-sm text-slate-600">Demandes, clarté, organisation au quotidien</div>
+
+          <div className="mt-6 text-xs font-semibold text-slate-500">
+            V1 rapide • continuité d’activité • optimisation concrète
           </div>
-          <div className="rounded-2xl border border-black/10 bg-white p-5">
-            <div className="text-sm font-semibold text-slate-900">Zéro rupture</div>
-            <div className="mt-1 text-sm text-slate-600">On améliore sans bloquer l’activité</div>
+        </section>
+
+        {/* COMMENT ON INTERVIENT */}
+        <section className="reveal reveal-stagger space-y-8">
+          <div className="max-w-3xl space-y-2">
+            <h2 className="text-2xl font-extrabold tracking-tight md:text-3xl">
+              Comment on intervient
+            </h2>
+            <p className="text-slate-600 md:text-lg leading-relaxed">
+              Pas de projets interminables. On avance par étapes, avec une V1 utile rapidement.
+            </p>
           </div>
-        </div>
 
-        <div className="mt-6 text-xs font-semibold text-slate-500">
-          V1 rapide • continuité d’activité • optimisation concrète
-        </div>
-      </section>
-
-
-      {/* COMMENT ON INTERVIENT */}
-      <section className="reveal reveal-stagger space-y-8">
-        <div className="max-w-3xl space-y-2">
-          <h2 className="text-2xl font-extrabold tracking-tight md:text-3xl">
-            Comment on intervient
-          </h2>
-          <p className="text-slate-600 md:text-lg leading-relaxed">
-            Pas de projets interminables. On avance par étapes, avec une V1 utile rapidement.
-          </p>
-        </div>
-
-        <div className="rounded-3xl border border-black/10 bg-white p-7 sm:p-8">
-          <div className="grid gap-6 md:grid-cols-3">
-            {[
-              {
-                n: "01",
-                t: "On comprend votre réalité",
-                d: "Objectifs, contraintes, outils déjà en place.",
-              },
-              {
-                n: "02",
-                t: "On livre une V1 utile",
-                d: "Simple, claire, utilisable par votre équipe.",
-              },
-              {
-                n: "03",
-                t: "On ajuste & on sécurise",
-                d: "Optimisation, suivi, continuité d’activité.",
-              },
-            ].map((s) => (
-              <div key={s.n} className="stagger-item rounded-2xl border border-black/10 bg-slate-50 p-4 sm:p-5">
-                <div className="text-xs font-extrabold text-slate-500">{s.n}</div>
-                <div className="mt-1 font-semibold text-slate-900">{s.t}</div>
-                <div className="mt-2 text-sm leading-relaxed text-slate-600">{s.d}</div>
-              </div>
-            ))}
+          <div className="rounded-3xl border border-black/10 bg-white p-7 sm:p-8">
+            <div className="grid gap-6 md:grid-cols-3">
+              {[
+                {
+                  n: "01",
+                  t: "On comprend votre réalité",
+                  d: "Objectifs, contraintes, outils déjà en place.",
+                },
+                {
+                  n: "02",
+                  t: "On livre une V1 utile",
+                  d: "Simple, claire, utilisable par votre équipe.",
+                },
+                {
+                  n: "03",
+                  t: "On ajuste & on sécurise",
+                  d: "Optimisation, suivi, continuité d’activité.",
+                },
+              ].map((s) => (
+                <div key={s.n} className="stagger-item rounded-2xl border border-black/10 bg-slate-50 p-4 sm:p-5">
+                  <div className="text-xs font-extrabold text-slate-500">{s.n}</div>
+                  <div className="mt-1 font-semibold text-slate-900">{s.t}</div>
+                  <div className="mt-2 text-sm leading-relaxed text-slate-600">{s.d}</div>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </div>
 
       {/* CTA FINAL */}
       <section className="reveal relative overflow-hidden rounded-3xl border border-black/10 bg-linear-to-b from-slate-950 to-slate-900 p-8 sm:p-10 text-white">
