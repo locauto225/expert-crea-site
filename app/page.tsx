@@ -457,15 +457,6 @@ export default function HomePage() {
         </ul>
       </section>
 
-      {/* Direction (pour les scanners pressés) */}
-      <div className="reveal">
-        <Link
-          href="#solutions"
-          className="inline-flex items-center gap-2 text-sm font-semibold text-slate-700 hover:text-slate-900"
-        >
-          Aller directement aux solutions <span aria-hidden="true">↓</span>
-        </Link>
-      </div>
 
       {/* 7) SERVICES */}
       <section id="solutions" className="reveal reveal-stagger space-y-4 scroll-mt-28">
