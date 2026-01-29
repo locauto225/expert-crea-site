@@ -244,20 +244,33 @@ export default function ServicesPage() {
           ))}
         </div>
 
-        <div className="stagger-item rounded-3xl border border-black/10 bg-white p-6 sm:p-7">
+        {/* LEVIER DE CRÉDIBILITÉ (complément) */}
+        <div className="stagger-item rounded-3xl border border-black/10 bg-slate-50 p-6 sm:p-7">
           <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-            <div>
-              <div className="text-sm font-semibold text-slate-900">Besoin complémentaire</div>
-              <div className="mt-1 text-sm text-slate-600">
-                Renforcer la crédibilité (identité visuelle & supports) — sans bling-bling.
+            <div className="min-w-0">
+              <div className="flex items-center gap-3">
+                <span
+                  aria-hidden="true"
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-2xl bg-(--brand-green)/10 text-(--brand-green)"
+                >
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2l1.2 4.6L18 8l-4.8 1.4L12 14l-1.2-4.6L6 8l4.8-1.4L12 2z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
+                  </svg>
+                </span>
+                <div className="text-sm font-semibold text-slate-900">Souvent nécessaire pour être crédible</div>
               </div>
+
+              <div className="mt-2 text-sm text-slate-600">
+                Identité visuelle &amp; supports — sans bling-bling.
+              </div>
+              <div className="mt-1 text-sm text-slate-600">Pour inspirer confiance dès le premier contact.</div>
             </div>
 
             <Link
               href="/services/identite-visuelle-supports"
-              className="inline-flex items-center justify-center rounded-xl border border-black/10 bg-white px-5 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-(--brand-blue) underline decoration-(--brand-blue)/30 underline-offset-4 hover:decoration-(--brand-blue)/60 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2"
             >
-              Découvrir
+              Découvrir →
             </Link>
           </div>
         </div>
