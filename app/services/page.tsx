@@ -278,11 +278,14 @@ export default function ServicesPage() {
         {/* PROJECTION (via réalisations) */}
         <div className="stagger-item overflow-hidden rounded-3xl border border-black/10 bg-slate-50">
           <div className="px-6 py-5 sm:px-7">
-            <div className="text-sm font-semibold text-slate-900">Vous voulez voir concrètement ?</div>
-            <div className="mt-1 max-w-2xl text-sm text-slate-600">
-              Consultez nos réalisations : sites, supports et outils utiles — pour vous projeter simplement.
-            </div>
-            <div className="mt-4">
+            <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+              <div className="min-w-0">
+                <div className="text-sm font-semibold text-slate-900">Vous voulez voir concrètement ?</div>
+                <div className="mt-1 max-w-2xl text-sm text-slate-600">
+                  Consultez nos réalisations : sites, supports et outils utiles — pour vous projeter simplement.
+                </div>
+              </div>
+
               <Link
                 href="/realisations"
                 className="inline-flex items-center gap-2 text-sm font-semibold text-(--brand-blue) underline decoration-(--brand-blue)/30 underline-offset-4 hover:decoration-(--brand-blue)/60 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2"
