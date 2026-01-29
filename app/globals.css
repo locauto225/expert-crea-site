@@ -69,13 +69,21 @@ body::before {
   font-size: 0.95rem;
   line-height: 1.1;
 
-  /* visible, mais sobre */
-  color: rgba(15, 23, 42, 0.72);
+  /* visible et identifiable (mobile + sans hover) */
+  color: rgba(0, 190, 98, 0.88); /* brand green */
+  opacity: 0.92;
 
   text-decoration: none;
   text-underline-offset: 4px;
 
   transition: color 180ms ease, opacity 180ms ease, transform 180ms ease, text-decoration-color 180ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  /* Desktop souris : un peu plus discret au repos */
+  .click-hint {
+    opacity: 0.75;
+  }
 }
 
 .click-hint::after {
@@ -86,9 +94,10 @@ body::before {
 }
 
 .click-hint:hover {
-  color: rgba(81, 112, 255, 0.95); /* brand blue */
+  opacity: 1;
+  color: rgba(0, 190, 98, 1); /* brand green */
   text-decoration: underline;
-  text-decoration-color: rgba(81, 112, 255, 0.35);
+  text-decoration-color: rgba(0, 190, 98, 0.35);
 }
 
 /* Variante : se révèle au hover (desktop uniquement) */
