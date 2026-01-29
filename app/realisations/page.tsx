@@ -114,7 +114,7 @@ export default function RealisationsPage() {
           <div className="space-y-6">
             <div className="flex flex-wrap items-center gap-2">
               <span className="inline-flex rounded-full bg-white/10 px-3 py-1 text-xs font-semibold tracking-wide">
-                Réalisations (exemples)
+                Réalisations (projets réels)
               </span>
             </div>
 
@@ -131,7 +131,7 @@ export default function RealisationsPage() {
                 href="#cases"
                 className="inline-flex items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2 focus:ring-offset-slate-950"
               >
-                Voir les exemples
+                Voir nos réalisations
               </Link>
               <Link
                 href="/contact"
@@ -147,7 +147,7 @@ export default function RealisationsPage() {
       {/* EXEMPLES */}
       <section id="cases" className="reveal space-y-6 scroll-mt-28">
         <div className="space-y-2">
-          <h2 className="text-2xl font-extrabold tracking-tight">Exemples de projets</h2>
+          <h2 className="text-2xl font-extrabold tracking-tight">Nos réalisations</h2>
           <p className="max-w-3xl text-slate-600">
             Captures réelles : outils, site et application — conçus pour des usages terrain.
           </p>
