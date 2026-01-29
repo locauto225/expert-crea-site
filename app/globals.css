@@ -1,26 +1,270 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --brand-blue: #5170ff;
+  --brand-green: #00be62;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+html,
+body {
+  height: 100%;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* =========================
+   Ancres / scroll (stable)
+   - Smooth scroll (sans JS)
+   - Padding pour header sticky
+========================= */
+html {
+  scroll-behavior: smooth;
+  /* évite que les ancres arrivent sous un header sticky */
+  scroll-padding-top: 7rem; /* ajuste si ton header est plus grand/petit */
+}
+
+/* Optionnel : petites corrections si besoin sur les ancres */
+:target {
+  scroll-margin-top: 7rem;
+}
+
+/* =========================
+   Base
+========================= */
+body {
+  color: rgb(15 23 42);
+  background: #ffffff;
+  position: relative;
+}
+
+/* =========================
+   Fond premium stable
+   (évite l'effet "patchy")
+========================= */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+
+  background:
+    radial-gradient(1200px 600px at 50% -10%, rgba(81, 112, 255, 0.08), transparent 60%),
+    radial-gradient(1000px 520px at 90% 0%, rgba(0, 190, 98, 0.06), transparent 55%);
+
+  filter: saturate(1.05);
+}
+
+/* =========================
+   Card hover (sobre, pro)
+========================= */
+.card-wow {
+  position: relative;
+  overflow: hidden;
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.card-wow::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    600px circle at 50% 25%,
+    rgba(59, 130, 246, 0.14),
+    transparent 40%
+  );
+  opacity: 0;
+  transition: opacity 180ms ease;
+  pointer-events: none;
+}
+
+/* Hover lift uniquement si l’élément est cliquable (évite l’illusion sur des blocs informatifs) */
+.card-wow:is(a, button, [role="button"]) {
+  cursor: pointer;
+}
+
+.card-wow:is(a, button, [role="button"]):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(2, 6, 23, 0.08);
+  border-color: rgba(0, 0, 0, 0.18);
+}
+
+.card-wow:is(a, button, [role="button"]):hover::before {
+  opacity: 1;
+}
+
+/* Variante soft pour les blocs non cliquables (hover discret, sans “lift”) */
+.card-soft {
+  transition: background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.card-soft:hover {
+  background-color: rgba(255, 255, 255, 0.6);
+  border-color: rgba(0, 0, 0, 0.16);
+  box-shadow: 0 8px 22px rgba(2, 6, 23, 0.06);
+}
+
+/* =========================
+   Reveal sections (ULTRA CLEAN)
+   - Anti-blank garanti
+   - Reveal uniquement desktop (>=1024px)
+========================= */
+/* Par défaut : visible (mobile + JS off = jamais de blanc) */
+.reveal {
+  opacity: 1;
+  transform: none;
+  transition: opacity 420ms ease, transform 420ms ease;
+  will-change: opacity, transform;
+}
+
+/* Desktop uniquement : on active le reveal SI JS est prêt (html.js) */
+@media (min-width: 1024px) {
+  html.js .reveal {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  html.js .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* =========================
+   Stagger (desktop only)
+   Usage:
+   - sur le parent: class="reveal reveal-stagger"
+   - sur chaque carte: class="stagger-item"
+========================= */
+@media (min-width: 1024px) {
+  .reveal-stagger .stagger-item {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 420ms ease, transform 420ms ease;
+    will-change: opacity, transform;
+  }
+
+  .reveal.is-visible.reveal-stagger .stagger-item {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0ms;
+  }
+
+  .reveal.is-visible.reveal-stagger .stagger-item:nth-child(1) { transition-delay: 0ms; }
+  .reveal.is-visible.reveal-stagger .stagger-item:nth-child(2) { transition-delay: 70ms; }
+  .reveal.is-visible.reveal-stagger .stagger-item:nth-child(3) { transition-delay: 140ms; }
+  .reveal.is-visible.reveal-stagger .stagger-item:nth-child(4) { transition-delay: 210ms; }
+}
+
+/* =========================
+   Header accent animé + glow
+   (transition clean + stacking fix)
+========================= */
+.header-accent {
+  position: relative;
+  isolation: isolate; /* ✅ contexte propre => pseudo-elements visibles */
+}
+
+.header-accent::before,
+.header-accent::after {
+  z-index: 5; /* ✅ au-dessus du fond/blur du header */
+}
+
+/* Barre */
+.header-accent::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+
+  height: 3px;
+
+  background: linear-gradient(
+    90deg,
+    rgba(81, 112, 255, 0),
+    rgba(81, 112, 255, 0.92),
+    rgba(0, 190, 98, 0.92),
+    rgba(0, 190, 98, 0)
+  );
+
+  background-size: 220% 100%;
+  opacity: 0.62;
+
+  transition: opacity 220ms ease, filter 220ms ease;
+  animation: header-accent-move 12s linear infinite;
+  pointer-events: none;
+}
+
+/* Glow (préparé mais invisible par défaut) */
+.header-accent::after {
+  content: "";
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  top: 0;
+
+  height: 10px;
+  transform: translateY(1px);
+  pointer-events: none;
+
+  background: linear-gradient(
+    90deg,
+    rgba(81, 112, 255, 0),
+    rgba(81, 112, 255, 0.25),
+    rgba(0, 190, 98, 0.22),
+    rgba(0, 190, 98, 0)
+  );
+
+  filter: blur(6px);
+  opacity: 0;
+
+  transition: opacity 240ms ease;
+}
+
+/* État scrolled : barre + glow montent progressivement */
+.header-accent.header-accent--scrolled::before {
+  opacity: 0.92;
+  filter: blur(0.6px);
+}
+
+.header-accent.header-accent--scrolled::after {
+  opacity: 0.75;
+}
+
+@keyframes header-accent-move {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 220% 50%; }
+}
+
+/* =========================
+   Accessibilité
+========================= */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .card-wow,
+  .card-wow::before,
+  .card-soft {
+    transition: none !important;
+  }
+
+  .header-accent::before {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .header-accent::after {
+    transition: none !important;
+  }
+
+  .header-accent.header-accent--scrolled::before,
+  .header-accent.header-accent--scrolled::after {
+    filter: none !important;
+  }
 }
