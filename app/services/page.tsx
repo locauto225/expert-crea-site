@@ -275,68 +275,19 @@ export default function ServicesPage() {
           </div>
         </div>
 
-        {/* VISUEL PROJECTIF (unique) */}
-        <div className="stagger-item overflow-hidden rounded-3xl border border-black/10 bg-white">
-          <div className="border-b border-black/10 bg-slate-50 px-6 py-4 sm:px-7">
-            <div className="text-sm font-semibold text-slate-900">Aperçu d’un outil clair et utile</div>
-            <div className="mt-1 text-sm text-slate-600">Pensé pour suivre les demandes et les actions au quotidien.</div>
-          </div>
-
-          <div className="p-6 sm:p-7">
-            {/* Dashboard “wireframe” (projectif, sobre) */}
-            <div className="rounded-2xl border border-black/10 bg-linear-to-b from-white to-slate-50 p-5 sm:p-6">
-              <div className="flex flex-col gap-4">
-                <div className="grid gap-3 sm:grid-cols-4">
-                  {[
-                    { k: "Demandes", v: "12" },
-                    { k: "À traiter", v: "5" },
-                    { k: "Conformité", v: "OK" },
-                    { k: "Suivi", v: "Actif" },
-                  ].map((c) => (
-                    <div key={c.k} className="rounded-xl border border-black/10 bg-white p-4">
-                      <div className="text-xs font-semibold text-slate-500">{c.k}</div>
-                      <div className="mt-1 text-lg font-extrabold tracking-tight text-slate-900">{c.v}</div>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="rounded-2xl border border-black/10 bg-white p-4 sm:p-5">
-                  <div className="flex items-center justify-between">
-                    <div className="text-sm font-semibold text-slate-900">Dernières actions</div>
-                    <span className="rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-600">Aujourd’hui</span>
-                  </div>
-                  <ul className="mt-3 space-y-2 text-sm text-slate-700">
-                    {[
-                      "Facture #1042 — en attente",
-                      "Document — validé",
-                      "Client — rappel programmé",
-                    ].map((t) => (
-                      <li key={t} className="flex items-center gap-2">
-                        <span className="h-1.5 w-1.5 rounded-full bg-slate-300" />
-                        <span>{t}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="rounded-2xl border border-black/10 bg-white p-4 sm:p-5">
-                  <div className="text-sm font-semibold text-slate-900">Action principale</div>
-                  <div className="mt-3 inline-flex w-full items-center justify-center rounded-xl bg-(--brand-blue) px-4 py-3 text-sm font-semibold text-white">
-                    Créer une facture
-                  </div>
-                </div>
-              </div>
+        {/* PROJECTION (via réalisations) */}
+        <div className="stagger-item overflow-hidden rounded-3xl border border-black/10 bg-slate-50">
+          <div className="px-6 py-5 sm:px-7">
+            <div className="text-sm font-semibold text-slate-900">Vous voulez voir concrètement ?</div>
+            <div className="mt-1 max-w-2xl text-sm text-slate-600">
+              Consultez nos réalisations : sites, supports et outils utiles — pour vous projeter simplement.
             </div>
-
-            <div className="mt-4 text-sm font-semibold text-slate-900">
-              Exemple d’outil clair et utile que nous mettons en place en priorité — adapté à votre activité et à votre équipe.
-            </div>
-            <div className="mt-2">
+            <div className="mt-4">
               <Link
                 href="/realisations"
                 className="inline-flex items-center gap-2 text-sm font-semibold text-(--brand-blue) underline decoration-(--brand-blue)/30 underline-offset-4 hover:decoration-(--brand-blue)/60 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2"
               >
-                Voir des réalisations concrètes →
+                Voir nos réalisations →
               </Link>
             </div>
           </div>
@@ -548,13 +499,13 @@ export default function ServicesPage() {
             href="/realisations"
             className="inline-flex items-center justify-center px-3 py-3 text-sm font-semibold text-white/80 underline decoration-white/20 underline-offset-4 hover:text-white hover:decoration-white/40 focus:outline-none focus:ring-2 focus:ring-white/30 focus:ring-offset-2 focus:ring-offset-slate-950"
           >
-            Voir des réalisations
+            Voir nos réalisations
           </Link>
           <a
             href="#solutions"
             className="inline-flex items-center justify-center rounded-xl px-3 py-3 text-sm font-semibold text-white/70 underline decoration-white/20 underline-offset-4 hover:text-white hover:decoration-white/35 focus:outline-none focus:ring-2 focus:ring-white/30 focus:ring-offset-2 focus:ring-offset-slate-950"
           >
-            Revoir les solutions (par besoin)
+            Revoir les solutions
           </a>
         </div>
       </section>
