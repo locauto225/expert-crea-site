@@ -3,19 +3,30 @@ import Link from "next/link";
 export default function ServicesPage() {
   const items = [
     {
-      title: "Être trouvé et contacté",
-      desc: "Pour les entreprises visibles… mais jamais appelées.",
+      title: "Attirer",
+      desc: "Être trouvé et contacté localement.",
       points: [
         "SEO local (Google + Maps)",
-        "Site clair orienté demandes",
+        "Fiche Google optimisée",
         "Pages simples, rapides, utiles",
       ],
       href: "/services/referencement-seo",
       accent: "blue",
     },
     {
-      title: "Structurer l’activité",
-      desc: "Pour arrêter Excel, WhatsApp et les informations perdues.",
+      title: "Convertir",
+      desc: "Transformer les visites en demandes.",
+      points: [
+        "Site clair orienté demandes",
+        "Pages de vente (simples)",
+        "Preuves & confiance (sans blabla)",
+      ],
+      href: "/services/creation-site-web",
+      accent: "green",
+    },
+    {
+      title: "Structurer",
+      desc: "Organiser l’activité sans Excel et WhatsApp.",
       points: [
         "Extranet / outil interne",
         "Suivi, organisation, automatisation",
@@ -25,8 +36,8 @@ export default function ServicesPage() {
       accent: "green",
     },
     {
-      title: "Se mettre en conformité sans stress",
-      desc: "Pour continuer à travailler sereinement, sans blocage.",
+      title: "Sécuriser",
+      desc: "Conformité, FNE, données, continuité.",
       points: [
         "Interfaçage avec l’existant",
         "Conformité / sécurisation des données",
@@ -34,17 +45,6 @@ export default function ServicesPage() {
       ],
       href: "/services/conformite-fne",
       accent: "blue",
-    },
-    {
-      title: "Renforcer la crédibilité",
-      desc: "Pour inspirer confiance dès le premier contact.",
-      points: [
-        "Identité visuelle & supports",
-        "Cohérence print / digital",
-        "Image professionnelle simple",
-      ],
-      href: "/services/identite-visuelle-supports",
-      accent: "green",
     },
   ] as const;
 
@@ -62,7 +62,7 @@ export default function ServicesPage() {
           <div className="max-w-3xl space-y-6">
             <div className="flex flex-wrap items-center gap-2">
               <span className="inline-flex rounded-full bg-white/10 px-3 py-1 text-xs font-semibold tracking-wide">
-                Services (par besoin)
+                Services (4 besoins)
               </span>
             </div>
 
@@ -71,7 +71,7 @@ export default function ServicesPage() {
             </h1>
 
             <p className="max-w-2xl text-white/80 md:text-lg leading-relaxed">
-              Vous décrivez votre réalité. Nous cadrons, puis on livre une V1 utile — sans bloquer l’activité.
+              Choisissez un besoin ci-dessous. On cadre, puis on livre une V1 utile — sans bloquer l’activité.
             </p>
 
             <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
@@ -101,7 +101,7 @@ export default function ServicesPage() {
             Par où commencer ?
           </h2>
           <p className="max-w-2xl text-slate-600 md:text-lg leading-relaxed">
-            Choisissez ce qui ressemble le plus à votre situation — on vous dit par quoi commencer.
+            Choisissez votre besoin principal — on vous dit par quoi commencer.
           </p>
         </div>
 
@@ -175,6 +175,24 @@ export default function ServicesPage() {
               </ul>
             </Link>
           ))}
+        </div>
+
+        <div className="stagger-item rounded-3xl border border-black/10 bg-white p-6 sm:p-7">
+          <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+            <div>
+              <div className="text-sm font-semibold text-slate-900">Besoin complémentaire</div>
+              <div className="mt-1 text-sm text-slate-600">
+                Renforcer la crédibilité (identité visuelle & supports) — sans bling-bling.
+              </div>
+            </div>
+
+            <Link
+              href="/services/identite-visuelle-supports"
+              className="inline-flex items-center justify-center rounded-xl border border-black/10 bg-white px-5 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2"
+            >
+              Voir →
+            </Link>
+          </div>
         </div>
 
         <div className="stagger-item rounded-3xl border border-black/10 bg-slate-50 p-6 sm:p-7">
