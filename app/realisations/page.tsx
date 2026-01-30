@@ -7,6 +7,7 @@ type ProjectImage = {
 };
 
 type Project = {
+  need: "Attirer" | "Convertir" | "Structurer" | "Sécuriser";
   tag: "SI / Extranet" | "Site web" | "Mobile";
   title: string;
   subtitle: string;
@@ -28,6 +29,7 @@ export default function RealisationsPage() {
 
   const projects: Project[] = [
     {
+      need: "Structurer",
       tag: "SI / Extranet",
       title: "Extranet fournisseurs (suivi ventes)",
       subtitle: "Portail sécurisé pour suivre contrats, ventes, expéditions et règlements.",
@@ -51,6 +53,7 @@ export default function RealisationsPage() {
         "Information centralisée, suivi plus fiable, moins d’allers-retours et moins de pertes d’informations.",
     },
     {
+      need: "Convertir",
       tag: "Site web",
       title: "Site épuré avec catalogue",
       subtitle: "Présentation claire de l’offre + parcours orienté prise de contact.",
@@ -69,6 +72,7 @@ export default function RealisationsPage() {
         "Meilleure lisibilité, image professionnelle renforcée et parcours plus direct vers l’action.",
     },
     {
+      need: "Structurer",
       tag: "Mobile",
       title: "Application mobile (Loc Auto)",
       subtitle: "Interface terrain : actions directes, écrans clairs, logique simple.",
@@ -103,6 +107,18 @@ export default function RealisationsPage() {
     },
   ];
 
+  const needs = ["Attirer", "Convertir", "Structurer", "Sécuriser"] as const;
+  const needToId: Record<(typeof needs)[number], string> = {
+    Attirer: "attirer",
+    Convertir: "convertir",
+    Structurer: "structurer",
+    Sécuriser: "securiser",
+  };
+
+  const projectsByNeed = needs
+    .map((need) => ({ need, items: projects.filter((p) => p.need === need) }))
+    .filter((g) => g.items.length > 0);
+
   return (
     <div className="space-y-20 sm:space-y-24">
       {/* HERO (même famille visuelle que Home / Services / Secteurs) */}
@@ -126,7 +142,7 @@ export default function RealisationsPage() {
               Projets réels : captures et exemples de livrables. Une démarche claire, adaptée à votre réalité.
             </p>
 
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+            <div className="space-y-2">
               <Link
                 href="/contact"
                 className="inline-flex items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-white/30"
@@ -146,101 +162,137 @@ export default function RealisationsPage() {
           <p className="max-w-3xl text-slate-600">
             Captures réelles : outils, site et application — conçus pour des usages terrain.
           </p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {needs.map((need) => (
+              <a
+                key={need}
+                href={`#need-${needToId[need]}`}
+                className="inline-flex items-center rounded-full border border-black/10 bg-white px-3 py-1 text-xs font-semibold text-slate-700 hover:bg-slate-50"
+              >
+                {need}
+              </a>
+            ))}
+            <Link
+              href="/services"
+              className="inline-flex items-center rounded-full border border-black/10 bg-slate-50 px-3 py-1 text-xs font-semibold text-(--brand-blue) hover:bg-slate-100"
+            >
+              Revoir les solutions →
+            </Link>
+          </div>
           <p className="text-xs font-semibold text-slate-500">Certaines informations sont masquées pour confidentialité.</p>
         </div>
 
-        <div className="space-y-6">
-          {projects.map((p) => (
-            <article
-              key={p.title}
-              className="rounded-3xl border border-black/10 bg-white p-6 sm:p-7"
-            >
-              <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-                <div>
-                  <div className="flex flex-wrap items-center gap-2">
-                    <span className="rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-700">
-                      {p.tag}
-                    </span>
-                    {p.note ? (
-                      <span className="text-xs font-semibold tracking-wide text-slate-500">{p.note}</span>
-                    ) : null}
-                  </div>
-                  <div className="mt-3 text-xl font-extrabold tracking-tight text-slate-900">
-                    {p.title}
-                  </div>
-                  <div className="mt-1 text-sm text-slate-600">{p.subtitle}</div>
-                </div>
+        <div className="space-y-10">
+          {projectsByNeed.map((group) => (
+            <div key={group.need} id={`need-${needToId[group.need]}`} className="scroll-mt-28">
+              <div className="mb-4 flex items-center justify-between">
+                <h3 className="text-lg font-extrabold tracking-tight text-slate-900">
+                  {group.need}
+                </h3>
+                <Link
+                  href="/services"
+                  className="text-sm font-semibold text-(--brand-blue) underline decoration-(--brand-blue)/25 underline-offset-4 hover:decoration-(--brand-blue)/45"
+                >
+                  Voir les solutions
+                </Link>
               </div>
 
-              {p.images.length > 0 ? (
-                <div className="mt-6">
-                  {/*
-                    Image composite (extranet) : 1 seul bloc visuel avec un focus discret.
-                    But : garder le rythme des projets (pas d'effet "galerie").
-                  */}
-                  {p.tag === "SI / Extranet" && p.images.length > 1 ? (
-                    <div className="overflow-hidden rounded-2xl border border-black/10 bg-slate-50 p-3">
-                      <div className="relative w-full" style={{ aspectRatio: p.mainAspect ?? "16 / 10" }}>
-                        <Image
-                          src={p.images[0].src}
-                          alt={p.images[0].alt}
-                          fill
-                          sizes="(min-width: 768px) 900px, 100vw"
-                          className="object-contain"
-                        />
-
-                        <div className="absolute bottom-2 right-2 w-[58%] max-w-80 overflow-hidden rounded-xl border border-black/10 bg-white shadow-sm sm:bottom-3 sm:right-3 sm:w-[46%] md:w-[36%]">
-                          <div className="relative w-full" style={{ aspectRatio: "16 / 10" }}>
-                            <Image
-                              src={p.images[1].src}
-                              alt={p.images[1].alt}
-                              fill
-                              sizes="(min-width: 768px) 360px, 50vw"
-                              className="object-contain"
-                            />
-                          </div>
+              <div className="space-y-6">
+                {group.items.map((p) => (
+                  <article
+                    key={p.title}
+                    className="rounded-3xl border border-black/10 bg-white p-6 sm:p-7"
+                  >
+                    <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
+                      <div>
+                        <div className="flex flex-wrap items-center gap-2">
+                          <span className="rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-700">
+                            {p.tag}
+                          </span>
+                          <span className="rounded-full bg-(--brand-green)/10 px-2 py-1 text-xs font-semibold text-slate-900">
+                            {p.need}
+                          </span>
+                          {p.note ? (
+                            <span className="text-xs font-semibold tracking-wide text-slate-500">{p.note}</span>
+                          ) : null}
                         </div>
+                        <div className="mt-3 text-xl font-extrabold tracking-tight text-slate-900">{p.title}</div>
+                        <div className="mt-1 text-sm text-slate-600">{p.subtitle}</div>
                       </div>
                     </div>
-                  ) : (
-                    <div
-                      className={`overflow-hidden rounded-2xl border border-black/10 bg-slate-50 ${
-                        p.tag === "Mobile" ? "mx-auto max-w-110 p-4" : "p-3"
-                      }`}
-                    >
-                      <div className="relative w-full" style={{ aspectRatio: p.mainAspect ?? "16 / 10" }}>
-                        <Image
-                          src={p.images[0].src}
-                          alt={p.images[0].alt}
-                          fill
-                          sizes="(min-width: 768px) 900px, 100vw"
-                          className="object-contain"
-                        />
-                      </div>
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <div className="mt-6 rounded-2xl border border-black/10 bg-slate-50 p-6 text-sm text-slate-600">
-                  Capture à ajouter.
-                </div>
-              )}
 
-              <div className="mt-6 grid gap-4 md:grid-cols-3">
-                <div className="rounded-2xl border border-black/10 bg-slate-50 p-5">
-                  <div className="text-xs font-extrabold text-slate-500">Contexte</div>
-                  <div className="mt-2 text-sm leading-relaxed text-slate-700">{p.context}</div>
-                </div>
-                <div className="rounded-2xl border border-black/10 bg-slate-50 p-5">
-                  <div className="text-xs font-extrabold text-slate-500">Mise en place</div>
-                  <div className="mt-2 text-sm leading-relaxed text-slate-700">{p.built}</div>
-                </div>
-                <div className="rounded-2xl border border-black/10 bg-slate-50 p-5">
-                  <div className="text-xs font-extrabold text-slate-500">Résultat</div>
-                  <div className="mt-2 text-sm leading-relaxed text-slate-700">{p.result}</div>
-                </div>
+                    {p.images.length > 0 ? (
+                      <div className="mt-6">
+                        {/*
+                          Image composite (extranet) : 1 seul bloc visuel avec un focus discret.
+                          But : garder le rythme des projets (pas d'effet "galerie").
+                        */}
+                        {p.tag === "SI / Extranet" && p.images.length > 1 ? (
+                          <div className="overflow-hidden rounded-2xl border border-black/10 bg-slate-50 p-3">
+                            <div className="relative w-full" style={{ aspectRatio: p.mainAspect ?? "16 / 10" }}>
+                              <Image
+                                src={p.images[0].src}
+                                alt={p.images[0].alt}
+                                fill
+                                sizes="(min-width: 768px) 900px, 100vw"
+                                className="object-contain"
+                              />
+
+                              <div className="absolute bottom-2 right-2 w-[58%] max-w-80 overflow-hidden rounded-xl border border-black/10 bg-white shadow-sm sm:bottom-3 sm:right-3 sm:w-[46%] md:w-[36%]">
+                                <div className="relative w-full" style={{ aspectRatio: "16 / 10" }}>
+                                  <Image
+                                    src={p.images[1].src}
+                                    alt={p.images[1].alt}
+                                    fill
+                                    sizes="(min-width: 768px) 360px, 50vw"
+                                    className="object-contain"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        ) : (
+                          <div
+                            className={`overflow-hidden rounded-2xl border border-black/10 bg-slate-50 ${
+                              p.tag === "Mobile" ? "mx-auto max-w-110 p-4" : "p-3"
+                            }`}
+                          >
+                            <div className="relative w-full" style={{ aspectRatio: p.mainAspect ?? "16 / 10" }}>
+                              <Image
+                                src={p.images[0].src}
+                                alt={p.images[0].alt}
+                                fill
+                                sizes="(min-width: 768px) 900px, 100vw"
+                                className="object-contain"
+                              />
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    ) : (
+                      <div className="mt-6 rounded-2xl border border-black/10 bg-slate-50 p-6 text-sm text-slate-600">
+                        Capture à ajouter.
+                      </div>
+                    )}
+
+                    <div className="mt-6 grid gap-4 md:grid-cols-3">
+                      <div className="rounded-2xl border border-black/10 bg-slate-50 p-5">
+                        <div className="text-xs font-extrabold text-slate-500">Contexte</div>
+                        <div className="mt-2 text-sm leading-relaxed text-slate-700">{p.context}</div>
+                      </div>
+                      <div className="rounded-2xl border border-black/10 bg-slate-50 p-5">
+                        <div className="text-xs font-extrabold text-slate-500">Mise en place</div>
+                        <div className="mt-2 text-sm leading-relaxed text-slate-700">{p.built}</div>
+                      </div>
+                      <div className="rounded-2xl border border-black/10 bg-slate-50 p-5">
+                        <div className="text-xs font-extrabold text-slate-500">Résultat</div>
+                        <div className="mt-2 text-sm leading-relaxed text-slate-700">{p.result}</div>
+                      </div>
+                    </div>
+                  </article>
+                ))}
               </div>
-            </article>
+            </div>
           ))}
         </div>
       </section>
