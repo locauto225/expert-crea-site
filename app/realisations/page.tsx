@@ -142,14 +142,16 @@ export default function RealisationsPage() {
               Projets réels : captures et exemples de livrables. Une démarche claire, adaptée à votre réalité.
             </p>
 
-            <div className="space-y-2">
+            <div className="inline-flex flex-col items-start gap-2">
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-white/30"
+                className="inline-flex w-fit items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-white/30"
               >
                 Décrire votre situation (2 min)
               </Link>
-              <div className="text-sm font-semibold text-white/70">Réponse sous 24h — sans engagement</div>
+              <div className="inline-flex w-fit px-5 text-sm font-semibold text-white/70">
+                Réponse sous 24h — sans engagement
+              </div>
             </div>
           </div>
         </div>
