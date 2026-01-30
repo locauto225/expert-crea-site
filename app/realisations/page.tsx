@@ -126,19 +126,14 @@ export default function RealisationsPage() {
               Projets réels : captures et exemples de livrables. Une démarche claire, adaptée à votre réalité.
             </p>
 
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+            <div className="space-y-2">
               <Link
                 href="/contact"
                 className="inline-flex items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2 focus:ring-offset-slate-950"
               >
                 Décrire votre situation (2 min)
               </Link>
-              <Link
-                href="#cases"
-                className="inline-flex items-center justify-center rounded-xl px-2 py-2 text-sm font-semibold text-white/90 underline decoration-white/25 underline-offset-4 hover:text-white hover:decoration-white/45 focus:outline-none focus:ring-2 focus:ring-white/30 focus:ring-offset-2 focus:ring-offset-slate-950"
-              >
-                Voir les projets
-              </Link>
+              <div className="text-xs font-semibold text-white/70">Réponse sous 24h — sans engagement</div>
             </div>
           </div>
         </div>
@@ -151,6 +146,7 @@ export default function RealisationsPage() {
           <p className="max-w-3xl text-slate-600">
             Captures réelles : outils, site et application — conçus pour des usages terrain.
           </p>
+          <p className="text-xs font-semibold text-slate-500">Certaines informations sont masquées pour confidentialité.</p>
         </div>
 
         <div className="space-y-6">
@@ -290,10 +286,10 @@ export default function RealisationsPage() {
           </p>
         </div>
 
-        <div className="mt-5">
+        <div className="mt-5 flex justify-end">
           <Link
             href="/avis"
-            className="inline-flex items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2"
+            className="inline-flex items-center justify-center rounded-xl px-3 py-3 text-sm font-semibold text-(--brand-blue) underline decoration-(--brand-blue)/25 underline-offset-4 hover:decoration-(--brand-blue)/45 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2"
           >
             Voir les avis
           </Link>
@@ -311,7 +307,7 @@ export default function RealisationsPage() {
             href="/contact"
             className="inline-flex items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2"
           >
-            Parler de votre situation
+            Décrire votre situation (2 min)
           </Link>
           <Link
             href="/methode"
