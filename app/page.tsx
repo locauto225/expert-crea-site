@@ -471,15 +471,22 @@ export default function HomePage() {
             className="stagger-item card-wow group rounded-3xl border border-black/10 bg-white p-6 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2"
           >
             <div className="flex items-center gap-3">
-              <div className="rounded-2xl bg-slate-100 p-2 text-slate-900">
+              <div className="rounded-2xl bg-(--brand-blue)/10 p-2 text-(--brand-blue)">
                 <Icon name="map" />
               </div>
-              <div className="text-lg font-bold">Attirer</div>
+              <div className="flex flex-wrap items-center gap-2">
+                <div className="text-lg font-bold">Attirer</div>
+                <span className="inline-flex items-center rounded-full bg-(--brand-blue)/10 px-2.5 py-0.5 text-xs font-semibold text-(--brand-blue)">
+                  Visibilité
+                </span>
+              </div>
             </div>
             <p className="mt-2 text-slate-600">
               Si vos clients ne vous trouvent pas : visibilité locale, crédibilité, présence Google.
             </p>
-            <span className="mt-4 inline-flex click-hint">Découvrir</span>
+            <span className="mt-4 inline-flex items-center gap-1 font-semibold text-(--brand-green)">
+              Découvrir <span aria-hidden>→</span>
+            </span>
           </Link>
 
           <Link
@@ -487,15 +494,22 @@ export default function HomePage() {
             className="stagger-item card-wow group rounded-3xl border border-black/10 bg-white p-6 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2"
           >
             <div className="flex items-center gap-3">
-              <div className="rounded-2xl bg-slate-100 p-2 text-slate-900">
+              <div className="rounded-2xl bg-(--brand-green)/10 p-2 text-(--brand-green)">
                 <Icon name="spark" />
               </div>
-              <div className="text-lg font-bold">Convertir</div>
+              <div className="flex flex-wrap items-center gap-2">
+                <div className="text-lg font-bold">Convertir</div>
+                <span className="inline-flex items-center rounded-full bg-(--brand-green)/10 px-2.5 py-0.5 text-xs font-semibold text-(--brand-green)">
+                  Demandes
+                </span>
+              </div>
             </div>
             <p className="mt-2 text-slate-600">
               Si votre site existe mais ne génère rien : un site pensé pour recevoir et convertir des demandes.
             </p>
-            <span className="mt-4 inline-flex click-hint">Découvrir</span>
+            <span className="mt-4 inline-flex items-center gap-1 font-semibold text-(--brand-green)">
+              Découvrir <span aria-hidden>→</span>
+            </span>
           </Link>
 
           <Link
@@ -503,15 +517,22 @@ export default function HomePage() {
             className="stagger-item card-wow group rounded-3xl border border-black/10 bg-white p-6 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2"
           >
             <div className="flex items-center gap-3">
-              <div className="rounded-2xl bg-slate-100 p-2 text-slate-900">
+              <div className="rounded-2xl bg-(--brand-green)/10 p-2 text-(--brand-green)">
                 <Icon name="grid" />
               </div>
-              <div className="text-lg font-bold">Structurer</div>
+              <div className="flex flex-wrap items-center gap-2">
+                <div className="text-lg font-bold">Structurer</div>
+                <span className="inline-flex items-center rounded-full bg-(--brand-green)/10 px-2.5 py-0.5 text-xs font-semibold text-(--brand-green)">
+                  Organisation
+                </span>
+              </div>
             </div>
             <p className="mt-2 text-slate-600">
               Si l’organisation repose sur Excel / WhatsApp : outils internes, extranet, interfaçage, FNE.
             </p>
-            <span className="mt-4 inline-flex click-hint">Découvrir</span>
+            <span className="mt-4 inline-flex items-center gap-1 font-semibold text-(--brand-green)">
+              Découvrir <span aria-hidden>→</span>
+            </span>
           </Link>
 
           <Link
@@ -519,15 +540,22 @@ export default function HomePage() {
             className="stagger-item card-wow group rounded-3xl border border-black/10 bg-white p-6 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2"
           >
             <div className="flex items-center gap-3">
-              <div className="rounded-2xl bg-slate-100 p-2 text-slate-900">
+              <div className="rounded-2xl bg-(--brand-blue)/10 p-2 text-(--brand-blue)">
                 <Icon name="shield" />
               </div>
-              <div className="text-lg font-bold">Sécuriser</div>
+              <div className="flex flex-wrap items-center gap-2">
+                <div className="text-lg font-bold">Sécuriser</div>
+                <span className="inline-flex items-center rounded-full bg-(--brand-blue)/10 px-2.5 py-0.5 text-xs font-semibold text-(--brand-blue)">
+                  Conformité
+                </span>
+              </div>
             </div>
             <p className="mt-2 text-slate-600">
               Si la conformité vous inquiète : FNE, données, suivi et tranquillité d’esprit.
             </p>
-            <span className="mt-4 inline-flex click-hint">Découvrir</span>
+            <span className="mt-4 inline-flex items-center gap-1 font-semibold text-(--brand-green)">
+              Découvrir <span aria-hidden>→</span>
+            </span>
           </Link>
         </div>
       </section>
@@ -537,12 +565,15 @@ export default function HomePage() {
         <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
           <div className="flex items-start gap-3">
             <div className="rounded-2xl bg-slate-100 p-2 text-slate-900">
-              <Icon name="spark" />
+              <Icon name="grid" />
             </div>
 
             <div>
-              <div className="text-xs font-extrabold tracking-wide text-slate-500 uppercase">
-                Souvent nécessaire pour être crédible
+              <div className="flex flex-wrap items-center gap-2 text-xs font-extrabold tracking-wide text-slate-500 uppercase">
+                <span>Souvent nécessaire pour être crédible</span>
+                <span className="inline-flex items-center rounded-full bg-(--brand-green)/10 px-2 py-0.5 text-[10px] font-semibold tracking-normal text-(--brand-green) normal-case">
+                  Crédibilité
+                </span>
               </div>
 
               <h3 className="mt-1 text-lg font-extrabold tracking-tight text-slate-900">
@@ -566,7 +597,7 @@ export default function HomePage() {
           <div className="flex flex-col gap-2 md:items-end">
             <Link
               href="/services/identite-visuelle-supports"
-              className="inline-flex items-center justify-center rounded-xl border border-black/10 bg-white px-4 py-2 text-sm font-semibold text-slate-900 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2"
+              className="inline-flex items-center justify-center rounded-xl border border-black/10 bg-slate-50 px-4 py-2.5 text-sm font-semibold text-slate-900 shadow-sm hover:bg-slate-100 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2"
             >
               Voir le service
               <span className="ml-2 inline-flex">
