@@ -532,6 +532,58 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* 7bis) CRÉDIBILITÉ (TRANSVERSAL) */}
+      <section className="reveal rounded-3xl border border-black/10 bg-white p-7">
+        <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+          <div className="flex items-start gap-3">
+            <div className="rounded-2xl bg-slate-100 p-2 text-slate-900">
+              <Icon name="spark" />
+            </div>
+
+            <div>
+              <div className="text-xs font-extrabold tracking-wide text-slate-500 uppercase">
+                Souvent nécessaire pour être crédible
+              </div>
+
+              <h3 className="mt-1 text-lg font-extrabold tracking-tight text-slate-900">
+                Identité visuelle & supports — sans bling-bling.
+              </h3>
+
+              <p className="mt-2 max-w-2xl text-slate-700">Pour inspirer confiance dès le premier contact.</p>
+
+              <p className="mt-3 max-w-2xl text-slate-600">
+                Ce travail accompagne souvent un site (<span className="font-semibold">Convertir</span>), la visibilité (
+                <span className="font-semibold">Attirer</span>) et la cohérence des documents (
+                <span className="font-semibold">Structurer / Sécuriser</span>).
+              </p>
+
+              <p className="mt-3 text-sm font-semibold text-slate-700">
+                On vous dira si c’est nécessaire dans votre cas. <span className="text-slate-600">Pas systématiquement.</span>
+              </p>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-2 md:items-end">
+            <Link
+              href="/services/identite-visuelle-supports"
+              className="inline-flex items-center justify-center rounded-xl border border-black/10 bg-white px-4 py-2 text-sm font-semibold text-slate-900 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2"
+            >
+              Voir le service
+              <span className="ml-2 inline-flex">
+                <Icon name="arrow" className="h-4 w-4" />
+              </span>
+            </Link>
+
+            <Link
+              href="/realisations"
+              className="inline-flex items-center justify-center text-sm font-semibold text-(--brand-blue) underline underline-offset-4 hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2"
+            >
+              Exemples concrets
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* 8) MÉTHODE */}
       <section className="reveal space-y-4">
         <div className="max-w-3xl">

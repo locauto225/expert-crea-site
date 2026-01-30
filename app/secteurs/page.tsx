@@ -59,22 +59,16 @@ export default function SecteursPage() {
               l’existant.
             </p>
 
-            <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-              {/* CTA 1 = primaire discret */}
-              <a
-                href="#exemples"
-                className="inline-flex items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2 focus:ring-offset-slate-950"
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
+              <Link
+                href="/contact"
+                className="inline-flex w-full items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2 focus:ring-offset-slate-950 sm:w-auto"
               >
-                Voir des exemples de secteurs
-              </a>
-
-              {/* CTA 2 = lien texte (secondaire) */}
-              <a
-                href="#diagnostic"
-                className="inline-flex items-center justify-center px-3 py-3 text-sm font-semibold text-white/70 underline decoration-white/20 underline-offset-4 hover:text-white hover:decoration-white/35 focus:outline-none focus:ring-2 focus:ring-white/30 focus:ring-offset-2 focus:ring-offset-slate-950"
-              >
-                Décrire ma situation
-              </a>
+                Décrire votre situation (2 min)
+              </Link>
+              <p className="text-xs font-semibold leading-none text-white/70">
+                Réponse sous 24h — sans engagement
+              </p>
             </div>
           </div>
         </div>
@@ -127,13 +121,13 @@ export default function SecteursPage() {
                 href="/contact"
                 className="inline-flex items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2"
               >
-                Parler de votre situation
+                Décrire votre situation (2 min)
               </Link>
               <Link
                 href="/realisations"
                 className="inline-flex items-center justify-center rounded-xl border border-black/10 bg-transparent px-5 py-3 text-sm font-semibold text-slate-700 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2"
               >
-                Voir des solutions concrètes
+                Voir nos réalisations
               </Link>
             </div>
           </div>
@@ -147,6 +141,12 @@ export default function SecteursPage() {
           <p className="max-w-2xl text-slate-600 md:text-lg leading-relaxed">
             Choisissez le plus proche de votre activité — on vous montre comment on adapte la méthode.
           </p>
+          <a
+            href="#exemples"
+            className="inline-flex items-center text-sm font-semibold text-slate-600 underline decoration-slate-400/30 underline-offset-4 hover:text-slate-900 hover:decoration-slate-400/50"
+          >
+            Voir des exemples ↓
+          </a>
         </div>
 
         <div className="grid gap-6 md:grid-cols-3">
@@ -188,40 +188,6 @@ export default function SecteursPage() {
         
       </section>
 
-      {/* DIAGNOSTIC (sans sortir de la page) */}
-      <section id="diagnostic" className="reveal space-y-6 scroll-mt-28">
-        <div className="max-w-3xl space-y-2">
-          <h2 className="text-2xl font-extrabold tracking-tight md:text-3xl">Décrivez votre situation (2 minutes)</h2>
-          <p className="text-slate-600 md:text-lg leading-relaxed">
-            Vous ne vous reconnaissez pas dans un secteur précis ? Décrivez votre contexte — on vous répond clairement par où commencer.
-          </p>
-        </div>
-
-        <div className="rounded-3xl border border-black/10 bg-slate-50 p-7 sm:p-8">
-          <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-            <div className="space-y-1">
-              <div className="text-sm font-semibold text-slate-900">Échange simple, sans engagement.</div>
-              <div className="text-sm text-slate-600">On vous dit ce qui est prioritaire, ce qui est optionnel, et la meilleure première étape.</div>
-            </div>
-
-            <div className="flex flex-col gap-3 sm:flex-row">
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2"
-              >
-                Décrire ma situation
-              </Link>
-              <Link
-                href="/contact?channel=whatsapp"
-                className="inline-flex items-center justify-center rounded-xl border border-black/15 bg-transparent px-5 py-3 text-sm font-semibold text-slate-900 hover:bg-black/5 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2"
-              >
-                WhatsApp (réponse rapide)
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* CTA FINAL (même style que Services) */}
       <section className="reveal relative overflow-hidden rounded-3xl border border-black/10 bg-linear-to-b from-slate-950 to-slate-900 p-8 sm:p-10 text-white">
         <div className="pointer-events-none absolute -left-20 -top-20 h-56 w-56 rounded-full bg-(--brand-blue)/10 blur-3xl" />
@@ -236,27 +202,21 @@ export default function SecteursPage() {
               Échange rapide, sans engagement. On vise une solution utile et adoptée, pas un projet compliqué.
             </p>
           </div>
-          <div className="text-sm font-semibold text-white/70">Réponse sous 24h</div>
+          <div className="text-sm font-semibold text-white/70">Réponse sous 24h — sans engagement</div>
         </div>
 
-        <div className="relative mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+        <div className="relative mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-end">
           <Link
             href="/contact"
-            className="inline-flex items-center justify-center rounded-xl bg-(--brand-green) px-5 py-3 text-sm font-semibold text-white hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-(--brand-green) focus:ring-offset-2 focus:ring-offset-slate-950"
+            className="inline-flex items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2 focus:ring-offset-slate-950"
           >
-            Parler de votre situation
+            Décrire votre situation (2 min)
           </Link>
           <Link
             href="/services"
             className="inline-flex items-center justify-center rounded-xl border border-white/15 bg-transparent px-5 py-3 text-sm font-semibold text-white/90 hover:bg-white/5 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/30 focus:ring-offset-2 focus:ring-offset-slate-950"
           >
             Revoir les services
-          </Link>
-          <Link
-            href="/realisations"
-            className="inline-flex items-center justify-center rounded-xl px-3 py-3 text-sm font-semibold text-white/70 underline decoration-white/20 underline-offset-4 hover:text-white hover:decoration-white/35 focus:outline-none focus:ring-2 focus:ring-white/30 focus:ring-offset-2 focus:ring-offset-slate-950"
-          >
-            Voir des solutions concrètes
           </Link>
         </div>
       </section>

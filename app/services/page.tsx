@@ -138,16 +138,14 @@ export default function ServicesPage() {
               Choisissez un besoin ci-dessous. On cadre, puis on livre une V1 utile — sans bloquer l’activité.
             </p>
 
-            <div className="inline-flex flex-col items-start gap-2">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
               <Link
                 href="/contact"
-                className="inline-flex w-fit items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-white/30"
+                className="inline-flex items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-white/30"
               >
                 Décrire votre situation (2 min)
               </Link>
-              <div className="inline-flex w-fit px-5 text-sm font-semibold text-white/70">
-                Réponse sous 24h — sans engagement
-              </div>
+              <div className="text-sm font-semibold text-white/70">Réponse sous 24h — sans engagement</div>
             </div>
           </div>
         </div>
