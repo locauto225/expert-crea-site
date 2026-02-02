@@ -396,11 +396,27 @@ export default function HomePage() {
     <div className="home-unified">
       <div className="home-bg" aria-hidden />
 
-      {/* 1) HERO */}
+      {/* 1) HERO - ENHANCED */}
       <section
         id="hero"
         className="reveal relative left-1/2 right-1/2 w-screen -ml-[50vw] -mr-[50vw] -mt-10 min-h-[78vh] overflow-hidden bg-linear-to-b from-slate-950 via-slate-900 to-slate-950 px-6 pb-14 pt-24 text-white md:-mt-14 md:min-h-[74vh] md:px-10 md:pb-16 md:pt-28"
       >
+        {/* Animated particles background */}
+        <div className="hero-particles pointer-events-none absolute inset-0 opacity-30" aria-hidden>
+          {[...Array(20)].map((_, i) => (
+            <div
+              key={i}
+              className="particle absolute h-1 w-1 rounded-full bg-white"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `${Math.random() * 100}%`,
+                animationDelay: `${Math.random() * 10}s`,
+                animationDuration: `${15 + Math.random() * 10}s`,
+              }}
+            />
+          ))}
+        </div>
+
         <div className="hero-bg pointer-events-none absolute inset-0 opacity-[0.22]" aria-hidden>
           <svg className="h-full w-full" viewBox="0 0 1200 600" preserveAspectRatio="none">
             <defs>
@@ -419,8 +435,8 @@ export default function HomePage() {
               </radialGradient>
             </defs>
             <rect width="1200" height="600" fill="url(#heroGrid)" />
-            <circle cx="280" cy="210" r="260" fill="url(#heroHaloBlue)" />
-            <circle cx="980" cy="430" r="300" fill="url(#heroHaloGreen)" />
+            <circle cx="280" cy="210" r="260" fill="url(#heroHaloBlue)" className="hero-glow-blue" />
+            <circle cx="980" cy="430" r="300" fill="url(#heroHaloGreen)" className="hero-glow-green" />
           </svg>
         </div>
 
@@ -430,53 +446,60 @@ export default function HomePage() {
         <div className="relative mx-auto max-w-6xl">
           <div className="grid gap-10 lg:grid-cols-12 lg:items-center">
             <div className="lg:col-span-7">
-              <div className="inline-flex flex-wrap items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-white/80 backdrop-blur">
-                <span className="inline-flex h-1.5 w-1.5 rounded-full bg-(--brand-green)" />
+              <div className="inline-flex flex-wrap items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-white/80 backdrop-blur animate-in fade-in slide-in-from-top-4 duration-700">
+                <span className="inline-flex h-1.5 w-1.5 rounded-full bg-(--brand-green) animate-pulse" />
                 Côte d'Ivoire • terrain & efficacité
                 <SunMark size={18} tone="light" className="opacity-80" ariaLabel="" />
               </div>
 
-              <h1 className="mt-6 text-3xl font-extrabold tracking-tight md:text-5xl">
-                Le digital qui fait fonctionner <span className="hero-highlight">l'entreprise</span>.
+              <h1 className="mt-6 text-3xl font-extrabold tracking-tight md:text-5xl animate-in fade-in slide-in-from-bottom-6 duration-700 delay-100">
+                Le digital qui fait fonctionner{" "}
+                <span className="hero-highlight" id="typed-text">
+                  l'entreprise
+                </span>
+                <span className="typed-cursor">|</span>
               </h1>
 
-              <p className="mt-4 max-w-2xl leading-relaxed text-white/75 md:text-lg">
+              <p className="mt-4 max-w-2xl leading-relaxed text-white/75 md:text-lg animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
                 Sites qui génèrent des demandes, outils internes qui simplifient, conformité sans rupture.
               </p>
 
-              <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300">
                 <Link
                   href="/contact"
-                  className="inline-flex items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-white/30 transition-transform duration-150 will-change-transform hover:-translate-y-px active:scale-[0.98]"
+                  className="cta-pulse inline-flex items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-white/30 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(0,145,255,0.4)] active:scale-98"
                 >
                   Décrire votre situation (2 min)
                 </Link>
 
                 <Link
                   href="/realisations"
-                  className="inline-flex items-center justify-center text-sm font-semibold text-white/70 underline underline-offset-4 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/30"
+                  className="inline-flex items-center justify-center text-sm font-semibold text-white/70 underline underline-offset-4 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/30 transition-colors duration-300"
                 >
                   Voir des exemples concrets
                 </Link>
               </div>
 
-              <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-white/80 backdrop-blur">
+              <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-white/80 backdrop-blur animate-in fade-in slide-in-from-bottom-4 duration-700 delay-400">
                 Réponse sous 24h — sans engagement
               </div>
             </div>
 
-            <div className="lg:col-span-5">
-              <div className="hero-card relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-5 shadow-[0_30px_80px_rgba(0,0,0,0.55)] backdrop-blur">
+            <div className="lg:col-span-5 animate-in fade-in slide-in-from-right-8 duration-1000 delay-200">
+              <div className="hero-card relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-5 shadow-[0_30px_80px_rgba(0,0,0,0.55)] backdrop-blur hover:shadow-[0_40px_100px_rgba(0,0,0,0.65)] transition-all duration-500">
                 <div className="pointer-events-none absolute inset-0 opacity-70" aria-hidden>
-                  <div className="absolute -left-10 -top-10 h-48 w-48 rounded-full bg-(--brand-blue)/20 blur-2xl" />
-                  <div className="absolute -right-10 -bottom-10 h-56 w-56 rounded-full bg-(--brand-green)/20 blur-2xl" />
+                  <div className="absolute -left-10 -top-10 h-48 w-48 rounded-full bg-(--brand-blue)/20 blur-2xl animate-pulse-slow" />
+                  <div
+                    className="absolute -right-10 -bottom-10 h-56 w-56 rounded-full bg-(--brand-green)/20 blur-2xl animate-pulse-slow"
+                    style={{ animationDelay: "1s" }}
+                  />
                 </div>
 
                 <div className="relative">
                   <div className="flex items-center justify-between">
                     <div className="text-xs font-semibold text-white/70">Aperçu — flux simple (exemple)</div>
                     <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/20 px-2.5 py-1 text-[11px] font-semibold text-white/70">
-                      <span className="h-1.5 w-1.5 rounded-full bg-(--brand-blue)" />
+                      <span className="h-1.5 w-1.5 rounded-full bg-(--brand-blue) animate-pulse" />
                       En temps réel
                     </div>
                   </div>
@@ -616,6 +639,63 @@ export default function HomePage() {
 
         <div className="pointer-events-none absolute bottom-0 left-0 w-full border-t border-white/10" aria-hidden />
 
+        {/* Typed Text Effect Script */}
+        <Script id="hero-typed-text" strategy="afterInteractive">
+          {`(() => {
+  try {
+    const texts = [
+      "l'entreprise",
+      "les opérations",
+      "votre activité",
+      "la croissance"
+    ];
+    
+    const element = document.getElementById('typed-text');
+    if (!element) return;
+    
+    let textIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    let isPaused = false;
+    
+    function type() {
+      const currentText = texts[textIndex];
+      
+      if (isPaused) {
+        setTimeout(type, 2000);
+        isPaused = false;
+        isDeleting = true;
+        return;
+      }
+      
+      if (isDeleting) {
+        element.textContent = currentText.substring(0, charIndex - 1);
+        charIndex--;
+        
+        if (charIndex === 0) {
+          isDeleting = false;
+          textIndex = (textIndex + 1) % texts.length;
+          setTimeout(type, 500);
+          return;
+        }
+      } else {
+        element.textContent = currentText.substring(0, charIndex + 1);
+        charIndex++;
+        
+        if (charIndex === currentText.length) {
+          isPaused = true;
+        }
+      }
+      
+      const speed = isDeleting ? 50 : 100;
+      setTimeout(type, speed);
+    }
+    
+    setTimeout(type, 2000);
+  } catch (e) {}
+})();`}
+        </Script>
+
         <Script id="hero-spotlight" strategy="afterInteractive">
           {`(() => {
   try {
@@ -672,6 +752,82 @@ export default function HomePage() {
         </Script>
 
         <style>{`
+          /* Typed cursor */
+          .typed-cursor {
+            display: inline-block;
+            animation: blink 1s step-end infinite;
+            margin-left: 2px;
+            font-weight: 300;
+          }
+          
+          @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+          }
+
+          /* Pulse animation for CTA */
+          .cta-pulse {
+            position: relative;
+          }
+          
+          .cta-pulse::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 14px;
+            background: linear-gradient(90deg, rgba(0,145,255,0.4), rgba(0,200,120,0.4));
+            opacity: 0;
+            filter: blur(12px);
+            animation: pulse-ring 2s ease-out infinite;
+          }
+          
+          @keyframes pulse-ring {
+            0% { transform: scale(0.95); opacity: 0; }
+            50% { opacity: 0.6; }
+            100% { transform: scale(1.05); opacity: 0; }
+          }
+
+          /* Particles */
+          .particle {
+            animation: float-particle linear infinite;
+          }
+          
+          @keyframes float-particle {
+            0% { transform: translate(0, 0) scale(0); opacity: 0; }
+            10% { opacity: 0.3; transform: scale(1); }
+            90% { opacity: 0.3; }
+            100% { transform: translate(100px, -100vh) scale(0); opacity: 0; }
+          }
+
+          /* Pulse slow for glows */
+          @keyframes pulse-slow {
+            0%, 100% { opacity: 0.7; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.05); }
+          }
+          
+          .animate-pulse-slow {
+            animation: pulse-slow 6s ease-in-out infinite;
+          }
+
+          /* Hero background glows */
+          @keyframes glow-blue {
+            0%, 100% { opacity: 1; transform: scale(1) translate(0, 0); }
+            50% { opacity: 0.8; transform: scale(1.1) translate(20px, -10px); }
+          }
+          
+          @keyframes glow-green {
+            0%, 100% { opacity: 1; transform: scale(1) translate(0, 0); }
+            50% { opacity: 0.7; transform: scale(1.15) translate(-15px, 15px); }
+          }
+          
+          .hero-glow-blue {
+            animation: glow-blue 15s ease-in-out infinite;
+          }
+          
+          .hero-glow-green {
+            animation: glow-green 18s ease-in-out infinite;
+          }
+
           #hero{ --hx: 50%; --hy: 30%; --dx: 0; --dy: 0; }
           .hero-bg{
             transform: translate3d(calc(var(--dx) * -1px), calc(var(--dy) * -1px), 0);
@@ -689,7 +845,11 @@ export default function HomePage() {
             will-change: transform;
           }
           @media (prefers-reduced-motion: reduce){
-            .hero-bg, .hero-spot{ transform: none !important; transition: none !important; }
+            .hero-bg, .hero-spot, .particle, .hero-glow-blue, .hero-glow-green { 
+              transform: none !important; 
+              transition: none !important; 
+              animation: none !important;
+            }
           }
           .hero-highlight{
             background: linear-gradient(90deg, rgba(0,145,255,1) 0%, rgba(0,200,120,1) 100%);
@@ -747,7 +907,8 @@ export default function HomePage() {
       <section className="reveal home-section">
         <div className="rounded-2xl border border-slate-200 bg-slate-50 px-6 py-4 text-center">
           <p className="text-sm font-semibold text-slate-700">
-            <span className="text-slate-900">Concrètement, ça veut dire quoi ?</span> Voici ce que vivent beaucoup d'entreprises ivoiriennes.
+            <span className="text-slate-900">Concrètement, ça veut dire quoi ?</span> Voici ce que vivent beaucoup
+            d'entreprises ivoiriennes.
           </p>
         </div>
       </section>
@@ -783,7 +944,7 @@ export default function HomePage() {
           </div>
 
           <div className="relative">
-            <div className="overflow-hidden rounded-3xl border border-black/10 bg-white">
+            <div className="overflow-hidden rounded-3xl border border-black/10 bg-white hover:shadow-2xl transition-shadow duration-500">
               <div className="relative h-75 w-full lg:h-140 lg:max-h-155">
                 <Image
                   src="/home/home-problemes-terrain.webp"
@@ -823,28 +984,28 @@ export default function HomePage() {
             </p>
 
             <div className="mt-6 grid gap-3 md:grid-cols-2">
-              <div className="rounded-2xl border border-black/10 bg-white p-4">
+              <div className="feature-card rounded-2xl border border-black/10 bg-white p-4 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                 <div className="flex items-center gap-2">
                   <Icon name="hand" className="h-5 w-5 text-slate-900" />
                   <div className="text-sm font-extrabold text-slate-900">Simple à utiliser</div>
                 </div>
                 <div className="mt-1 text-sm text-slate-600">Compréhensible par vos équipes, sans usine à gaz.</div>
               </div>
-              <div className="rounded-2xl border border-black/10 bg-white p-4">
+              <div className="feature-card rounded-2xl border border-black/10 bg-white p-4 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                 <div className="flex items-center gap-2">
                   <Icon name="bolt" className="h-5 w-5 text-slate-900" />
                   <div className="text-sm font-extrabold text-slate-900">Sans arrêter l'activité</div>
                 </div>
                 <div className="mt-1 text-sm text-slate-600">Mise en place progressive, propre, sans rupture.</div>
               </div>
-              <div className="rounded-2xl border border-black/10 bg-white p-4">
+              <div className="feature-card rounded-2xl border border-black/10 bg-white p-4 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                 <div className="flex items-center gap-2">
                   <Icon name="shield" className="h-5 w-5 text-slate-900" />
                   <div className="text-sm font-extrabold text-slate-900">Conforme & sécurisé</div>
                 </div>
                 <div className="mt-1 text-sm text-slate-600">Conformité, données et process sécurisés.</div>
               </div>
-              <div className="rounded-2xl border border-black/10 bg-white p-4">
+              <div className="feature-card rounded-2xl border border-black/10 bg-white p-4 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                 <div className="flex items-center gap-2">
                   <Icon name="spark" className="h-5 w-5 text-slate-900" />
                   <div className="text-sm font-extrabold text-slate-900">V1 utile rapide</div>
@@ -855,7 +1016,7 @@ export default function HomePage() {
           </div>
 
           <div className="relative">
-            <div className="overflow-hidden rounded-3xl border border-black/10 bg-white">
+            <div className="overflow-hidden rounded-3xl border border-black/10 bg-white hover:shadow-2xl transition-shadow duration-500">
               <div className="relative h-75 w-full lg:h-130 lg:max-h-150">
                 <Image
                   src="/home/home-dashboard.webp"
@@ -882,7 +1043,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 4) NOS 4 SOLUTIONS (UNIQUE SECTION) */}
+      {/* 4) NOS 4 SOLUTIONS (ENHANCED WITH 3D CARDS) */}
       <section id="solutions" className="reveal home-section reveal-stagger space-y-4 scroll-mt-28">
         <div className="max-w-3xl">
           <h2 className="text-2xl font-extrabold tracking-tight">4 besoins essentiels, 4 solutions</h2>
@@ -931,36 +1092,49 @@ export default function HomePage() {
             <Link
               key={need.href}
               href={need.href}
-              className="card-3d stagger-item group rounded-3xl border border-black/10 bg-white p-6 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2"
+              className="card-3d-enhanced stagger-item group rounded-3xl border border-black/10 bg-white p-6 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2 relative overflow-hidden"
             >
-              <div className="flex items-center gap-3">
-                <div
-                  className={
-                    need.color === "blue"
-                      ? "rounded-2xl bg-(--brand-blue)/10 p-2 text-(--brand-blue)"
-                      : "rounded-2xl bg-(--brand-green)/10 p-2 text-(--brand-green)"
-                  }
-                >
-                  <Icon name={need.icon} />
-                </div>
-                <div className="flex flex-wrap items-center gap-2">
-                  <div className="text-lg font-bold">{need.title}</div>
-                  <span
-                    className={
-                      need.color === "blue"
-                        ? "inline-flex items-center rounded-full bg-(--brand-blue)/10 px-2.5 py-0.5 text-xs font-semibold text-(--brand-blue)"
-                        : "inline-flex items-center rounded-full bg-(--brand-green)/10 px-2.5 py-0.5 text-xs font-semibold text-(--brand-green)"
-                    }
+              <div
+                className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none ${
+                  need.color === "blue"
+                    ? "bg-gradient-to-br from-(--brand-blue)/5 to-transparent"
+                    : "bg-gradient-to-br from-(--brand-green)/5 to-transparent"
+                }`}
+              />
+
+              <div className="relative z-10">
+                <div className="flex items-center gap-3">
+                  <div
+                    className={`
+                      rounded-2xl p-2 transition-all duration-300 group-hover:scale-110 group-hover:rotate-6
+                      ${
+                        need.color === "blue"
+                          ? "bg-(--brand-blue)/10 text-(--brand-blue) group-hover:bg-(--brand-blue)/20"
+                          : "bg-(--brand-green)/10 text-(--brand-green) group-hover:bg-(--brand-green)/20"
+                      }
+                    `}
                   >
-                    {need.badge}
-                  </span>
+                    <Icon name={need.icon} />
+                  </div>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <div className="text-lg font-bold">{need.title}</div>
+                    <span
+                      className={
+                        need.color === "blue"
+                          ? "inline-flex items-center rounded-full bg-(--brand-blue)/10 px-2.5 py-0.5 text-xs font-semibold text-(--brand-blue)"
+                          : "inline-flex items-center rounded-full bg-(--brand-green)/10 px-2.5 py-0.5 text-xs font-semibold text-(--brand-green)"
+                      }
+                    >
+                      {need.badge}
+                    </span>
+                  </div>
                 </div>
+                <p className="mt-2 text-slate-600">{need.desc}</p>
+                <div className="mt-3 text-xs font-semibold text-slate-500">{need.tools}</div>
+                <span className="mt-4 inline-flex items-center gap-1 font-semibold text-(--brand-green) group-hover:gap-2 transition-all duration-300">
+                  Découvrir <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
+                </span>
               </div>
-              <p className="mt-2 text-slate-600">{need.desc}</p>
-              <div className="mt-3 text-xs font-semibold text-slate-500">{need.tools}</div>
-              <span className="mt-4 inline-flex items-center gap-1 font-semibold text-(--brand-green)">
-                Découvrir <span aria-hidden>→</span>
-              </span>
             </Link>
           ))}
         </div>
@@ -971,9 +1145,7 @@ export default function HomePage() {
               <Icon name="spark" className="h-4 w-4" />
             </div>
             <div>
-              <div className="text-sm font-extrabold text-slate-900">
-                Souvent nécessaire : Identité visuelle & supports
-              </div>
+              <div className="text-sm font-extrabold text-slate-900">Souvent nécessaire : Identité visuelle & supports</div>
               <p className="mt-1 text-sm text-slate-600">
                 Pour inspirer confiance dès le premier contact. Ce travail accompagne souvent un site (Convertir), la
                 visibilité (Attirer) et la cohérence des documents (Structurer / Sécuriser).
@@ -985,10 +1157,7 @@ export default function HomePage() {
                 >
                   Voir le service →
                 </Link>
-                <Link
-                  href="/realisations"
-                  className="inline-flex items-center text-sm font-semibold text-slate-600 hover:text-slate-900"
-                >
+                <Link href="/realisations" className="inline-flex items-center text-sm font-semibold text-slate-600 hover:text-slate-900">
                   Exemples
                 </Link>
               </div>
@@ -998,12 +1167,15 @@ export default function HomePage() {
 
         <style>{`
           @media (prefers-reduced-motion: no-preference) {
-            .card-3d {
-              transition: transform 0.25s ease, box-shadow 0.25s ease;
+            .card-3d-enhanced {
+              transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+                          box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             }
-            .card-3d:hover {
-              transform: translateY(-4px);
-              box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+            .card-3d-enhanced:hover {
+              transform: translateY(-8px) scale(1.02);
+              box-shadow:
+                0 20px 40px rgba(0, 0, 0, 0.12),
+                0 0 0 1px rgba(0, 145, 255, 0.1);
             }
           }
         `}</style>
@@ -1052,7 +1224,10 @@ export default function HomePage() {
             { label: "Gain de temps", icon: "spark" as const },
             { label: "Zéro rupture", icon: "check" as const },
           ].map((x) => (
-            <div key={x.label} className="rounded-2xl border border-black/10 bg-white p-4">
+            <div
+              key={x.label}
+              className="rounded-2xl border border-black/10 bg-white p-4 hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+            >
               <div className="flex items-center gap-2 text-slate-900">
                 <span className="rounded-xl bg-slate-100 p-2">
                   <Icon name={x.icon} className="h-4 w-4" />
@@ -1075,7 +1250,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 6) MÉTHODE - AVEC TIMELINE ANIMÉE */}
+      {/* 6) MÉTHODE - ENHANCED TIMELINE */}
       <section id="methode-timeline" className="timeline-anim reveal home-section space-y-4">
         <div className="max-w-3xl">
           <h2 className="text-2xl font-extrabold tracking-tight">Une méthode simple, adaptée au terrain</h2>
@@ -1089,7 +1264,15 @@ export default function HomePage() {
               viewBox="0 0 100 2"
               preserveAspectRatio="none"
             >
-              <line className="tl-stroke" x1="0" y1="1" x2="100" y2="1" stroke="rgba(15,23,42,0.12)" strokeWidth="2" />
+              <defs>
+                <linearGradient id="lineGradient" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stopColor="rgba(0,145,255,0.4)" />
+                  <stop offset="50%" stopColor="rgba(0,200,120,0.4)" />
+                  <stop offset="100%" stopColor="rgba(0,145,255,0.4)" />
+                </linearGradient>
+              </defs>
+              <line className="tl-base" x1="0" y1="1" x2="100" y2="1" stroke="rgba(15,23,42,0.12)" strokeWidth="2" />
+              <line className="tl-progress" x1="0" y1="1" x2="100" y2="1" stroke="url(#lineGradient)" strokeWidth="3" />
             </svg>
 
             {[
@@ -1114,10 +1297,10 @@ export default function HomePage() {
             ].map((s, idx) => (
               <div
                 key={s.k}
-                className={`timeline-step step-${idx} stagger-item relative rounded-2xl border border-black/10 bg-white p-4 sm:p-5`}
+                className={`timeline-step step-${idx} stagger-item relative rounded-2xl border border-black/10 bg-white p-4 sm:p-5 hover:shadow-xl transition-all duration-500`}
               >
                 <div className="flex items-center gap-3">
-                  <span className="timeline-dot inline-flex h-9 w-9 items-center justify-center rounded-full bg-slate-900 text-sm font-extrabold text-white">
+                  <span className="timeline-dot inline-flex h-9 w-9 items-center justify-center rounded-full bg-slate-900 text-sm font-extrabold text-white relative z-10">
                     {s.k}
                   </span>
                   <span className="rounded-xl bg-slate-100 p-2 text-slate-900">
@@ -1137,7 +1320,7 @@ export default function HomePage() {
           </p>
           <Link
             href="/contact"
-            className="inline-flex items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2 transition-transform duration-150 will-change-transform hover:-translate-y-px active:scale-[0.98]"
+            className="inline-flex items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2 transition-all duration-300 hover:scale-105 hover:shadow-lg active:scale-98"
           >
             Décrire votre situation (2 min)
           </Link>
@@ -1187,25 +1370,26 @@ export default function HomePage() {
             opacity: 1;
           }
 
-          #methode-timeline .tl-stroke {
+          #methode-timeline .tl-progress {
             stroke-dasharray: 100;
             stroke-dashoffset: 100;
+            filter: drop-shadow(0 0 6px rgba(0, 145, 255, 0.3));
           }
 
-          #methode-timeline.is-active .tl-stroke {
-            animation: tlDraw 1.2s ease forwards;
+          #methode-timeline.is-active .tl-progress {
+            animation: tlDraw 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
           }
 
           #methode-timeline.is-active .timeline-step.step-0 {
-            animation: tlFadeIn 0.5s ease 0.3s forwards;
+            animation: tlFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
           }
 
           #methode-timeline.is-active .timeline-step.step-1 {
-            animation: tlFadeIn 0.5s ease 0.7s forwards;
+            animation: tlFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.9s forwards;
           }
 
           #methode-timeline.is-active .timeline-step.step-2 {
-            animation: tlFadeIn 0.5s ease 1.1s forwards;
+            animation: tlFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.4s forwards;
           }
 
           @keyframes tlDraw {
@@ -1215,11 +1399,11 @@ export default function HomePage() {
           @keyframes tlFadeIn {
             from {
               opacity: 0;
-              transform: translateY(15px);
+              transform: translateY(20px) scale(0.95);
             }
             to {
               opacity: 1;
-              transform: translateY(0);
+              transform: translateY(0) scale(1);
             }
           }
         `}</style>
@@ -1236,19 +1420,17 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 7) PREUVES / TÉMOIGNAGES */}
+      {/* 7) TÉMOIGNAGES - ENHANCED */}
       <section className="reveal home-section">
         <div className="max-w-3xl">
           <h2 className="text-2xl font-extrabold tracking-tight">Ils nous font confiance</h2>
-          <p className="mt-1 text-slate-600">
-            Des entreprises ivoiriennes qui ont résolu leurs situations concrètes.
-          </p>
+          <p className="mt-1 text-slate-600">Des entreprises ivoiriennes qui ont résolu leurs situations concrètes.</p>
         </div>
 
         <div className="mt-6 grid gap-6 md:grid-cols-2">
-          <div className="rounded-3xl border border-black/10 bg-white p-6">
+          <div className="testimonial-card rounded-3xl border border-black/10 bg-white p-6 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500">
             <div className="flex items-start gap-3">
-              <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-sm font-extrabold text-slate-900">
+              <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-(--brand-blue) to-(--brand-green) text-sm font-extrabold text-white">
                 M
               </div>
               <div>
@@ -1262,9 +1444,9 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="rounded-3xl border border-black/10 bg-white p-6">
+          <div className="testimonial-card rounded-3xl border border-black/10 bg-white p-6 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500">
             <div className="flex items-start gap-3">
-              <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-sm font-extrabold text-slate-900">
+              <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-(--brand-green) to-(--brand-blue) text-sm font-extrabold text-white">
                 J
               </div>
               <div>
@@ -1278,9 +1460,9 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="rounded-3xl border border-black/10 bg-white p-6">
+          <div className="testimonial-card rounded-3xl border border-black/10 bg-white p-6 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500">
             <div className="flex items-start gap-3">
-              <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-sm font-extrabold text-slate-900">
+              <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-(--brand-blue) to-(--brand-green) text-sm font-extrabold text-white">
                 A
               </div>
               <div>
@@ -1294,7 +1476,7 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="rounded-3xl border border-black/10 bg-slate-50 p-6">
+          <div className="rounded-3xl border border-black/10 bg-slate-50 p-6 hover:shadow-xl transition-all duration-500">
             <div className="flex items-center gap-3">
               <div className="rounded-2xl bg-(--brand-blue)/10 p-2 text-(--brand-blue)">
                 <Icon name="spark" className="h-5 w-5" />
@@ -1318,9 +1500,10 @@ export default function HomePage() {
             <p className="mt-3 text-sm text-slate-600">Un exemple de livrable : simple, clair, adopté rapidement.</p>
             <Link
               href="/realisations"
-              className="mt-3 inline-flex items-center text-sm font-semibold text-(--brand-blue) hover:opacity-90"
+              className="mt-3 inline-flex items-center text-sm font-semibold text-(--brand-blue) hover:opacity-90 group"
             >
-              Voir plus d'exemples →
+              Voir plus d'exemples{" "}
+              <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
             </Link>
           </div>
         </div>
@@ -1340,17 +1523,20 @@ export default function HomePage() {
 
       <div className="home-divider" aria-hidden />
 
-      {/* 9) CTA FINAL */}
-      <section className="reveal home-band-dark relative">
-        <div className="pointer-events-none absolute -left-20 -top-20 h-56 w-56 rounded-full bg-(--brand-blue)/10 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-24 -right-24 h-72 w-72 rounded-full bg-(--brand-green)/10 blur-3xl" />
+      {/* 9) CTA FINAL - ENHANCED */}
+      <section className="reveal home-band-dark relative overflow-hidden">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute -left-20 -top-20 h-56 w-56 rounded-full bg-(--brand-blue)/10 blur-3xl animate-pulse-slow" />
+          <div
+            className="absolute -bottom-24 -right-24 h-72 w-72 rounded-full bg-(--brand-green)/10 blur-3xl animate-pulse-slow"
+            style={{ animationDelay: "2s" }}
+          />
+        </div>
 
         <div className="home-section">
           <div className="relative flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
             <div>
-              <h2 className="text-2xl font-extrabold tracking-tight">
-                On regarde votre cas, et on vous dit si c'est adapté.
-              </h2>
+              <h2 className="text-2xl font-extrabold tracking-tight">On regarde votre cas, et on vous dit si c'est adapté.</h2>
               <p className="mt-1 text-white/75">
                 Échange rapide, sans engagement. On vise une solution utile, pas un projet compliqué.
               </p>
@@ -1361,20 +1547,50 @@ export default function HomePage() {
           <div className="relative mt-5 flex flex-col gap-3 sm:flex-row sm:items-center">
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-white/30 transition-transform duration-150 will-change-transform hover:-translate-y-px active:scale-[0.98]"
+              className="inline-flex items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-white/30 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(0,145,255,0.5)] active:scale-98"
             >
               Décrire votre situation (2 min)
             </Link>
 
             <Link
               href="/realisations"
-              className="inline-flex items-center justify-center text-sm font-semibold text-white/70 underline underline-offset-4 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/30"
+              className="inline-flex items-center justify-center text-sm font-semibold text-white/70 underline underline-offset-4 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/30 transition-colors duration-300"
             >
               Consulter des exemples concrets
             </Link>
           </div>
         </div>
       </section>
+
+      {/* Global reveal animations script */}
+      <Script id="reveal-animations" strategy="afterInteractive">
+        {`(() => {
+  try {
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) return;
+
+    const reveals = document.querySelectorAll('.reveal');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          
+          // Stagger children if present
+          const staggerItems = entry.target.querySelectorAll('.stagger-item');
+          staggerItems.forEach((item, idx) => {
+            setTimeout(() => {
+              item.classList.add('revealed');
+            }, idx * 100);
+          });
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -100px 0px' });
+
+    reveals.forEach(el => observer.observe(el));
+  } catch (e) {}
+})();`}
+      </Script>
     </div>
   );
 }

@@ -142,33 +142,6 @@ function TrendingUpIcon() {
   );
 }
 
-function AnimatedCounter({ value, suffix = "" }: { value: number; suffix?: string }) {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    let raf = 0;
-    const start = performance.now();
-    const duration = 1200;
-
-    const tick = (t: number) => {
-      const p = Math.min((t - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - p, 3);
-      setCount(Math.floor(eased * value));
-      if (p < 1) raf = requestAnimationFrame(tick);
-    };
-
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [value]);
-
-  return (
-    <span className="tabular-nums">
-      {count}
-      {suffix}
-    </span>
-  );
-}
-
 type CSSVars = CSSProperties & {
   [key: `--${string}`]: string;
 };
@@ -191,18 +164,17 @@ function HeaderV2() {
   const hoverOpenTimer = useRef<number | null>(null);
   const hoverCloseTimer = useRef<number | null>(null);
 
-  // Announcement bar state (open -> full bar, collapsed -> thin identity strip)
-  const [announcementMode, setAnnouncementMode] = useState<"open" | "collapsed">("open");
-
   const OPEN_DELAY = 80;
   const CLOSE_DELAY = 140;
 
-  const ANN_OPEN_H = 40; // px (h-10)
-  const ANN_COLLAPSED_H = 6; // px
+  // Announcement bar: FIXE et NON retirable
+  const ANN_H = 40; // px (h-10)
   const PROG_H = 2; // px (h-0.5)
   const HEADER_H = 64; // px (h-16)
 
-  const annH = announcementMode === "open" ? ANN_OPEN_H : ANN_COLLAPSED_H;
+  const whatsappHref = useMemo(() => {
+    return "https://wa.me/2250706502490?text=Bonjour%20EXPERT%20CR%C3%89A%2C%20je%20souhaite%20d%C3%A9crire%20ma%20situation%20et%20voir%20si%20c%E2%80%99est%20adapt%C3%A9%20%C3%A0%20mon%20activit%C3%A9.";
+  }, []);
 
   function clearOpenTimer() {
     if (hoverOpenTimer.current) {
@@ -233,23 +205,6 @@ function HeaderV2() {
     clearAllTimers();
     hoverCloseTimer.current = window.setTimeout(() => setMegaOpen(false), CLOSE_DELAY);
   }
-
-  const whatsappHref = useMemo(() => {
-    return "https://wa.me/2250706502490?text=Bonjour%20EXPERT%20CR%C3%89A%2C%20je%20souhaite%20d%C3%A9crire%20ma%20situation%20et%20voir%20si%20c%E2%80%99est%20adapt%C3%A9%20%C3%A0%20mon%20activit%C3%A9.";
-  }, []);
-
-  // Persist announcement mode (stable UX)
-  useEffect(() => {
-    try {
-      const v = window.localStorage.getItem("ec_announcement_mode");
-      if (v === "open" || v === "collapsed") setAnnouncementMode(v);
-    } catch {}
-  }, []);
-  useEffect(() => {
-    try {
-      window.localStorage.setItem("ec_announcement_mode", announcementMode);
-    } catch {}
-  }, [announcementMode]);
 
   useEffect(() => {
     function onScroll() {
@@ -348,55 +303,74 @@ function HeaderV2() {
   const moreActive = navDesktopMore.some((i) => isActive(i.href));
   const heroHeader = isHome && !scrolled;
 
+  // Focus-visible: super lisible en light/dark (pas de white-on-white)
+  const focusRing =
+    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white focus-visible:ring-(--brand-blue)";
+  const focusRingDark =
+    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 focus-visible:ring-(--brand-green)";
+
+  const interactiveBase =
+    "transition-all duration-300 motion-reduce:transition-none";
+  const buttonBase =
+    "rounded-xl px-3 py-2 text-sm font-semibold";
+  const linkBase =
+    "group relative rounded-xl px-3 py-2 text-sm font-semibold";
+
   const heroMotionBase = heroHeader
     ? "transition-[transform,box-shadow,background-color] duration-300 ease-out will-change-transform motion-reduce:transition-none"
     : "";
 
   const heroMagnetHover =
-    heroHeader && canHover ? "hover:-translate-y-0.5 hover:scale-105 hover:shadow-[0_16px_48px_rgba(0,0,0,0.32)]" : "";
+    heroHeader && canHover
+      ? "hover:-translate-y-0.5 hover:scale-105 hover:shadow-[0_16px_48px_rgba(0,0,0,0.32)]"
+      : "";
 
   const heroPress =
-    heroHeader ? "active:translate-y-0 active:scale-100 active:shadow-[0_10px_26px_rgba(0,0,0,0.20)]" : "";
+    heroHeader
+      ? "active:translate-y-0 active:scale-100 active:shadow-[0_10px_26px_rgba(0,0,0,0.20)]"
+      : "";
 
   const cssVars: CSSVars = {
-    "--annH": `${annH}px`,
+    "--annH": `${ANN_H}px`,
     "--progH": `${PROG_H}px`,
   };
 
+  // Mega width: robuste, jamais dépendant d’un scale Tailwind
+  const megaW = "w-[min(720px,calc(100vw-2rem))]";
+
+  const navItemClass = (active: boolean) =>
+    cn(
+      linkBase,
+      heroHeader && "px-3.5",
+      heroMotionBase,
+      heroMagnetHover,
+      heroPress,
+      interactiveBase,
+      heroHeader ? focusRingDark : focusRing,
+      active
+        ? heroHeader
+          ? "text-white bg-white/10"
+          : "text-slate-900 bg-slate-100"
+        : heroHeader
+          ? "text-white/80 hover:text-white hover:bg-white/10"
+          : "text-slate-700 hover:text-slate-900 hover:bg-slate-50"
+    );
+
   return (
     <div style={cssVars}>
-      {/* Announcement Bar (fixed): open -> full bar, collapsed -> thin strip */}
+      {/* Announcement Bar (fixed): NON retirable */}
       <div className="fixed left-0 right-0 top-0 z-[70]">
-        {announcementMode === "open" ? (
-          <div className="relative bg-gradient-to-r from-(--brand-blue) via-(--brand-green) to-(--brand-blue) text-white">
-            <div className="mx-auto flex h-10 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-              <div className="flex flex-1 items-center justify-center gap-2 text-sm font-medium">
-                <TrendingUpIcon />
-                <span className="hidden sm:inline">
-                  <AnimatedCounter value={500} suffix="+" /> projets livrés • Réponse sous 24h
-                </span>
-                <span className="sm:hidden">Réponse sous 24h</span>
-              </div>
-              <button
-                type="button"
-                onClick={() => setAnnouncementMode("collapsed")}
-                className="text-white/80 hover:text-white transition-colors"
-                aria-label="Réduire l'annonce"
-              >
-                <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden="true">
-                  <path d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
+        <div className="relative bg-gradient-to-r from-(--brand-blue) via-(--brand-green) to-(--brand-blue) text-white">
+          <div className="mx-auto flex h-10 max-w-7xl items-center justify-center px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center gap-2 text-sm font-medium">
+              <TrendingUpIcon />
+              <span className="hidden sm:inline">
+                Partenaire fiable • Digital & communication • Réponse sous 24h
+              </span>
+              <span className="sm:hidden">Réponse sous 24h</span>
             </div>
           </div>
-        ) : (
-          <button
-            type="button"
-            onClick={() => setAnnouncementMode("open")}
-            aria-label="Réouvrir l'annonce"
-            className="block h-[6px] w-full bg-gradient-to-r from-(--brand-blue) via-(--brand-green) to-(--brand-blue)"
-          />
-        )}
+        </div>
       </div>
 
       {/* Scroll Progress Bar */}
@@ -430,7 +404,11 @@ function HeaderV2() {
           <div className="flex shrink-0 items-center">
             <Link
               href="/"
-              className={cn("group flex items-center gap-3 transition-all duration-300", heroHeader && "gap-3.5")}
+              className={cn(
+                "group flex items-center gap-3 transition-all duration-300",
+                heroHeader && "gap-3.5",
+                heroHeader ? focusRingDark : focusRing
+              )}
               onClick={closeAll}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -502,12 +480,14 @@ function HeaderV2() {
                   aria-expanded={megaOpen}
                   aria-haspopup="menu"
                   className={cn(
-                    "group relative inline-flex items-center gap-1 rounded-xl px-3 py-2 text-sm font-semibold",
+                    buttonBase,
+                    "group relative inline-flex items-center gap-1",
                     heroHeader && "px-3.5",
                     heroMotionBase,
                     heroMagnetHover,
                     heroPress,
-                    "transition-all duration-300",
+                    interactiveBase,
+                    heroHeader ? focusRingDark : focusRing,
                     servicesActive
                       ? heroHeader
                         ? "text-white bg-white/10"
@@ -537,7 +517,8 @@ function HeaderV2() {
                       if (canHover) scheduleCloseMega();
                     }}
                     className={cn(
-                      "absolute left-1/2 mt-2 w-180 -translate-x-1/2 overflow-hidden rounded-3xl border border-black/10 bg-white shadow-[0_28px_70px_rgba(2,6,23,0.14)]",
+                      "absolute left-1/2 mt-2 -translate-x-1/2 overflow-hidden rounded-3xl border border-black/10 bg-white shadow-[0_28px_70px_rgba(2,6,23,0.14)]",
+                      megaW,
                       "animate-in fade-in-0 zoom-in-95 duration-200"
                     )}
                   >
@@ -547,7 +528,7 @@ function HeaderV2() {
                           <div className="text-xs font-semibold tracking-wide text-slate-500">Services</div>
                           <div className="flex items-center gap-1 rounded-full bg-gradient-to-r from-(--brand-blue)/10 to-(--brand-green)/10 px-2 py-0.5 text-[10px] font-bold text-(--brand-green)">
                             <Spark className="h-2.5 w-2.5" />
-                            <AnimatedCounter value={500} suffix="+" />
+                            Terrain
                           </div>
                         </div>
 
@@ -557,7 +538,11 @@ function HeaderV2() {
                               key={s.href}
                               href={s.href}
                               onClick={closeAll}
-                              className="group relative overflow-hidden rounded-2xl border border-black/10 bg-white p-4 hover:bg-slate-50 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
+                              className={cn(
+                                "group relative overflow-hidden rounded-2xl border border-black/10 bg-white p-4",
+                                "hover:bg-slate-50 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300",
+                                focusRing
+                              )}
                             >
                               {s.isNew && (
                                 <span className="absolute top-2 right-2 animate-pulse rounded-full bg-gradient-to-r from-(--brand-blue) to-(--brand-green) px-2 py-0.5 text-[10px] font-bold text-white">
@@ -584,7 +569,10 @@ function HeaderV2() {
                           <Link
                             href="/services"
                             onClick={closeAll}
-                            className="group inline-flex items-center gap-2 text-sm font-semibold text-(--brand-blue) hover:gap-3 transition-all duration-300"
+                            className={cn(
+                              "group inline-flex items-center gap-2 text-sm font-semibold text-(--brand-blue) hover:gap-3 transition-all duration-300",
+                              focusRing
+                            )}
                           >
                             Voir tous les services
                             <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
@@ -602,7 +590,11 @@ function HeaderV2() {
                           <Link
                             href="/contact"
                             onClick={closeAll}
-                            className="group inline-flex items-center justify-center gap-2 rounded-xl bg-(--brand-blue) px-4 py-3 text-sm font-semibold text-white hover:opacity-95 hover:scale-105 hover:shadow-lg active:scale-100 transition-all duration-200"
+                            className={cn(
+                              "group inline-flex items-center justify-center gap-2 rounded-xl bg-(--brand-blue) px-4 py-3 text-sm font-semibold text-white",
+                              "hover:opacity-95 hover:scale-105 hover:shadow-lg active:scale-100 transition-all duration-200",
+                              focusRing
+                            )}
                           >
                             <Spark className="group-hover:rotate-12 transition-transform duration-300" />
                             Décrire ma situation
@@ -612,7 +604,11 @@ function HeaderV2() {
                             href={whatsappHref}
                             target="_blank"
                             rel="noreferrer"
-                            className="group inline-flex items-center justify-center gap-2 rounded-xl bg-(--brand-green) px-4 py-3 text-sm font-semibold text-white hover:opacity-95 hover:scale-105 hover:shadow-lg active:scale-100 transition-all duration-200"
+                            className={cn(
+                              "group inline-flex items-center justify-center gap-2 rounded-xl bg-(--brand-green) px-4 py-3 text-sm font-semibold text-white",
+                              "hover:opacity-95 hover:scale-105 hover:shadow-lg active:scale-100 transition-all duration-200",
+                              focusRing
+                            )}
                           >
                             <WhatsAppIcon />
                             WhatsApp / Devis rapide
@@ -621,7 +617,11 @@ function HeaderV2() {
                           <Link
                             href="/realisations"
                             onClick={closeAll}
-                            className="inline-flex items-center justify-center rounded-xl border border-black/10 bg-white px-4 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-50 hover:shadow-md hover:scale-105 active:scale-100 transition-all duration-200"
+                            className={cn(
+                              "inline-flex items-center justify-center rounded-xl border border-black/10 bg-white px-4 py-3 text-sm font-semibold text-slate-900",
+                              "hover:bg-slate-50 hover:shadow-md hover:scale-105 active:scale-100 transition-all duration-200",
+                              focusRing
+                            )}
                           >
                             Voir des démos
                           </Link>
@@ -660,21 +660,7 @@ function HeaderV2() {
                       href={it.href}
                       onClick={closeAll}
                       aria-current={active ? "page" : undefined}
-                      className={cn(
-                        "group relative rounded-xl px-3 py-2 text-sm font-semibold",
-                        heroHeader && "px-3.5",
-                        heroMotionBase,
-                        heroMagnetHover,
-                        heroPress,
-                        "transition-all duration-300",
-                        active
-                          ? heroHeader
-                            ? "text-white bg-white/10"
-                            : "text-slate-900 bg-slate-100"
-                          : heroHeader
-                            ? "text-white/80 hover:text-white hover:bg-white/10"
-                            : "text-slate-700 hover:text-slate-900 hover:bg-slate-50"
-                      )}
+                      className={navItemClass(active)}
                     >
                       {it.label}
                       <span
@@ -699,12 +685,14 @@ function HeaderV2() {
                   aria-expanded={moreOpen}
                   aria-haspopup="menu"
                   className={cn(
-                    "group relative inline-flex items-center gap-1 rounded-xl px-3 py-2 text-sm font-semibold",
+                    buttonBase,
+                    "group relative inline-flex items-center gap-1",
                     heroHeader && "px-3.5",
                     heroMotionBase,
                     heroMagnetHover,
                     heroPress,
-                    "transition-all duration-300",
+                    interactiveBase,
+                    heroHeader ? focusRingDark : focusRing,
                     moreActive
                       ? heroHeader
                         ? "text-white bg-white/10"
@@ -742,6 +730,7 @@ function HeaderV2() {
                             onClick={closeAll}
                             className={cn(
                               "group flex items-center justify-between rounded-xl px-3 py-2 text-sm font-semibold transition-all duration-200",
+                              focusRing,
                               active
                                 ? "bg-gradient-to-r from-(--brand-blue)/10 to-(--brand-green)/10 text-slate-900"
                                 : "text-slate-700 hover:bg-slate-50 hover:text-slate-900 hover:translate-x-0.5"
@@ -770,7 +759,8 @@ function HeaderV2() {
                 heroMotionBase,
                 heroMagnetHover,
                 heroPress,
-                "transition-all duration-300",
+                interactiveBase,
+                heroHeader ? focusRingDark : focusRing,
                 heroHeader
                   ? "border-white/10 bg-white/5 text-white hover:bg-white/10 hover:scale-105"
                   : "border-black/10 bg-white text-slate-900 hover:bg-slate-50 hover:scale-105 hover:shadow-lg"
@@ -790,7 +780,8 @@ function HeaderV2() {
                 heroMotionBase,
                 heroMagnetHover,
                 heroPress,
-                "transition-all duration-300 hover:shadow-lg"
+                interactiveBase,
+                focusRing
               )}
               onClick={closeAll}
             >
@@ -801,7 +792,9 @@ function HeaderV2() {
             <button
               type="button"
               className={cn(
-                "inline-flex items-center justify-center rounded-xl border px-3 py-2 text-sm font-semibold md:hidden transition-all duration-300",
+                "inline-flex items-center justify-center rounded-xl border px-3 py-2 text-sm font-semibold md:hidden",
+                interactiveBase,
+                heroHeader ? focusRingDark : focusRing,
                 heroHeader ? "border-white/10 bg-white/5 text-white hover:bg-white/10" : "border-black/10 bg-white text-slate-900 hover:bg-slate-50"
               )}
               aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
@@ -853,7 +846,11 @@ function HeaderV2() {
                       key={it.href}
                       href={it.href}
                       onClick={closeAll}
-                      className="flex items-center justify-between rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-50 active:scale-98 transition-all duration-200"
+                      className={cn(
+                        "flex items-center justify-between rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm font-semibold text-slate-900",
+                        "hover:bg-slate-50 active:scale-98 transition-all duration-200",
+                        focusRing
+                      )}
                     >
                       {it.label}
                       <span className="text-(--brand-blue)">→</span>
@@ -866,7 +863,11 @@ function HeaderV2() {
                     href={whatsappHref}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-(--brand-green) px-4 py-3 text-sm font-semibold text-white hover:opacity-95 active:scale-98 transition-all duration-200"
+                    className={cn(
+                      "inline-flex items-center justify-center gap-2 rounded-xl bg-(--brand-green) px-4 py-3 text-sm font-semibold text-white",
+                      "hover:opacity-95 active:scale-98 transition-all duration-200",
+                      focusRing
+                    )}
                   >
                     <WhatsAppIcon />
                     WhatsApp / Devis rapide
@@ -875,7 +876,11 @@ function HeaderV2() {
                   <Link
                     href="/contact"
                     onClick={closeAll}
-                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-(--brand-blue) px-4 py-3 text-sm font-semibold text-white hover:opacity-95 active:scale-98 transition-all duration-200"
+                    className={cn(
+                      "inline-flex items-center justify-center gap-2 rounded-xl bg-(--brand-blue) px-4 py-3 text-sm font-semibold text-white",
+                      "hover:opacity-95 active:scale-98 transition-all duration-200",
+                      focusRing
+                    )}
                   >
                     <Spark />
                     Décrire ma situation
@@ -892,6 +897,7 @@ function HeaderV2() {
                         onClick={closeAll}
                         className={cn(
                           "rounded-2xl border border-black/10 bg-white px-4 py-3 text-sm transition-all duration-200 active:scale-98",
+                          focusRing,
                           active
                             ? "font-semibold text-slate-900 bg-gradient-to-br from-(--brand-blue)/5 to-(--brand-green)/5"
                             : "text-slate-700 hover:bg-slate-50 hover:text-slate-900"
