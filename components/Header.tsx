@@ -62,24 +62,28 @@ function cn(...parts: Array<string | false | null | undefined>) {
   return parts.filter(Boolean).join(" ");
 }
 
-function BurgerIcon({ open }: { open: boolean }) {
+function BurgerIcon({ open, tone }: { open: boolean; tone?: "light" | "dark" }) {
+  const bar = tone === "dark" ? "bg-white" : "bg-slate-900";
   return (
     <span aria-hidden="true" className="relative block h-4 w-5">
       <span
         className={cn(
-          "absolute left-0 top-0 h-0.5 w-5 rounded bg-slate-900 transition",
+          "absolute left-0 top-0 h-0.5 w-5 rounded transition",
+          bar,
           open && "translate-y-1.75 rotate-45"
         )}
       />
       <span
         className={cn(
-          "absolute left-0 top-1.75 h-0.5 w-5 rounded bg-slate-900 transition",
+          "absolute left-0 top-1.75 h-0.5 w-5 rounded transition",
+          bar,
           open ? "opacity-0" : "opacity-100"
         )}
       />
       <span
         className={cn(
-          "absolute left-0 top-3.5 h-0.5 w-5 rounded bg-slate-900 transition",
+          "absolute left-0 top-3.5 h-0.5 w-5 rounded transition",
+          bar,
           open && "-translate-y-1.75 -rotate-45"
         )}
       />
@@ -120,6 +124,7 @@ function WhatsAppIcon() {
 
 export function Header() {
   const pathname = usePathname();
+  const isHome = pathname === "/";
 
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -261,6 +266,18 @@ export function Header() {
 
   const servicesActive = pathname === "/services" || pathname.startsWith("/services/");
   const moreActive = navDesktopMore.some((i) => isActive(i.href));
+  const heroHeader = isHome && !scrolled;
+
+  // motion helpers (Home hero only)
+  const heroMotionBase = heroHeader
+    ? "transition-[transform,box-shadow,background-color] duration-200 will-change-transform motion-reduce:transition-none"
+    : "";
+
+  const heroMagnetHover =
+    heroHeader && canHover ? "hover:-translate-y-0.5 hover:shadow-[0_14px_40px_rgba(0,0,0,0.28)]" : "";
+
+  // press should work on mobile too (not depending on hover)
+  const heroPress = heroHeader ? "active:translate-y-0 active:shadow-[0_10px_26px_rgba(0,0,0,0.20)]" : "";
 
   return (
     <header
@@ -269,22 +286,44 @@ export function Header() {
         scrolled && "header-accent--scrolled",
 
         "sticky top-0 z-50",
-        "border-b border-black/10 backdrop-blur",
-        "bg-white/70",
-        "bg-linear-to-r from-(--brand-blue)/4 via-white/70 to-(--brand-green)/4",
-        "transition-[background-color,box-shadow,border-color] duration-200",
-        scrolled && "bg-white/92 border-black/15 shadow-[0_10px_30px_rgba(2,6,23,0.06)]"
+        "relative",
+        "backdrop-blur",
+        "transition-[background-color,box-shadow,border-color,color] duration-200",
+
+        // Default (light)
+        !heroHeader &&
+          "border-b border-black/10 bg-white/70 bg-linear-to-r from-(--brand-blue)/4 via-white/70 to-(--brand-green)/4",
+
+        // Home hero (dark glass)
+        heroHeader &&
+          "border-b border-white/10 bg-slate-950/25 bg-linear-to-r from-(--brand-blue)/10 via-slate-950/25 to-(--brand-green)/10 text-white",
+
+        // Scrolled always becomes the solid light header
+        scrolled && "border-black/15 bg-white/92 text-slate-900 shadow-[0_10px_30px_rgba(2,6,23,0.06)]"
       )}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center gap-3 px-4 sm:px-6 lg:px-8">
         {/* Brand */}
         <div className="flex shrink-0 items-center">
-          <Link href="/" className="flex items-center gap-3" onClick={closeAll}>
+          <Link href="/" className={cn("flex items-center gap-3", heroHeader && "gap-3.5")} onClick={closeAll}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/brand/logo.png" alt="EXPERT CRÉA" className="h-11 w-11 object-contain" />
+            <img
+              src="/brand/logo.png"
+              alt="EXPERT CRÉA"
+              className={cn(
+                "h-11 w-11 object-contain rounded-xl",
+                heroHeader &&
+                  "bg-white/5 p-1 ring-1 ring-white/10 shadow-[0_10px_30px_rgba(0,0,0,0.25)]"
+              )}
+            />
 
-            <span className="hidden sm:block leading-[1.05]">
-              <span className="block whitespace-nowrap text-[15px] font-extrabold tracking-tight sm:text-lg">
+            <span className={cn("hidden sm:block leading-[1.05]", heroHeader && "text-white")}>
+              <span
+                className={cn(
+                  "block whitespace-nowrap text-[15px] font-extrabold tracking-tight sm:text-lg",
+                  heroHeader && "tracking-[0.06em]"
+                )}
+              >
                 <span className="text-(--brand-blue)">EXPERT</span>{" "}
                 <span className="text-(--brand-green)">CRÉA</span>
               </span>
@@ -294,7 +333,18 @@ export function Header() {
 
         {/* Nav centrée */}
         <div className="hidden md:flex flex-1 items-center justify-center">
-          <nav className="flex items-center gap-2">
+          <nav
+            className={cn(
+              "flex items-center gap-2",
+
+              // Home hero pill (with local shimmer)
+              heroHeader &&
+                "hero-nav-pill relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 px-1.5 py-1 backdrop-blur",
+
+              heroHeader &&
+                "hover:bg-white/7 hover:shadow-[0_18px_50px_rgba(0,0,0,0.22)] hover:-translate-y-0.5 active:translate-y-0 active:shadow-[0_12px_34px_rgba(0,0,0,0.16)] transition-[transform,box-shadow,background-color] duration-200 will-change-transform motion-reduce:transition-none"
+            )}
+          >
             {/* Mega Services */}
             <div
               className="relative"
@@ -320,8 +370,19 @@ export function Header() {
                 aria-expanded={megaOpen}
                 aria-haspopup="menu"
                 className={cn(
-                  "relative inline-flex items-center gap-1 rounded-xl px-3 py-2 text-sm font-semibold transition",
-                  servicesActive ? "text-slate-900" : "text-slate-700 hover:text-slate-900 hover:bg-slate-50"
+                  "relative inline-flex items-center gap-1 rounded-xl px-3 py-2 text-sm font-semibold",
+                  heroHeader && "px-3.5",
+                  heroMotionBase,
+                  heroMagnetHover,
+                  heroPress,
+                  "transition",
+                  servicesActive
+                    ? heroHeader
+                      ? "text-white"
+                      : "text-slate-900"
+                    : heroHeader
+                      ? "text-white/80 hover:text-white hover:bg-white/10"
+                      : "text-slate-700 hover:text-slate-900 hover:bg-slate-50"
                 )}
               >
                 Services <ChevronDown open={megaOpen} />
@@ -445,8 +506,19 @@ export function Header() {
                     onClick={closeAll}
                     aria-current={active ? "page" : undefined}
                     className={cn(
-                      "relative rounded-xl px-3 py-2 text-sm font-semibold transition",
-                      active ? "text-slate-900" : "text-slate-700 hover:text-slate-900 hover:bg-slate-50"
+                      "relative rounded-xl px-3 py-2 text-sm font-semibold",
+                      heroHeader && "px-3.5",
+                      heroMotionBase,
+                      heroMagnetHover,
+                      heroPress,
+                      "transition",
+                      active
+                        ? heroHeader
+                          ? "text-white"
+                          : "text-slate-900"
+                        : heroHeader
+                          ? "text-white/80 hover:text-white hover:bg-white/10"
+                          : "text-slate-700 hover:text-slate-900 hover:bg-slate-50"
                     )}
                   >
                     {it.label}
@@ -472,8 +544,19 @@ export function Header() {
                 aria-expanded={moreOpen}
                 aria-haspopup="menu"
                 className={cn(
-                  "relative inline-flex items-center gap-1 rounded-xl px-3 py-2 text-sm font-semibold transition",
-                  moreActive ? "text-slate-900" : "text-slate-700 hover:text-slate-900 hover:bg-slate-50"
+                  "relative inline-flex items-center gap-1 rounded-xl px-3 py-2 text-sm font-semibold",
+                  heroHeader && "px-3.5",
+                  heroMotionBase,
+                  heroMagnetHover,
+                  heroPress,
+                  "transition",
+                  moreActive
+                    ? heroHeader
+                      ? "text-white"
+                      : "text-slate-900"
+                    : heroHeader
+                      ? "text-white/80 hover:text-white hover:bg-white/10"
+                      : "text-slate-700 hover:text-slate-900 hover:bg-slate-50"
                 )}
               >
                 Plus <ChevronDown open={moreOpen} />
@@ -501,9 +584,7 @@ export function Header() {
                           onClick={closeAll}
                           className={cn(
                             "flex items-center justify-between rounded-xl px-3 py-2 text-sm font-semibold transition",
-                            active
-                              ? "bg-slate-50 text-slate-900"
-                              : "text-slate-700 hover:bg-slate-50 hover:text-slate-900"
+                            active ? "bg-slate-50 text-slate-900" : "text-slate-700 hover:bg-slate-50 hover:text-slate-900"
                           )}
                         >
                           {it.label}
@@ -524,7 +605,15 @@ export function Header() {
             href={whatsappHref}
             target="_blank"
             rel="noreferrer"
-            className="hidden items-center gap-2 rounded-xl border border-black/10 bg-white px-3 py-2 text-sm font-semibold text-slate-900 hover:bg-slate-50 md:inline-flex"
+            className={cn(
+              "hidden items-center gap-2 rounded-xl border px-3 py-2 text-sm font-semibold md:inline-flex",
+              heroMotionBase,
+              heroMagnetHover,
+              heroPress,
+              heroHeader
+                ? "border-white/10 bg-white/5 text-white hover:bg-white/10"
+                : "border-black/10 bg-white text-slate-900 hover:bg-slate-50"
+            )}
             aria-label="WhatsApp"
           >
             <span className="text-(--brand-green)">
@@ -535,7 +624,12 @@ export function Header() {
 
           <Link
             href="/contact"
-            className="hidden items-center gap-2 rounded-xl bg-(--brand-blue) px-4 py-2 text-sm font-semibold text-white hover:opacity-95 md:inline-flex"
+            className={cn(
+              "hidden items-center gap-2 rounded-xl bg-(--brand-blue) px-4 py-2 text-sm font-semibold text-white hover:opacity-95 md:inline-flex",
+              heroMotionBase,
+              heroMagnetHover,
+              heroPress
+            )}
             onClick={closeAll}
           >
             <Spark />
@@ -544,16 +638,27 @@ export function Header() {
 
           <button
             type="button"
-            className="inline-flex items-center justify-center rounded-xl border border-black/10 bg-white px-3 py-2 text-sm font-semibold text-slate-900 hover:bg-slate-50 md:hidden"
+            className={cn(
+              "inline-flex items-center justify-center rounded-xl border px-3 py-2 text-sm font-semibold md:hidden",
+              heroHeader ? "border-white/10 bg-white/5 text-white hover:bg-white/10" : "border-black/10 bg-white text-slate-900 hover:bg-slate-50"
+            )}
             aria-label={open ? "Fermer le menu" : "Ouvrir le menu"}
             aria-expanded={open}
             aria-controls="mobile-nav"
             onClick={() => setOpen((v) => !v)}
           >
-            <BurgerIcon open={open} />
+            <BurgerIcon open={open} tone={heroHeader ? "dark" : "light"} />
           </button>
         </div>
       </div>
+
+      <div
+        aria-hidden
+        className={cn(
+          "pointer-events-none absolute inset-x-0 bottom-0 h-px bg-linear-to-r from-transparent via-white/25 to-transparent opacity-0 transition-opacity duration-200",
+          heroHeader && "opacity-100"
+        )}
+      />
 
       {open ? (
         <div className="md:hidden">
@@ -628,6 +733,56 @@ export function Header() {
           </div>
         </div>
       ) : null}
+
+      {/* Option C: CSS local (uniquement ce composant) */}
+      <style jsx>{`
+        /* Shimmer très lent uniquement sur le pill Home */
+        .hero-nav-pill::before {
+          content: "";
+          position: absolute;
+          inset: -2px;
+          pointer-events: none;
+          opacity: 0.38;
+          background: linear-gradient(
+            110deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.08) 22%,
+            rgba(0, 145, 255, 0.10) 42%,
+            rgba(0, 200, 120, 0.08) 58%,
+            rgba(255, 255, 255, 0.06) 72%,
+            transparent 100%
+          );
+          transform: translateX(-60%);
+          animation: heroPillShimmer 10.5s linear infinite;
+        }
+
+        .hero-nav-pill::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          pointer-events: none;
+          border-radius: 16px;
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+          opacity: 0.9;
+        }
+
+        @keyframes heroPillShimmer {
+          0% {
+            transform: translateX(-60%);
+          }
+          100% {
+            transform: translateX(60%);
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .hero-nav-pill::before {
+            animation: none !important;
+            opacity: 0.14;
+            transform: none;
+          }
+        }
+      `}</style>
     </header>
   );
 }

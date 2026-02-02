@@ -54,6 +54,76 @@ body::before {
 }
 
 /* =========================
+   Home unified layout (Adveris-like)
+   - Sections = spacing (no outer boxes)
+   - Keep cards only for proofs / interactive items
+========================= */
+.home-unified {
+  position: relative;
+}
+
+/* Very subtle extra veil for Home only (optional) */
+.home-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.25;
+  background:
+    radial-gradient(1200px 620px at 18% -10%, rgba(81, 112, 255, 0.10), transparent 60%),
+    radial-gradient(1000px 540px at 92% 6%, rgba(0, 190, 98, 0.08), transparent 58%);
+}
+
+/* One consistent rhythm: spacing creates sections, not boxes */
+.home-section {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 72rem; /* ~max-w-6xl */
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+@media (min-width: 768px) {
+  .home-section {
+    padding-top: 5.5rem;
+    padding-bottom: 5.5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+.home-divider {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 72rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.home-divider::before {
+  content: "";
+  display: block;
+  height: 1px;
+  width: 100%;
+  background: rgba(15, 23, 42, 0.10);
+}
+
+/* Full-bleed dark band without looking like a boxed module */
+.home-band-dark {
+  position: relative;
+  left: 50%;
+  right: 50%;
+  width: 100vw;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  overflow: hidden;
+  background: linear-gradient(to bottom, rgb(2, 6, 23), rgb(15, 23, 42));
+  color: white;
+}
+
+/* =========================
    Hint cliquable (canonique)
    - Mobile/touch : visible (on doit comprendre ce qui est cliquable)
    - Desktop souris : peut apparaître au hover (plus épuré)
@@ -221,6 +291,48 @@ body::before {
 }
 
 /* =========================
+   SunMark (repère “premium”)
+   - CSS only, ultra léger
+   - Rotation très lente (style agence)
+   Usage:
+     <span className="sunmark sunmark--anim">...</span>
+========================= */
+.sunmark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  will-change: transform;
+  opacity: 0.9;
+  filter: drop-shadow(0 10px 22px rgba(2,6,23,0.10));
+}
+
+.sunmark svg {
+  display: block;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .sunmark--anim {
+    animation: sunmarkSpin 26s linear infinite, sunmarkBreathe 7.5s ease-in-out infinite;
+    transform-origin: 50% 50%;
+  }
+}
+
+@keyframes sunmarkSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes sunmarkBreathe {
+  0%, 100% { opacity: 0.82; }
+  50% { opacity: 1; }
+}
+
+/* =========================
    Header accent animé + glow
    (transition clean + stacking fix)
 ========================= */
@@ -332,5 +444,13 @@ body::before {
   .header-accent.header-accent--scrolled::before,
   .header-accent.header-accent--scrolled::after {
     filter: none !important;
+  }
+  .sunmark--anim {
+    animation: none !important;
+    transform: none !important;
+    opacity: 0.9 !important;
+  }
+  .home-bg {
+    opacity: 0.18;
   }
 }
