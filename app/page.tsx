@@ -441,14 +441,14 @@ export default function HomePage() {
         </div>
 
         <div className="hero-spot pointer-events-none absolute inset-0" aria-hidden />
-        <div className="pointer-events-none absolute bottom-0 left-0 h-36 w-full bg-linear-to-b from-transparent to-white" aria-hidden />
+        <div className="pointer-events-none absolute bottom-0 left-0 h-36 w-full bg-linear-to-b from-transparent to-slate-50" aria-hidden />
 
-        <div className="relative mx-auto max-w-6xl">
+        <div className="relative mx-auto w-full max-w-7xl 2xl:max-w-[96rem]">
           <div className="grid gap-10 lg:grid-cols-12 lg:items-center">
             <div className="lg:col-span-7">
               <div className="inline-flex flex-wrap items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-white/80 backdrop-blur animate-in fade-in slide-in-from-top-4 duration-700">
                 <span className="inline-flex h-1.5 w-1.5 rounded-full bg-(--brand-green) animate-pulse" />
-                Côte d'Ivoire • terrain & efficacité
+                Côte d'Ivoire
                 <SunMark size={18} tone="light" className="opacity-80" ariaLabel="" />
               </div>
 
@@ -461,7 +461,7 @@ export default function HomePage() {
               </h1>
 
               <p className="mt-4 max-w-2xl leading-relaxed text-white/75 md:text-lg animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
-                Sites qui génèrent des demandes, outils internes qui simplifient, conformité sans rupture.
+                Sites qui déclenchent des ventes et des demandes, communication & image de marque, outils internes, conformité (FNE) sans interruption.
               </p>
 
               <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300">
@@ -496,15 +496,7 @@ export default function HomePage() {
                 </div>
 
                 <div className="relative">
-                  <div className="flex items-center justify-between">
-                    <div className="text-xs font-semibold text-white/70">Aperçu — flux simple (exemple)</div>
-                    <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/20 px-2.5 py-1 text-[11px] font-semibold text-white/70">
-                      <span className="h-1.5 w-1.5 rounded-full bg-(--brand-blue) animate-pulse" />
-                      En temps réel
-                    </div>
-                  </div>
-
-                  <div className="mt-4 rounded-2xl border border-white/10 bg-black/20 p-4">
+                  <div className="mt-0 rounded-2xl border border-white/10 bg-black/20 p-4">
                     <div className="grid gap-3">
                       <div className="flex items-center justify-between">
                         <div className="text-sm font-semibold text-white">Outil existant</div>
@@ -518,9 +510,6 @@ export default function HomePage() {
                             <div className="mt-1 text-xs font-semibold text-white/60">
                               Connexion • adaptation • automatisation
                             </div>
-                          </div>
-                          <div className="rounded-full border border-white/10 bg-black/25 px-3 py-1 text-xs font-semibold text-white/70">
-                            V1
                           </div>
                         </div>
 
@@ -616,16 +605,16 @@ export default function HomePage() {
 
                         <div className="mt-4 grid gap-2">
                           <div className="flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs">
-                            <span className="font-semibold text-white/80">Visibilité & demandes</span>
+                            <span className="font-semibold text-white/80">Communication & image</span>
+                            <span className="font-semibold text-white/55">En place</span>
+                          </div>
+                          <div className="flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs">
+                            <span className="font-semibold text-white/80">Ventes & demandes</span>
                             <span className="font-semibold text-white/55">OK</span>
                           </div>
                           <div className="flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs">
-                            <span className="font-semibold text-white/80">Organisation & suivi</span>
-                            <span className="font-semibold text-white/55">Contrôlée</span>
-                          </div>
-                          <div className="flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs">
-                            <span className="font-semibold text-white/80">Sécurité & conformité</span>
-                            <span className="font-semibold text-white/55">Actifs</span>
+                            <span className="font-semibold text-white/80">Conformité (FNE)</span>
+                            <span className="font-semibold text-white/55">En place</span>
                           </div>
                         </div>
                       </div>
@@ -1034,6 +1023,273 @@ export default function HomePage() {
 
       <div className="home-divider" aria-hidden />
 
+      {/* TRANSITION 2B */}
+      <section className="reveal home-section">
+        <div className="rounded-2xl border border-slate-200 bg-slate-50 px-6 py-4 text-center">
+          <p className="text-sm font-semibold text-slate-700">
+            <span className="text-slate-900">Un autre levier clé :</span> la confiance, l'image et la visibilité.
+          </p>
+        </div>
+      </section>
+
+      {/* 3B) COMMUNICATION */}
+      <section
+        id="communication"
+        className="reveal relative left-1/2 right-1/2 w-screen -ml-[50vw] -mr-[50vw] bg-linear-to-b from-slate-950 via-slate-900 to-slate-950 py-8 md:py-10"
+      >
+        <div
+          className="pointer-events-none absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-white/15 to-transparent"
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-linear-to-r from-transparent via-white/15 to-transparent"
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute inset-x-0 top-0 h-14 bg-linear-to-b from-slate-50 to-transparent"
+          aria-hidden
+        />
+        <div
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-14 bg-linear-to-b from-transparent to-slate-50"
+          aria-hidden
+        />
+        <div className="home-section">
+        <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-linear-to-b from-slate-950 via-slate-900 to-slate-950 p-5 md:p-6 text-white">
+          <div className="pointer-events-none absolute inset-0" aria-hidden>
+            <div className="absolute -left-24 -top-24 h-72 w-72 rounded-full bg-(--brand-blue)/18 blur-3xl animate-pulse-slow" />
+            <div
+              className="absolute -bottom-28 -right-28 h-80 w-80 rounded-full bg-(--brand-green)/16 blur-3xl animate-pulse-slow"
+              style={{ animationDelay: "1.2s" }}
+            />
+            <div className="absolute inset-0 opacity-[0.18]" style={{ backgroundImage: "radial-gradient(circle at 18% 12%, rgba(0,145,255,0.24) 0, transparent 52%), radial-gradient(circle at 88% 86%, rgba(0,200,120,0.18) 0, transparent 56%), radial-gradient(circle at 40% 30%, rgba(255,255,255,0.06) 0, transparent 55%)" }} />
+            <div className="absolute inset-0 opacity-[0.10]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px)", backgroundSize: "56px 56px" }} />
+          </div>
+
+          <div className="relative grid gap-6 lg:grid-cols-2 lg:items-start">
+            <div>
+              <h2 className="text-2xl font-extrabold tracking-tight text-white md:text-4xl">
+                Communication & image de marque
+              </h2>
+              <p className="mt-2 text-sm font-semibold text-white/75 md:text-base">
+                Une image claire qui inspire confiance — et qui déclenche des demandes.
+              </p>
+              <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-white/80">
+                Cohérence • crédibilité • visibilité
+              </div>
+              <p className="mt-3 max-w-2xl text-white/75 md:text-base">
+                Réseaux, supports, messages : on aligne tout pour que votre entreprise soit prise au sérieux.
+              </p>
+
+              <ul className="mt-5 space-y-3 text-white/80">
+                <Bullet>Charte + messages clés</Bullet>
+                <Bullet>Templates & contenus prêts à publier</Bullet>
+              </ul>
+
+              <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-white/30 focus:ring-offset-2 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(0,145,255,0.35)] active:scale-98"
+                >
+                  Parler de votre communication
+                </Link>
+                <Link
+                  href="/realisations"
+                  className="inline-flex items-center justify-center text-sm font-semibold text-white/80 underline underline-offset-4 hover:text-white"
+                >
+                  Voir des exemples de créations →
+                </Link>
+              </div>
+            </div>
+
+            <div className="grid gap-4 md:grid-cols-2">
+              {/* Studio showcase (premium) */}
+              <div className="relative overflow-hidden rounded-3xl border border-black/10 bg-white/70 p-3.5 backdrop-blur md:col-span-2">
+                <div className="flex items-center justify-between gap-3">
+                  <div>
+                    <div className="text-sm font-extrabold text-slate-900">Aperçu de créations</div>
+                    <div className="text-xs font-semibold text-slate-700">Exemples de formats : posts, supports, templates</div>
+                  </div>
+                  <span className="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700">
+                    Studio
+                  </span>
+                </div>
+
+                <div className="mt-3 overflow-hidden rounded-2xl border border-black/10 bg-linear-to-b from-white to-slate-50">
+                  <div className="studio-marquee flex gap-3 p-2.5" aria-hidden>
+                    {(
+                      [
+                        { label: "Post", src: "/home/studio/post.webp", alt: "Exemple de post" },
+                        { label: "Story", src: "/home/studio/story.webp", alt: "Exemple de story" },
+                        { label: "Flyer", src: "/home/studio/flyer.webp", alt: "Exemple de flyer" },
+                        { label: "Template", src: "/home/studio/template.webp", alt: "Exemple de template" },
+                        { label: "Brand kit", src: "/home/studio/brand-kit.webp", alt: "Exemple de brand kit" },
+                        { label: "Présentation", src: "/home/studio/presentation.webp", alt: "Exemple de slide" },
+                      ] as const
+                    )
+                      .concat([
+                        { label: "Post", src: "/home/studio/post.webp", alt: "Exemple de post" },
+                        { label: "Story", src: "/home/studio/story.webp", alt: "Exemple de story" },
+                        { label: "Flyer", src: "/home/studio/flyer.webp", alt: "Exemple de flyer" },
+                        { label: "Template", src: "/home/studio/template.webp", alt: "Exemple de template" },
+                        { label: "Brand kit", src: "/home/studio/brand-kit.webp", alt: "Exemple de brand kit" },
+                        { label: "Présentation", src: "/home/studio/presentation.webp", alt: "Exemple de slide" },
+                      ])
+                      .map((item, idx) => (
+                        <div
+                          key={idx}
+                          className="studio-tile relative h-18 w-24 shrink-0 overflow-hidden rounded-xl border border-black/10 bg-white shadow-sm"
+                        >
+                          {/* image */}
+                          <div className="absolute inset-0">
+                            <Image
+                              src={item.src}
+                              alt={item.alt}
+                              fill
+                              className="object-cover object-center"
+                              sizes="96px"
+                            />
+                            <div className="absolute inset-0 bg-linear-to-b from-white/0 via-white/0 to-white/65" aria-hidden />
+                          </div>
+
+                          {/* fallback glow (kept for premium feel) */}
+                          <div className="absolute inset-0 opacity-25" aria-hidden>
+                            <div className="absolute -left-8 -top-8 h-20 w-20 rounded-full bg-(--brand-blue)/15 blur-2xl" />
+                            <div className="absolute -right-8 -bottom-8 h-20 w-20 rounded-full bg-(--brand-green)/15 blur-2xl" />
+                          </div>
+
+                          {/* label */}
+                          <div className="relative flex h-full items-end p-2.5">
+                            <div className="inline-flex rounded-md bg-white/85 px-2 py-1 text-[11px] font-extrabold text-slate-900 shadow-sm">
+                              {item.label}
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                  </div>
+                </div>
+
+                <div className="mt-3 text-xs font-semibold text-slate-700">
+                  Exemples de créations (vos visuels) — posts, stories, supports, slides.
+                </div>
+              </div>
+
+              {/* Différenciant : Études commerciales (bandeau compact) */}
+              <div className="rounded-3xl border border-black/10 bg-white p-5 md:col-span-2 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="flex items-start gap-3">
+                    <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-slate-100 text-slate-900">
+                      <Icon name="hand" className="h-5 w-5" />
+                    </span>
+                    <div>
+                      <div className="text-sm font-extrabold text-slate-900">Études commerciales</div>
+                      <div className="text-sm text-slate-600">Enquête • analyse • plan d’actions</div>
+                    </div>
+                  </div>
+
+                  <span className="inline-flex items-center rounded-full bg-(--brand-blue)/10 px-2.5 py-1 text-xs font-semibold text-(--brand-blue)">
+                    Différenciant
+                  </span>
+                </div>
+
+                <p className="mt-3 text-sm text-slate-700">
+                  On part du terrain (clients, besoins, objections) pour décider quoi dire, à qui, et avec quels supports.
+                </p>
+
+                <div className="mt-3 flex flex-wrap gap-2">
+                  <span className="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700">
+                    Comprendre
+                  </span>
+                  <span className="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700">
+                    Prioriser
+                  </span>
+                  <span className="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700">
+                    Agir
+                  </span>
+                </div>
+              </div>
+
+              <div className="rounded-3xl border border-black/10 bg-white p-5 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                <div className="flex items-center gap-3">
+                  <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-(--brand-green)/10 text-(--brand-green)">
+                    <Icon name="spark" className="h-5 w-5" />
+                  </span>
+                  <div>
+                    <div className="text-sm font-extrabold text-slate-900">Contenu & réseaux sociaux</div>
+                    <div className="text-sm text-slate-600">Calendrier • posts • stories • cohérence</div>
+                  </div>
+                </div>
+                <p className="mt-3 text-sm text-slate-700">
+                  Une présence régulière : contenus utiles, ton cohérent, messages clairs — sans improvisation.
+                </p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <span className="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700">
+                    Régularité
+                  </span>
+                  <span className="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700">
+                    Confiance
+                  </span>
+                  <span className="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700">
+                    Demandes
+                  </span>
+                </div>
+              </div>
+
+              <div className="rounded-3xl border border-black/10 bg-white p-5 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                <div className="flex items-center gap-3">
+                  <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-(--brand-blue)/10 text-(--brand-blue)">
+                    <Icon name="shield" className="h-5 w-5" />
+                  </span>
+                  <div>
+                    <div className="text-sm font-extrabold text-slate-900">Identité & supports</div>
+                    <div className="text-sm text-slate-600">Logo • charte • documents</div>
+                  </div>
+                </div>
+                <p className="mt-3 text-sm text-slate-700">
+                  On rend votre entreprise “présentable” : logo, styles, devis, présentation, plaquette — cohérents et sérieux.
+                </p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  <Link
+                    href="/services/identite-visuelle-supports"
+                    className="inline-flex items-center text-sm font-semibold text-(--brand-blue) hover:opacity-90"
+                  >
+                    Voir Identité & supports →
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <style>{`
+            @media (prefers-reduced-motion: no-preference) {
+              #communication .studio-marquee {
+                animation: studioMarquee 18s linear infinite;
+                will-change: transform;
+              }
+              #communication .studio-tile::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.65) 50%, transparent 100%);
+                transform: translateX(-120%);
+                opacity: 0.0;
+                transition: opacity 200ms ease;
+              }
+              #communication .studio-tile:hover::after {
+                opacity: 0.55;
+                transform: translateX(120%);
+                transition: transform 700ms ease, opacity 200ms ease;
+              }
+            }
+
+            @keyframes studioMarquee {
+              from { transform: translateX(0); }
+              to { transform: translateX(-50%); }
+            }
+          `}</style>
+        </div>
+        </div>
+      </section>
+
       {/* TRANSITION 3 */}
       <section className="reveal home-section">
         <div className="rounded-2xl border border-slate-200 bg-slate-50 px-6 py-4 text-center">
@@ -1145,20 +1401,21 @@ export default function HomePage() {
               <Icon name="spark" className="h-4 w-4" />
             </div>
             <div>
-              <div className="text-sm font-extrabold text-slate-900">Souvent nécessaire : Identité visuelle & supports</div>
+              <div className="text-sm font-extrabold text-slate-900">Souvent nécessaire : Communication & image de marque</div>
               <p className="mt-1 text-sm text-slate-600">
-                Pour inspirer confiance dès le premier contact. Ce travail accompagne souvent un site (Convertir), la
-                visibilité (Attirer) et la cohérence des documents (Structurer / Sécuriser).
+                Pour inspirer confiance dès le premier contact : réseaux sociaux, contenus, supports et cohérence de
+                l'image. Ce travail accompagne souvent un site (Convertir), la visibilité (Attirer) et la cohérence des
+                documents (Structurer / Sécuriser).
               </p>
               <div className="mt-3 flex flex-wrap gap-2">
                 <Link
-                  href="/services/identite-visuelle-supports"
+                  href="/#communication"
                   className="inline-flex items-center text-sm font-semibold text-(--brand-blue) hover:opacity-90"
                 >
-                  Voir le service →
+                  Voir Communication & image →
                 </Link>
                 <Link href="/realisations" className="inline-flex items-center text-sm font-semibold text-slate-600 hover:text-slate-900">
-                  Exemples
+                  Exemples de communication →
                 </Link>
               </div>
             </div>

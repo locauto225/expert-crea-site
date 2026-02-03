@@ -63,7 +63,7 @@ export default function RootLayout({
         <RevealOnScroll />
         <Header />
 
-        <main className="mx-auto min-h-[70vh] w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
+        <main className="mx-auto min-h-[70vh] w-full max-w-7xl 2xl:max-w-[96rem] px-4 sm:px-6 lg:px-8 py-10">
           {children}
         </main>
 
