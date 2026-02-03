@@ -33,7 +33,15 @@ function Icon({
     | "arrow"
     | "warn"
     | "link"
-    | "check";
+    | "check"
+    | "megaphone"
+    | "trending"
+    | "database"
+    | "target"
+    | "tools"
+    | "award"
+    | "users"
+    | "zap";
   className?: string;
 }) {
   const common = { className, fill: "none", stroke: "currentColor", strokeWidth: 2 };
@@ -109,6 +117,64 @@ function Icon({
           <path d="M20 6L9 17l-5-5" />
         </svg>
       );
+    case "megaphone":
+      return (
+        <svg viewBox="0 0 24 24" {...common}>
+          <path d="M3 11l18-5v12L3 13v-2z" />
+          <path d="M11.6 16.8a3 3 0 11-5.8-1.6" />
+        </svg>
+      );
+    case "trending":
+      return (
+        <svg viewBox="0 0 24 24" {...common}>
+          <path d="M22 7L13.5 15.5 8.5 10.5 2 17" />
+          <path d="M16 7h6v6" />
+        </svg>
+      );
+    case "database":
+      return (
+        <svg viewBox="0 0 24 24" {...common}>
+          <ellipse cx="12" cy="5" rx="9" ry="3" />
+          <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+          <path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3" />
+        </svg>
+      );
+    case "target":
+      return (
+        <svg viewBox="0 0 24 24" {...common}>
+          <circle cx="12" cy="12" r="10" />
+          <circle cx="12" cy="12" r="6" />
+          <circle cx="12" cy="12" r="2" />
+        </svg>
+      );
+    case "tools":
+      return (
+        <svg viewBox="0 0 24 24" {...common}>
+          <path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z" />
+        </svg>
+      );
+    case "award":
+      return (
+        <svg viewBox="0 0 24 24" {...common}>
+          <circle cx="12" cy="8" r="6" />
+          <path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11" />
+        </svg>
+      );
+    case "users":
+      return (
+        <svg viewBox="0 0 24 24" {...common}>
+          <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+          <circle cx="9" cy="7" r="4" />
+          <path d="M23 21v-2a4 4 0 00-3-3.87" />
+          <path d="M16 3.13a4 4 0 010 7.75" />
+        </svg>
+      );
+    case "zap":
+      return (
+        <svg viewBox="0 0 24 24" {...common}>
+          <path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z" />
+        </svg>
+      );
   }
 }
 
@@ -120,274 +186,6 @@ function Bullet({ children }: { children: ReactNode }) {
       </span>
       <span className="text-slate-700">{children}</span>
     </li>
-  );
-}
-
-function InterfacageSchema() {
-  return (
-    <div id="interfacage-schema" className="schema-anim rounded-3xl border border-black/10 bg-white p-6">
-      <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
-        <div>
-          <div className="text-sm font-semibold text-slate-900">Schéma simple</div>
-          <div className="text-sm text-slate-600">Outil existant → Interfaçage → Conformité</div>
-        </div>
-        <div className="text-xs font-semibold text-slate-500">Compréhension immédiate</div>
-      </div>
-
-      <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-black/10 bg-slate-50 px-3 py-1 text-xs font-semibold text-slate-700">
-        <span className="h-2 w-2 rounded-full bg-(--brand-blue)" />
-        Schéma — compréhension immédiate
-      </div>
-
-      {/* Mobile: version verticale */}
-      <div className="mt-4 md:hidden">
-        <div className="space-y-3">
-          <div className="rounded-2xl border border-black/10 bg-white p-4">
-            <div className="flex items-center gap-3">
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-(--brand-blue)/10 text-(--brand-blue)">
-                <Icon name="grid" className="h-5 w-5" />
-              </span>
-              <div>
-                <div className="text-sm font-bold text-slate-900">Outil existant</div>
-                <div className="text-sm text-slate-600">Excel / logiciel / app</div>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex items-center justify-center py-1">
-            <span aria-hidden className="h-6 w-px rounded-full bg-black/10" />
-          </div>
-
-          <div className="rounded-2xl border border-(--brand-blue)/20 bg-(--brand-blue)/5 p-4 shadow-sm">
-            <div className="flex items-center gap-3">
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-(--brand-blue)/10 text-(--brand-blue)">
-                <Icon name="link" className="h-5 w-5" />
-              </span>
-              <div>
-                <div className="text-sm font-bold text-slate-900">Interfaçage Expert Créa</div>
-                <div className="text-sm text-slate-600">Connexion • adaptation • automatisation</div>
-                <div className="mt-1 text-xs font-semibold text-slate-500">Sans arrêter l'activité</div>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex items-center justify-center py-1">
-            <span aria-hidden className="h-6 w-px rounded-full bg-black/10" />
-          </div>
-
-          <div className="rounded-2xl border border-black/10 bg-white p-4">
-            <div className="flex items-center gap-3">
-              <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-(--brand-green)/10 text-(--brand-green)">
-                <Icon name="shield" className="h-5 w-5" />
-              </span>
-              <div>
-                <div className="text-sm font-bold text-slate-900">Conformité</div>
-                <div className="text-sm text-slate-600">suivi • sécurité</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <p className="mt-4 text-sm text-slate-600">
-          On connecte l'existant aux exigences de conformité{" "}
-          <span className="font-semibold">sans arrêter l'activité</span>.
-        </p>
-      </div>
-
-      {/* Desktop: schéma horizontal animé */}
-      <div className="mt-4 hidden overflow-hidden rounded-2xl border border-black/10 bg-linear-to-b from-slate-50 to-white p-4 md:block">
-        <svg
-          viewBox="0 0 960 240"
-          className="h-auto w-full"
-          role="img"
-          aria-label="Schéma interfaçage : outil existant, interfaçage, conformité"
-        >
-          <defs>
-            <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0" stopColor="rgba(0,0,0,0.06)" />
-              <stop offset="1" stopColor="rgba(0,0,0,0.02)" />
-            </linearGradient>
-            <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
-              <path d="M0,0 L10,5 L0,10 z" fill="currentColor" />
-            </marker>
-          </defs>
-
-          <g>
-            <rect x="40" y="60" width="260" height="120" rx="20" fill="white" stroke="rgba(0,0,0,0.12)" />
-            <rect x="350" y="40" width="260" height="160" rx="24" fill="url(#g1)" stroke="rgba(0,0,0,0.12)" />
-            <rect x="660" y="60" width="260" height="120" rx="20" fill="white" stroke="rgba(0,0,0,0.12)" />
-            <rect x="660" y="60" width="260" height="120" rx="20" className="ok-glow" />
-
-            <text x="170" y="105" textAnchor="middle" fontSize="18" fill="rgba(15,23,42,0.95)" fontWeight="700">
-              Outil existant
-            </text>
-            <text x="170" y="135" textAnchor="middle" fontSize="14" fill="rgba(15,23,42,0.65)">
-              Excel / logiciel / app
-            </text>
-
-            <text x="480" y="95" textAnchor="middle" fontSize="18" fill="rgba(15,23,42,0.95)" fontWeight="800">
-              Interfaçage Expert Créa
-            </text>
-            <text x="480" y="125" textAnchor="middle" fontSize="14" fill="rgba(15,23,42,0.65)">
-              Connexion • adaptation • automatisation
-            </text>
-            <text x="480" y="152" textAnchor="middle" fontSize="14" fill="rgba(15,23,42,0.65)">
-              Sans arrêter l'activité
-            </text>
-
-            <text x="790" y="105" textAnchor="middle" fontSize="18" fill="rgba(15,23,42,0.95)" fontWeight="700">
-              Conformité
-            </text>
-            <text x="790" y="135" textAnchor="middle" fontSize="14" fill="rgba(15,23,42,0.65)">
-              suivi • sécurité
-            </text>
-
-            <g color="rgba(0,145,255,0.85)">
-              <path
-                d="M300 120 C320 120, 330 120, 350 120"
-                className="flow-path p1"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="4"
-                markerEnd="url(#arrow)"
-              />
-              <path
-                d="M610 120 C630 120, 640 120, 660 120"
-                className="flow-path p2"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="4"
-                markerEnd="url(#arrow)"
-              />
-
-              <circle className="flow-dot d1" cx="300" cy="120" r="5" fill="currentColor" />
-              <circle className="flow-dot d2" cx="610" cy="120" r="5" fill="currentColor" />
-            </g>
-          </g>
-        </svg>
-      </div>
-
-      <Script id="interfacage-schema-io" strategy="afterInteractive">
-        {`(() => {
-  try {
-    const host = document.getElementById('interfacage-schema');
-    if (!host) return;
-
-    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduce) {
-      host.style.setProperty('--p1', '1');
-      host.style.setProperty('--p2', '1');
-      host.style.setProperty('--dot1o', '0');
-      host.style.setProperty('--dot2o', '0');
-      host.style.setProperty('--ok', '0');
-      return;
-    }
-
-    let raf = 0;
-    let running = false;
-
-    const clamp01 = (n) => Math.max(0, Math.min(1, n));
-
-    const update = () => {
-      if (!running) return;
-
-      const rect = host.getBoundingClientRect();
-      const vh = window.innerHeight || 0;
-
-      const start = vh * 0.85;
-      const end = -rect.height * 0.15;
-      const p = clamp01((start - rect.top) / (start - end));
-
-      const p1 = clamp01(p * 1.15);
-      const p2 = clamp01((p - 0.18) * 1.18);
-
-      const dot1o = clamp01(1 - Math.abs(p1 - 0.5) * 2) * 0.85;
-      const dot2o = clamp01(1 - Math.abs(p2 - 0.5) * 2) * 0.85;
-
-      const ok = clamp01((p2 - 0.15) * 1.2);
-
-      host.style.setProperty('--p1', p1.toFixed(4));
-      host.style.setProperty('--p2', p2.toFixed(4));
-      host.style.setProperty('--dot1o', dot1o.toFixed(4));
-      host.style.setProperty('--dot2o', dot2o.toFixed(4));
-      host.style.setProperty('--ok', ok.toFixed(4));
-
-      raf = window.requestAnimationFrame(update);
-    };
-
-    const io = new IntersectionObserver(
-      (entries) => {
-        const e = entries && entries[0];
-        if (e && e.isIntersecting) {
-          if (!running) {
-            running = true;
-            raf = window.requestAnimationFrame(update);
-          }
-        } else {
-          running = false;
-          if (raf) window.cancelAnimationFrame(raf);
-        }
-      },
-      { threshold: 0.05, rootMargin: '120px 0px 120px 0px' }
-    );
-
-    io.observe(host);
-    return () => {
-      running = false;
-      if (raf) window.cancelAnimationFrame(raf);
-      io.disconnect();
-    };
-  } catch (e) {}
-})();`}
-      </Script>
-
-      <style>{`
-        @media (prefers-reduced-motion: reduce) {
-          #interfacage-schema .flow-path,
-          #interfacage-schema .flow-dot,
-          #interfacage-schema .ok-glow {
-            animation: none !important;
-            transition: none !important;
-            filter: none !important;
-          }
-          #interfacage-schema .flow-path { stroke-dashoffset: 0 !important; }
-          #interfacage-schema .flow-dot { opacity: 0 !important; }
-          #interfacage-schema .ok-glow { opacity: 0 !important; }
-        }
-
-        #interfacage-schema { --p1: 0; --p2: 0; --dot1o: 0; --dot2o: 0; --ok: 0; }
-
-        #interfacage-schema .flow-path {
-          stroke-dasharray: 90;
-          stroke-linecap: round;
-          stroke-linejoin: round;
-          transition: stroke-dashoffset 60ms linear;
-          filter: drop-shadow(0 0 6px rgba(0, 145, 255, 0.22));
-        }
-        #interfacage-schema .flow-path.p1 { stroke-dashoffset: calc(90 * (1 - var(--p1))); }
-        #interfacage-schema .flow-path.p2 { stroke-dashoffset: calc(90 * (1 - var(--p2))); }
-
-        #interfacage-schema .flow-dot {
-          transition: transform 60ms linear, opacity 80ms linear;
-          filter: drop-shadow(0 0 6px rgba(0, 145, 255, 0.22));
-        }
-        #interfacage-schema .flow-dot.d1 {
-          opacity: var(--dot1o);
-          transform: translateX(calc(52px * var(--p1)));
-        }
-        #interfacage-schema .flow-dot.d2 {
-          opacity: var(--dot2o);
-          transform: translateX(calc(52px * var(--p2)));
-        }
-
-        #interfacage-schema .ok-glow {
-          fill: rgba(0, 145, 255, 0.10);
-          stroke: rgba(0, 145, 255, 0.28);
-          opacity: var(--ok);
-          transition: opacity 120ms linear;
-        }
-      `}</style>
-    </div>
   );
 }
 
@@ -403,7 +201,7 @@ export default function HomePage() {
       >
         {/* Animated particles background */}
         <div className="hero-particles pointer-events-none absolute inset-0 opacity-30" aria-hidden>
-          {[...Array(20)].map((_, i) => (
+          {[...Array(8)].map((_, i) => (
             <div
               key={i}
               className="particle absolute h-1 w-1 rounded-full bg-white"
@@ -919,10 +717,10 @@ export default function HomePage() {
             </div>
 
             <ul className="mt-6 space-y-3">
-              <Bullet>La conformité (FNE, etc.) complique la facturation et crée du stress</Bullet>
-              <Bullet>Des outils existants non conformes ou mal adaptés</Bullet>
-              <Bullet>Beaucoup de temps perdu entre Excel, WhatsApp, cahiers et logiciels isolés</Bullet>
               <Bullet>Des sites internet qui existent, mais ne génèrent aucune demande</Bullet>
+              <Bullet>Beaucoup de temps perdu entre Excel, WhatsApp, cahiers et logiciels isolés</Bullet>
+              <Bullet>La conformité et la facturation compliquent le quotidien</Bullet>
+              <Bullet>Des outils existants non conformes ou mal adaptés</Bullet>
               <Bullet>La peur de mal faire (erreurs, sanctions, blocage)</Bullet>
             </ul>
 
@@ -942,6 +740,8 @@ export default function HomePage() {
                   className="object-cover object-center"
                   sizes="(min-width: 1024px) 520px, 100vw"
                   priority={false}
+                  loading="lazy"
+                  quality={85}
                 />
               </div>
             </div>
@@ -975,7 +775,7 @@ export default function HomePage() {
             <div className="mt-6 grid gap-3 md:grid-cols-2">
               <div className="feature-card rounded-2xl border border-black/10 bg-white p-4 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                 <div className="flex items-center gap-2">
-                  <Icon name="hand" className="h-5 w-5 text-slate-900" />
+                  <Icon name="users" className="h-5 w-5 text-slate-900" />
                   <div className="text-sm font-extrabold text-slate-900">Simple à utiliser</div>
                 </div>
                 <div className="mt-1 text-sm text-slate-600">Compréhensible par vos équipes, sans usine à gaz.</div>
@@ -996,7 +796,7 @@ export default function HomePage() {
               </div>
               <div className="feature-card rounded-2xl border border-black/10 bg-white p-4 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
                 <div className="flex items-center gap-2">
-                  <Icon name="spark" className="h-5 w-5 text-slate-900" />
+                  <Icon name="zap" className="h-5 w-5 text-slate-900" />
                   <div className="text-sm font-extrabold text-slate-900">V1 utile rapide</div>
                 </div>
                 <div className="mt-1 text-sm text-slate-600">Livrer vite, tester, ajuster — pas de projet interminable.</div>
@@ -1013,6 +813,8 @@ export default function HomePage() {
                   fill
                   className="object-cover object-center"
                   sizes="(min-width: 1024px) 520px, 100vw"
+                  loading="lazy"
+                  quality={85}
                 />
               </div>
             </div>
@@ -1103,41 +905,35 @@ export default function HomePage() {
 
             <div className="grid gap-4 md:grid-cols-2">
               {/* Studio showcase (premium) */}
-              <div className="relative overflow-hidden rounded-3xl border border-black/10 bg-white/70 p-3.5 backdrop-blur md:col-span-2">
+              <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-3.5 backdrop-blur md:col-span-2">
                 <div className="flex items-center justify-between gap-3">
                   <div>
-                    <div className="text-sm font-extrabold text-slate-900">Aperçu de créations</div>
-                    <div className="text-xs font-semibold text-slate-700">Exemples de formats : posts, supports, templates</div>
+                    <div className="text-sm font-extrabold text-white">Aperçu de créations</div>
+                    <div className="text-xs font-semibold text-white/75">Exemples de formats : posts, supports, templates</div>
                   </div>
-                  <span className="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700">
+                  <span className="inline-flex items-center rounded-full bg-white/10 px-2.5 py-1 text-xs font-semibold text-white/80">
                     Studio
                   </span>
                 </div>
 
-                <div className="mt-3 overflow-hidden rounded-2xl border border-black/10 bg-linear-to-b from-white to-slate-50">
+                <div className="mt-3 overflow-hidden rounded-2xl border border-white/10 bg-white/5">
                   <div className="studio-marquee flex gap-3 p-2.5" aria-hidden>
                     {(
                       [
-                        { label: "Post", src: "/home/studio/post.webp", alt: "Exemple de post" },
-                        { label: "Story", src: "/home/studio/story.webp", alt: "Exemple de story" },
+                        { label: "Post social", src: "/home/studio/social-post.webp", alt: "Exemple de post réseaux sociaux" },
                         { label: "Flyer", src: "/home/studio/flyer.webp", alt: "Exemple de flyer" },
-                        { label: "Template", src: "/home/studio/template.webp", alt: "Exemple de template" },
-                        { label: "Brand kit", src: "/home/studio/brand-kit.webp", alt: "Exemple de brand kit" },
-                        { label: "Présentation", src: "/home/studio/presentation.webp", alt: "Exemple de slide" },
+                        { label: "Brand kit", src: "/home/studio/brand-kit.webp", alt: "Exemple de charte graphique" },
                       ] as const
                     )
                       .concat([
-                        { label: "Post", src: "/home/studio/post.webp", alt: "Exemple de post" },
-                        { label: "Story", src: "/home/studio/story.webp", alt: "Exemple de story" },
+                        { label: "Post social", src: "/home/studio/social-post.webp", alt: "Exemple de post réseaux sociaux" },
                         { label: "Flyer", src: "/home/studio/flyer.webp", alt: "Exemple de flyer" },
-                        { label: "Template", src: "/home/studio/template.webp", alt: "Exemple de template" },
-                        { label: "Brand kit", src: "/home/studio/brand-kit.webp", alt: "Exemple de brand kit" },
-                        { label: "Présentation", src: "/home/studio/presentation.webp", alt: "Exemple de slide" },
+                        { label: "Brand kit", src: "/home/studio/brand-kit.webp", alt: "Exemple de charte graphique" },
                       ])
                       .map((item, idx) => (
                         <div
                           key={idx}
-                          className="studio-tile relative h-18 w-24 shrink-0 overflow-hidden rounded-xl border border-black/10 bg-white shadow-sm"
+                          className="studio-tile relative h-18 w-24 shrink-0 overflow-hidden rounded-xl border border-white/10 bg-white/5 shadow-sm"
                         >
                           {/* image */}
                           <div className="absolute inset-0">
@@ -1147,8 +943,10 @@ export default function HomePage() {
                               fill
                               className="object-cover object-center"
                               sizes="96px"
+                              loading="lazy"
+                              quality={75}
                             />
-                            <div className="absolute inset-0 bg-linear-to-b from-white/0 via-white/0 to-white/65" aria-hidden />
+                            <div className="absolute inset-0 bg-linear-to-b from-black/0 via-black/0 to-black/55" aria-hidden />
                           </div>
 
                           {/* fallback glow (kept for premium feel) */}
@@ -1159,7 +957,7 @@ export default function HomePage() {
 
                           {/* label */}
                           <div className="relative flex h-full items-end p-2.5">
-                            <div className="inline-flex rounded-md bg-white/85 px-2 py-1 text-[11px] font-extrabold text-slate-900 shadow-sm">
+                            <div className="inline-flex rounded-md bg-black/35 px-2 py-1 text-[11px] font-extrabold text-white shadow-sm border border-white/10">
                               {item.label}
                             </div>
                           </div>
@@ -1168,21 +966,21 @@ export default function HomePage() {
                   </div>
                 </div>
 
-                <div className="mt-3 text-xs font-semibold text-slate-700">
-                  Exemples de créations (vos visuels) — posts, stories, supports, slides.
+                <div className="mt-3 text-xs font-semibold text-white/75">
+                  Exemples de créations — posts sociaux, supports, identité visuelle.
                 </div>
               </div>
 
               {/* Différenciant : Études commerciales (bandeau compact) */}
-              <div className="rounded-3xl border border-black/10 bg-white p-5 md:col-span-2 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+              <div className="rounded-3xl border border-white/10 bg-white/5 p-5 md:col-span-2 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-start gap-3">
                     <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-slate-100 text-slate-900">
-                      <Icon name="hand" className="h-5 w-5" />
+                      <Icon name="target" className="h-5 w-5" />
                     </span>
                     <div>
-                      <div className="text-sm font-extrabold text-slate-900">Études commerciales</div>
-                      <div className="text-sm text-slate-600">Enquête • analyse • plan d’actions</div>
+                      <div className="text-sm font-extrabold text-white">Études commerciales</div>
+                      <div className="text-sm text-white/75">Enquête • analyse • plan d’actions</div>
                     </div>
                   </div>
 
@@ -1191,60 +989,60 @@ export default function HomePage() {
                   </span>
                 </div>
 
-                <p className="mt-3 text-sm text-slate-700">
+                <p className="mt-3 text-sm text-white/75">
                   On part du terrain (clients, besoins, objections) pour décider quoi dire, à qui, et avec quels supports.
                 </p>
 
                 <div className="mt-3 flex flex-wrap gap-2">
-                  <span className="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700">
+                  <span className="inline-flex items-center rounded-full bg-white/10 px-2.5 py-1 text-xs font-semibold text-white/80">
                     Comprendre
                   </span>
-                  <span className="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700">
+                  <span className="inline-flex items-center rounded-full bg-white/10 px-2.5 py-1 text-xs font-semibold text-white/80">
                     Prioriser
                   </span>
-                  <span className="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700">
+                  <span className="inline-flex items-center rounded-full bg-white/10 px-2.5 py-1 text-xs font-semibold text-white/80">
                     Agir
                   </span>
                 </div>
               </div>
 
-              <div className="rounded-3xl border border-black/10 bg-white p-5 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+              <div className="rounded-3xl border border-white/10 bg-white/5 p-5 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                 <div className="flex items-center gap-3">
                   <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-(--brand-green)/10 text-(--brand-green)">
-                    <Icon name="spark" className="h-5 w-5" />
+                    <Icon name="megaphone" className="h-5 w-5" />
                   </span>
                   <div>
-                    <div className="text-sm font-extrabold text-slate-900">Contenu & réseaux sociaux</div>
-                    <div className="text-sm text-slate-600">Calendrier • posts • stories • cohérence</div>
+                    <div className="text-sm font-extrabold text-white">Contenu & réseaux sociaux</div>
+                    <div className="text-sm text-white/75">Calendrier • posts • stories • cohérence</div>
                   </div>
                 </div>
-                <p className="mt-3 text-sm text-slate-700">
+                <p className="mt-3 text-sm text-white/75">
                   Une présence régulière : contenus utiles, ton cohérent, messages clairs — sans improvisation.
                 </p>
                 <div className="mt-4 flex flex-wrap gap-2">
-                  <span className="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700">
+                  <span className="inline-flex items-center rounded-full bg-white/10 px-2.5 py-1 text-xs font-semibold text-white/80">
                     Régularité
                   </span>
-                  <span className="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700">
+                  <span className="inline-flex items-center rounded-full bg-white/10 px-2.5 py-1 text-xs font-semibold text-white/80">
                     Confiance
                   </span>
-                  <span className="inline-flex items-center rounded-full bg-slate-100 px-2.5 py-1 text-xs font-semibold text-slate-700">
+                  <span className="inline-flex items-center rounded-full bg-white/10 px-2.5 py-1 text-xs font-semibold text-white/80">
                     Demandes
                   </span>
                 </div>
               </div>
 
-              <div className="rounded-3xl border border-black/10 bg-white p-5 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+              <div className="rounded-3xl border border-white/10 bg-white/5 p-5 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
                 <div className="flex items-center gap-3">
                   <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-(--brand-blue)/10 text-(--brand-blue)">
-                    <Icon name="shield" className="h-5 w-5" />
+                    <Icon name="award" className="h-5 w-5" />
                   </span>
                   <div>
-                    <div className="text-sm font-extrabold text-slate-900">Identité & supports</div>
-                    <div className="text-sm text-slate-600">Logo • charte • documents</div>
+                    <div className="text-sm font-extrabold text-white">Identité & supports</div>
+                    <div className="text-sm text-white/75">Logo • charte • documents</div>
                   </div>
                 </div>
-                <p className="mt-3 text-sm text-slate-700">
+                <p className="mt-3 text-sm text-white/75">
                   On rend votre entreprise “présentable” : logo, styles, devis, présentation, plaquette — cohérents et sérieux.
                 </p>
                 <div className="mt-4 flex flex-wrap gap-2">
@@ -1294,7 +1092,7 @@ export default function HomePage() {
       <section className="reveal home-section">
         <div className="rounded-2xl border border-slate-200 bg-slate-50 px-6 py-4 text-center">
           <p className="text-sm font-semibold text-slate-700">
-            <span className="text-slate-900">Ça donne quoi en pratique ?</span> Nos 4 solutions principales.
+            <span className="text-slate-900">Ça donne quoi en pratique ?</span> Nos solutions principales.
           </p>
         </div>
       </section>
@@ -1319,7 +1117,7 @@ export default function HomePage() {
             },
             {
               href: "/services/creation-site-web",
-              icon: "spark" as const,
+              icon: "trending" as const,
               title: "Convertir",
               badge: "Demandes",
               color: "green",
@@ -1328,7 +1126,7 @@ export default function HomePage() {
             },
             {
               href: "/services/extranet-outils-gestion",
-              icon: "grid" as const,
+              icon: "database" as const,
               title: "Structurer",
               badge: "Organisation",
               color: "green",
@@ -1398,7 +1196,7 @@ export default function HomePage() {
         <div className="mt-6 rounded-2xl border border-black/10 bg-slate-50 p-6">
           <div className="flex items-start gap-3">
             <div className="rounded-xl bg-(--brand-green)/10 p-2 text-(--brand-green)">
-              <Icon name="spark" className="h-4 w-4" />
+              <Icon name="megaphone" className="h-4 w-4" />
             </div>
             <div>
               <div className="text-sm font-extrabold text-slate-900">Souvent nécessaire : Communication & image de marque</div>
@@ -1436,64 +1234,6 @@ export default function HomePage() {
             }
           }
         `}</style>
-      </section>
-
-      <div className="home-divider" aria-hidden />
-
-      {/* TRANSITION 4 */}
-      <section className="reveal home-section">
-        <div className="rounded-2xl border border-slate-200 bg-slate-50 px-6 py-4 text-center">
-          <p className="text-sm font-semibold text-slate-700">
-            <span className="text-slate-900">Un point clé :</span> on n'écrase pas l'existant. On l'adapte.
-          </p>
-        </div>
-      </section>
-
-      {/* 5) FOCUS INTERFAÇAGE */}
-      <section className="reveal home-section">
-        <div className="flex items-start gap-3">
-          <div className="rounded-2xl bg-slate-100 p-2 text-slate-900">
-            <Icon name="link" />
-          </div>
-          <div>
-            <h2 className="text-2xl font-extrabold tracking-tight">
-              Vous avez déjà un outil ? On ne le remplace pas. On l'adapte.
-            </h2>
-            <p className="mt-1 text-slate-600">
-              De nombreuses entreprises disposent déjà d'un logiciel, d'un système interne ou d'un outil métier.
-            </p>
-          </div>
-        </div>
-
-        <p className="mt-5 text-slate-700">
-          Nous mettons en place des solutions <span className="font-semibold">d'interfaçage</span> pour connecter
-          l'existant aux exigences actuelles de conformité, sans arrêter l'activité ni repartir de zéro.
-        </p>
-
-        <div className="mt-6">
-          <InterfacageSchema />
-        </div>
-
-        <div className="mt-6 grid gap-3 md:grid-cols-4">
-          {[
-            { label: "Continuité", icon: "bolt" as const },
-            { label: "Conformité", icon: "shield" as const },
-            { label: "Gain de temps", icon: "spark" as const },
-            { label: "Zéro rupture", icon: "check" as const },
-          ].map((x) => (
-            <div
-              key={x.label}
-              className="rounded-2xl border border-black/10 bg-white p-4 hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
-            >
-              <div className="flex items-center gap-2 text-slate-900">
-                <span className="rounded-xl bg-slate-100 p-2">
-                  <Icon name={x.icon} className="h-4 w-4" />
-                </span>
-                <div className="font-semibold">{x.label}</div>
-              </div>
-            </div>
-          ))}
-        </div>
       </section>
 
       <div className="home-divider" aria-hidden />
@@ -1537,19 +1277,19 @@ export default function HomePage() {
                 k: "01",
                 title: "On comprend votre situation réelle",
                 desc: "On regarde le fonctionnement actuel, les contraintes, et ce qui bloque vraiment.",
-                icon: "hand" as const,
+                icon: "target" as const,
               },
               {
                 k: "02",
                 title: "On livre une V1 utile rapidement",
                 desc: "Vous voyez, vous testez, on ajuste — sans bloquer l'activité.",
-                icon: "bolt" as const,
+                icon: "zap" as const,
               },
               {
                 k: "03",
                 title: "On ajuste & on optimise",
                 desc: "On améliore sur des retours concrets : adoption, visibilité, conversion, suivi.",
-                icon: "spark" as const,
+                icon: "tools" as const,
               },
             ].map((s, idx) => (
               <div
@@ -1688,16 +1428,15 @@ export default function HomePage() {
           <div className="testimonial-card rounded-3xl border border-black/10 bg-white p-6 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500">
             <div className="flex items-start gap-3">
               <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-(--brand-blue) to-(--brand-green) text-sm font-extrabold text-white">
-                M
+                K
               </div>
               <div>
-                <div className="text-sm font-extrabold text-slate-900">Marie K.</div>
-                <div className="text-xs font-semibold text-slate-600">Directrice — Distribution</div>
+                <div className="text-sm font-extrabold text-slate-900">Koffi M.</div>
+                <div className="text-xs font-semibold text-slate-600">Gérant — Restauration</div>
               </div>
             </div>
             <p className="mt-4 text-slate-700">
-              "Expert Créa a simplifié notre facturation FNE en 2 semaines. Zéro blocage, tout a continué pendant la
-              mise en place. On a gagné 15h par semaine."
+              "Avant, on n'apparaissait pas sur Google Maps. Maintenant on est visible, les avis sont bons, et on reçoit des appels tous les jours."
             </p>
           </div>
 
@@ -1723,20 +1462,19 @@ export default function HomePage() {
                 A
               </div>
               <div>
-                <div className="text-sm font-extrabold text-slate-900">Amadou T.</div>
-                <div className="text-xs font-semibold text-slate-600">DG — Import/Export</div>
+                <div className="text-sm font-extrabold text-slate-900">Aya S.</div>
+                <div className="text-xs font-semibold text-slate-600">Directrice — Logistique</div>
               </div>
             </div>
             <p className="mt-4 text-slate-700">
-              "L'interfaçage entre notre logiciel existant et les obligations FNE a été fait proprement. Pas de
-              remplacement, juste une connexion qui marche."
+              "On gérait tout sur Excel et WhatsApp. L'outil de suivi qu'ils ont créé a simplifié notre organisation. On gagne du temps et on fait moins d'erreurs."
             </p>
           </div>
 
           <div className="rounded-3xl border border-black/10 bg-slate-50 p-6 hover:shadow-xl transition-all duration-500">
             <div className="flex items-center gap-3">
               <div className="rounded-2xl bg-(--brand-blue)/10 p-2 text-(--brand-blue)">
-                <Icon name="spark" className="h-5 w-5" />
+                <Icon name="award" className="h-5 w-5" />
               </div>
               <div>
                 <div className="text-sm font-extrabold text-slate-900">Dernière réalisation</div>
@@ -1751,6 +1489,8 @@ export default function HomePage() {
                   fill
                   className="object-cover object-center"
                   sizes="(min-width: 768px) 320px, 100vw"
+                  loading="lazy"
+                  quality={85}
                 />
               </div>
             </div>
