@@ -53,7 +53,7 @@ export default function RootLayout({
 
   return (
     <html lang="fr" suppressHydrationWarning>
-      <body>
+      <body className="min-h-screen overflow-x-hidden scroll-pt-[var(--header-h)]">
         {/* ✅ Ajoute "js" le plus tôt possible (gating reveal),
             et on supprime l’avertissement d’hydratation via suppressHydrationWarning */}
         <Script id="js-ready" strategy="beforeInteractive">
@@ -63,7 +63,7 @@ export default function RootLayout({
         <RevealOnScroll />
         <Header />
 
-        <main className="mx-auto min-h-[70vh] w-full max-w-7xl 2xl:max-w-[96rem] px-4 sm:px-6 lg:px-8 py-10">
+        <main className="min-h-[70vh] w-full pt-[var(--header-h)]">
           {children}
         </main>
 

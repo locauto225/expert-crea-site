@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import { site } from "@/lib/site";
 
 const sectors = [
@@ -31,8 +32,18 @@ const delays = [
   "Flexible",
 ];
 
-export function ContactForm() {
+type ContactFormProps = {
+  defaultMessage?: string;
+};
+
+export function ContactForm({ defaultMessage = "" }: ContactFormProps) {
   const router = useRouter();
+
+  const [details, setDetails] = useState(defaultMessage);
+
+  useEffect(() => {
+    setDetails(defaultMessage);
+  }, [defaultMessage]);
 
   function buildMessage(data: FormData) {
     const payload = {
@@ -219,6 +230,8 @@ export function ContactForm() {
               name="details"
               required
               rows={5}
+              value={details}
+              onChange={(e) => setDetails(e.target.value)}
               placeholder="Ex : Je veux augmenter les réservations directes / avoir un site pro / organiser mes commandes…"
               className="w-full rounded-xl border border-black/10 bg-white px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-[var(--brand-blue)]"
             />

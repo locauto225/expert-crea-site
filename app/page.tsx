@@ -4,16 +4,16 @@ import Link from "next/link";
 import Image from "next/image";
 import Script from "next/script";
 import SunMark from "@/components/SunMark";
+import { HomeContainer } from "@/components/HomeContainer";
 
 export const metadata: Metadata = {
-  title:
-    "EXPERT CRÉA — Solutions digitales (sites, outils métiers, SEO local, interfaçage, conformité)",
+  title: "EXPERT CRÉA — Sites, visibilité Google & outils simples pour entreprises",
   description:
-    "EXPERT CRÉA aide les entreprises à structurer, sécuriser et développer leur activité grâce au digital : sites performants, SEO local, outils métiers/extranet, interfaçage et conformité. Côte d'Ivoire & international.",
+    "EXPERT CRÉA aide les entreprises à obtenir plus de demandes et à gagner du temps grâce à un site performant, une visibilité Google (Maps) et des outils simples. Côte d'Ivoire.",
   openGraph: {
-    title: "EXPERT CRÉA — Des solutions digitales utiles pour les entreprises",
+    title: "EXPERT CRÉA — Des solutions digitales utiles, orientées résultats",
     description:
-      "Sites performants, SEO local (Google Maps), outils métiers/extranet, interfaçage & conformité : des solutions utiles, adaptées au terrain, sans bloquer l'activité.",
+      "Plus de demandes, plus de clarté, moins de tâches manuelles : site, visibilité Google, outils simples. Côte d'Ivoire.",
     url: "/",
     type: "website",
   },
@@ -41,7 +41,9 @@ function Icon({
     | "tools"
     | "award"
     | "users"
-    | "zap";
+    | "zap"
+    | "clock"
+    | "star";
   className?: string;
 }) {
   const common = { className, fill: "none", stroke: "currentColor", strokeWidth: 2 };
@@ -175,46 +177,46 @@ function Icon({
           <path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z" />
         </svg>
       );
+    case "clock":
+      return (
+        <svg viewBox="0 0 24 24" {...common}>
+          <circle cx="12" cy="12" r="10" />
+          <path d="M12 6v6l4 2" />
+        </svg>
+      );
+    case "star":
+      return (
+        <svg viewBox="0 0 24 24" {...common} fill="currentColor">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+        </svg>
+      );
   }
 }
 
-function Bullet({ children }: { children: ReactNode }) {
+function Pill({ children }: { children: ReactNode }) {
   return (
-    <li className="flex gap-3">
-      <span className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-slate-100 text-slate-900">
-        <Icon name="check" className="h-4 w-4" />
-      </span>
-      <span className="text-slate-700">{children}</span>
-    </li>
+    <span className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-extrabold text-white/85">
+      {children}
+    </span>
   );
 }
 
 export default function HomePage() {
   return (
-    <div className="home-unified">
-      <div className="home-bg" aria-hidden />
+    <div className="relative">
 
-      {/* 1) HERO - ENHANCED */}
+      {/* ═══════════════════════════════════════
+          1) HERO — accroche, pas de CTA dur
+      ═══════════════════════════════════════ */}
       <section
         id="hero"
-        className="reveal relative left-1/2 right-1/2 w-screen -ml-[50vw] -mr-[50vw] -mt-10 min-h-[78vh] overflow-hidden bg-linear-to-b from-slate-950 via-slate-900 to-slate-950 px-6 pb-14 pt-24 text-white md:-mt-14 md:min-h-[74vh] md:px-10 md:pb-16 md:pt-28"
+        className="reveal hero-live hero-restart relative left-1/2 right-1/2 w-screen -ml-[50vw] -mr-[50vw] z-0 flex min-h-0 items-start sm:min-h-svh sm:items-center overflow-hidden bg-linear-to-b from-slate-950 via-slate-900 to-slate-950 pb-6 text-white sm:pb-10 md:pb-12"
+        // main a déjà pt-[var(--header-h)] globalement, donc ici on le compense avec -mt-[var(--header-h)], puis on remet un padding interne pour que le contenu ne passe pas sous le header.
+        style={{
+          marginTop: "calc(var(--header-h) * -1)",
+          paddingTop: "calc(var(--header-h) + 1.5rem)",
+        }}
       >
-        {/* Animated particles background */}
-        <div className="hero-particles pointer-events-none absolute inset-0 opacity-30" aria-hidden>
-          {[...Array(8)].map((_, i) => (
-            <div
-              key={i}
-              className="particle absolute h-1 w-1 rounded-full bg-white"
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 10}s`,
-                animationDuration: `${15 + Math.random() * 10}s`,
-              }}
-            />
-          ))}
-        </div>
-
         <div className="hero-bg pointer-events-none absolute inset-0 opacity-[0.22]" aria-hidden>
           <svg className="h-full w-full" viewBox="0 0 1200 600" preserveAspectRatio="none">
             <defs>
@@ -239,180 +241,218 @@ export default function HomePage() {
         </div>
 
         <div className="hero-spot pointer-events-none absolute inset-0" aria-hidden />
-        <div className="pointer-events-none absolute bottom-0 left-0 h-36 w-full bg-linear-to-b from-transparent to-slate-50" aria-hidden />
 
-        <div className="relative mx-auto w-full max-w-7xl 2xl:max-w-[96rem]">
-          <div className="grid gap-10 lg:grid-cols-12 lg:items-center">
+        <div className="hero-particles pointer-events-none absolute inset-0 hidden sm:block" aria-hidden>
+          {[
+            { left: 8, top: 18, s: 6, d: 0.0, t: 10.5, o: 0.18 },
+            { left: 16, top: 62, s: 5, d: 0.6, t: 12.0, o: 0.14 },
+            { left: 28, top: 32, s: 7, d: 1.2, t: 11.0, o: 0.16 },
+            { left: 44, top: 74, s: 5, d: 0.9, t: 13.2, o: 0.12 },
+            { left: 52, top: 24, s: 6, d: 1.8, t: 12.5, o: 0.14 },
+            { left: 66, top: 58, s: 4, d: 0.3, t: 14.0, o: 0.10 },
+            { left: 72, top: 20, s: 5, d: 1.5, t: 12.8, o: 0.13 },
+            { left: 80, top: 70, s: 6, d: 2.1, t: 11.8, o: 0.12 },
+            { left: 90, top: 40, s: 4, d: 0.75, t: 13.8, o: 0.10 },
+            { left: 36, top: 12, s: 4, d: 2.4, t: 14.6, o: 0.10 },
+          ].map((p, idx) => (
+            <span
+              key={idx}
+              className="hero-particle"
+              style={{
+                left: `${p.left}%`,
+                top: `${p.top}%`,
+                width: `${p.s}px`,
+                height: `${p.s}px`,
+                opacity: p.o,
+                animationDelay: `${p.d}s`,
+                animationDuration: `${p.t}s`,
+              } as React.CSSProperties}
+            />
+          ))}
+        </div>
+
+        <div
+          className="pointer-events-none absolute bottom-0 left-0 h-40 w-full"
+          aria-hidden
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(15,23,42,0.8) 60%, rgb(15,23,42) 100%)",
+          }}
+        />
+
+        <HomeContainer className="relative">
+          <div className="grid gap-6 lg:grid-cols-12 lg:items-center lg:gap-8">
             <div className="lg:col-span-7">
-              <div className="inline-flex flex-wrap items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-white/80 backdrop-blur animate-in fade-in slide-in-from-top-4 duration-700">
+              <div className="inline-flex flex-wrap items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-semibold text-white/80 backdrop-blur animate-in fade-in slide-in-from-top-4 duration-700 sm:text-xs">
                 <span className="inline-flex h-1.5 w-1.5 rounded-full bg-(--brand-green) animate-pulse" />
-                Côte d'Ivoire
+                Côte d&apos;Ivoire
                 <SunMark size={18} tone="light" className="opacity-80" ariaLabel="" />
               </div>
 
-              <h1 className="mt-6 text-3xl font-extrabold tracking-tight md:text-5xl animate-in fade-in slide-in-from-bottom-6 duration-700 delay-100">
-                Le digital qui fait fonctionner{" "}
-                <span className="hero-highlight" id="typed-text">
-                  l'entreprise
+              <h1 className="mt-3 text-xl leading-[1.15] font-extrabold tracking-tight sm:mt-6 sm:text-3xl md:text-4xl lg:text-5xl animate-in fade-in slide-in-from-bottom-6 duration-700 delay-100">
+                Le digital qui fait fonctionner
+                <br className="sm:hidden" />{" "}
+                <span className="hero-highlight" id="hero-rotating">
+                  l&apos;entreprise
                 </span>
-                <span className="typed-cursor">|</span>
               </h1>
 
-              <p className="mt-4 max-w-2xl leading-relaxed text-white/75 md:text-lg animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
-                Sites qui déclenchent des ventes et des demandes, communication & image de marque, outils internes, conformité (FNE) sans interruption.
+              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-white/75 sm:mt-4 md:text-lg animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200">
+                On rend votre présence claire et utile — site, Google (Maps) et outils simples pour gagner du temps.
               </p>
 
-              <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300">
+              {/* Desktop: tags secteurs */}
+              <div className="mt-3 hidden flex-wrap items-center gap-1.5 text-xs font-semibold text-white/70 sm:mt-4 sm:flex sm:gap-2 sm:text-sm animate-in fade-in slide-in-from-bottom-4 duration-700 delay-250">
+                {["Multi-secteurs", "Commerce", "Services", "Santé", "BTP", "Restauration"].map((tag, i) => (
+                  <span
+                    key={i}
+                    className={`inline-flex items-center rounded-full border border-white/10 bg-white/5 px-2.5 py-0.5 sm:px-3 sm:py-1 ${
+                      i >= 4 ? "hidden sm:inline-flex" : ""
+                    }`}
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              {/* CTAs — soft anchor as primary, contact as secondary text link */}
+              <div className="mt-4 flex flex-col gap-2.5 sm:mt-7 sm:flex-row sm:items-center animate-in fade-in slide-in-from-bottom-4 duration-700 delay-300">
+                <Link
+                  href="#solutions"
+                  className="group inline-flex items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-black/20 ring-1 ring-white/10 hover:shadow-xl hover:shadow-(--brand-blue)/25 hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-white/30 transition-all duration-300"
+                >
+                  Voir ce qu&apos;on fait ↓
+                </Link>
                 <Link
                   href="/contact"
-                  className="cta-pulse inline-flex items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-white/30 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(0,145,255,0.4)] active:scale-98"
+                  className="inline-flex items-center justify-center rounded-xl border border-white/15 bg-transparent px-5 py-3 text-sm font-semibold text-white/80 backdrop-blur hover:bg-white/5 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/30 transition-all duration-300"
                 >
-                  Décrire votre situation (2 min)
-                </Link>
-
-                <Link
-                  href="/realisations"
-                  className="inline-flex items-center justify-center text-sm font-semibold text-white/70 underline underline-offset-4 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/30 transition-colors duration-300"
-                >
-                  Voir des exemples concrets
+                  Ou nous contacter directement
                 </Link>
               </div>
 
-              <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-white/80 backdrop-blur animate-in fade-in slide-in-from-bottom-4 duration-700 delay-400">
-                Réponse sous 24h — sans engagement
+              <div className="mt-5 hidden items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-[11px] font-semibold text-white/80 backdrop-blur sm:mt-6 sm:inline-flex sm:px-4 sm:py-2 sm:text-sm animate-in fade-in slide-in-from-bottom-4 duration-700 delay-400">
+                Réponse sous 24h — on vous dit quoi faire
+              </div>
+
+              {/* Mobile: bénéfices (compact summary replacing the 3D card) */}
+              <div className="mt-4 flex flex-col gap-2 sm:hidden">
+                <div className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 backdrop-blur">
+                  <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white/10 text-white">
+                    <Icon name="map" className="h-3.5 w-3.5" />
+                  </span>
+                  <span className="text-xs font-semibold text-white/80">Site clair & Google (Maps)</span>
+                </div>
+                <div className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-3 py-2 backdrop-blur">
+                  <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white/10 text-white">
+                    <Icon name="bolt" className="h-3.5 w-3.5" />
+                  </span>
+                  <span className="text-xs font-semibold text-white/80">Outils simples pour gagner du temps</span>
+                </div>
               </div>
             </div>
 
-            <div className="lg:col-span-5 animate-in fade-in slide-in-from-right-8 duration-1000 delay-200">
-              <div className="hero-card relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-5 shadow-[0_30px_80px_rgba(0,0,0,0.55)] backdrop-blur hover:shadow-[0_40px_100px_rgba(0,0,0,0.65)] transition-all duration-500">
-                <div className="pointer-events-none absolute inset-0 opacity-70" aria-hidden>
-                  <div className="absolute -left-10 -top-10 h-48 w-48 rounded-full bg-(--brand-blue)/20 blur-2xl animate-pulse-slow" />
+            <div className="hidden md:block lg:col-span-5 animate-in fade-in slide-in-from-right-8 duration-1000 delay-200">
+              {/* 3D perspective wrapper */}
+              <div className="hero-perspective" id="hero-card-wrap">
+                {/* Floating orbs at different Z-depths — hidden on mobile */}
+                <div
+                  className="hero-depth-layer hero-depth-back pointer-events-none absolute -left-6 -top-6 h-20 w-20 rounded-full border border-white/5 bg-(--brand-blue)/8 blur-[1px] hidden lg:block"
+                  aria-hidden
+                />
+                <div
+                  className="hero-depth-layer hero-depth-back pointer-events-none absolute -right-8 top-1/3 h-14 w-14 rounded-full border border-white/5 bg-(--brand-green)/8 blur-[1px] hidden lg:block"
+                  aria-hidden
+                />
+                <div
+                  className="hero-depth-layer hero-depth-front pointer-events-none absolute -right-3 -bottom-4 h-10 w-10 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 hidden lg:block"
+                  aria-hidden
+                />
+                <div
+                  className="hero-depth-layer hero-depth-front pointer-events-none absolute left-8 -bottom-6 h-7 w-7 rounded-full bg-(--brand-blue)/10 backdrop-blur-sm border border-white/8 hidden lg:block"
+                  aria-hidden
+                />
+                <div
+                  className="hero-depth-layer hero-depth-mid pointer-events-none absolute -left-4 top-1/2 h-5 w-5 rounded-full bg-white/8 blur-[0.5px] hidden lg:block"
+                  aria-hidden
+                />
+
+                {/* Main 3D card */}
+                <div
+                  className="hero-card relative overflow-hidden rounded-2xl border border-white/[0.12] bg-white/5 p-3 backdrop-blur-md sm:rounded-3xl sm:p-4"
+                  id="hero-card-inner"
+                >
+                  {/* Shine / reflection layer */}
+                  <div className="hero-shine pointer-events-none absolute inset-0 z-10 rounded-3xl opacity-0" aria-hidden />
+
+                  {/* Edge highlight for 3D feel */}
                   <div
-                    className="absolute -right-10 -bottom-10 h-56 w-56 rounded-full bg-(--brand-green)/20 blur-2xl animate-pulse-slow"
-                    style={{ animationDelay: "1s" }}
+                    className="pointer-events-none absolute inset-0 rounded-3xl"
+                    aria-hidden
+                    style={{
+                      boxShadow:
+                        "inset 0 1px 0 0 rgba(255,255,255,0.12), inset 0 -1px 0 0 rgba(0,0,0,0.2), 0 25px 60px -10px rgba(0,0,0,0.6), 0 50px 100px -20px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.05)",
+                    }}
                   />
-                </div>
 
-                <div className="relative">
-                  <div className="mt-0 rounded-2xl border border-white/10 bg-black/20 p-4">
-                    <div className="grid gap-3">
-                      <div className="flex items-center justify-between">
-                        <div className="text-sm font-semibold text-white">Outil existant</div>
-                        <div className="text-xs font-semibold text-white/60">Excel / logiciel / site existant</div>
-                      </div>
+                  <div className="pointer-events-none absolute inset-0 opacity-70" aria-hidden>
+                    <div className="absolute -left-10 -top-10 h-48 w-48 rounded-full bg-(--brand-blue)/20 blur-2xl hero-pulse-slow" />
+                    <div
+                      className="absolute -right-10 -bottom-10 h-56 w-56 rounded-full bg-(--brand-green)/20 blur-2xl hero-pulse-slow"
+                      style={{ animationDelay: "1s" }}
+                    />
+                  </div>
 
-                      <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                        <div className="flex items-center justify-between gap-3">
+                  <div className="relative z-[1]">
+                    <div className="mt-0 rounded-xl border border-white/10 bg-black/20 p-2.5 sm:rounded-2xl sm:p-3">
+                      <div className="rounded-xl border border-white/10 bg-white/5 p-2.5 sm:rounded-2xl sm:p-3">
+                        <div className="flex items-center justify-between gap-2 sm:gap-3">
                           <div>
-                            <div className="text-sm font-extrabold">Interfaçage Expert Créa</div>
-                            <div className="mt-1 text-xs font-semibold text-white/60">
-                              Connexion • adaptation • automatisation
+                            <div className="text-xs font-extrabold sm:text-sm">On part de l&apos;existant</div>
+                            <div className="mt-0.5 text-[10px] font-semibold text-white/60 sm:mt-1 sm:text-xs">
+                              On simplifie • sans tout casser
                             </div>
                           </div>
+                          <span className="hidden items-center rounded-full bg-white/10 px-2.5 py-1 text-[11px] font-semibold text-white/80 sm:inline-flex">
+                            Mise en route rapide
+                          </span>
                         </div>
-
-                        <div className="mt-4 overflow-hidden rounded-xl border border-white/10 bg-black/20 p-3">
-                          <svg viewBox="0 0 420 120" className="h-auto w-full" aria-hidden>
-                            <defs>
-                              <linearGradient id="heroLine" x1="0" y1="0" x2="1" y2="0">
-                                <stop offset="0" stopColor="rgba(0,145,255,0.92)" />
-                                <stop offset="1" stopColor="rgba(0,200,120,0.92)" />
-                              </linearGradient>
-                            </defs>
-
-                            <g>
-                              <rect
-                                x="16"
-                                y="28"
-                                width="120"
-                                height="64"
-                                rx="16"
-                                fill="rgba(255,255,255,0.05)"
-                                stroke="rgba(255,255,255,0.14)"
-                              />
-                              <rect
-                                x="150"
-                                y="20"
-                                width="120"
-                                height="80"
-                                rx="18"
-                                fill="rgba(255,255,255,0.07)"
-                                stroke="rgba(0,145,255,0.22)"
-                              />
-                              <rect
-                                x="284"
-                                y="28"
-                                width="120"
-                                height="64"
-                                rx="16"
-                                fill="rgba(255,255,255,0.05)"
-                                stroke="rgba(255,255,255,0.14)"
-                              />
-
-                              <path
-                                d="M136 60 C146 60, 146 60, 150 60"
-                                stroke="url(#heroLine)"
-                                strokeWidth="4"
-                                strokeLinecap="round"
-                                className="hero-flow"
-                              />
-                              <path
-                                d="M270 60 C280 60, 280 60, 284 60"
-                                stroke="url(#heroLine)"
-                                strokeWidth="4"
-                                strokeLinecap="round"
-                                className="hero-flow"
-                              />
-
-                              <circle cx="136" cy="60" r="5" fill="rgba(0,145,255,0.9)" className="hero-dot" />
-                              <circle cx="270" cy="60" r="5" fill="rgba(0,200,120,0.9)" className="hero-dot2" />
-
-                              <text
-                                x="76"
-                                y="62"
-                                textAnchor="middle"
-                                fontSize="12"
-                                fill="rgba(255,255,255,0.86)"
-                                fontWeight="700"
-                              >
-                                BASE
-                              </text>
-                              <text
-                                x="210"
-                                y="58"
-                                textAnchor="middle"
-                                fontSize="12"
-                                fill="rgba(255,255,255,0.92)"
-                                fontWeight="800"
-                              >
-                                SOLUTION
-                              </text>
-                              <text
-                                x="344"
-                                y="62"
-                                textAnchor="middle"
-                                fontSize="12"
-                                fill="rgba(255,255,255,0.86)"
-                                fontWeight="700"
-                              >
-                                RÉSULTAT
-                              </text>
-                            </g>
-                          </svg>
+                        <div className="mt-3 rounded-lg border border-white/10 bg-black/20 p-2.5 sm:mt-4 sm:rounded-xl sm:p-3">
+                          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+                            <Pill>On part de l&apos;existant</Pill>
+                            <span className="text-white/35">→</span>
+                            <span className="inline-flex items-center rounded-full border border-(--brand-blue)/30 bg-(--brand-blue)/10 px-2 py-0.5 text-[10px] font-extrabold text-white sm:px-3 sm:py-1 sm:text-[11px]">
+                              On simplifie
+                            </span>
+                            <span className="text-white/35">→</span>
+                            <span className="inline-flex items-center rounded-full border border-(--brand-green)/30 bg-(--brand-green)/10 px-2 py-0.5 text-[10px] font-extrabold text-white sm:px-3 sm:py-1 sm:text-[11px]">
+                              Vous gagnez du temps
+                            </span>
+                          </div>
+                          <div className="mt-2 text-xs font-semibold text-white/60">Sans bloquer l&apos;activité.</div>
                         </div>
+                        <div className="mt-3 grid gap-1.5 sm:mt-4 sm:gap-2">
+                          <div className="flex items-center justify-between rounded-lg border border-white/10 bg-white/5 px-2.5 py-1.5 text-[10px] sm:rounded-xl sm:px-3 sm:py-2 sm:text-xs">
+                            <span className="font-semibold text-white/80">Moins de tâches manuelles</span>
+                            <span className="font-semibold text-white/60">↑</span>
+                          </div>
+                          <div className="flex items-center justify-between rounded-lg border border-white/10 bg-white/5 px-2.5 py-1.5 text-[10px] sm:rounded-xl sm:px-3 sm:py-2 sm:text-xs">
+                            <span className="font-semibold text-white/80">Moins d&apos;oublis</span>
+                            <span className="font-semibold text-white/60">↓</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
 
-                        <div className="mt-4 grid gap-2">
-                          <div className="flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs">
-                            <span className="font-semibold text-white/80">Communication & image</span>
-                            <span className="font-semibold text-white/55">En place</span>
-                          </div>
-                          <div className="flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs">
-                            <span className="font-semibold text-white/80">Ventes & demandes</span>
-                            <span className="font-semibold text-white/55">OK</span>
-                          </div>
-                          <div className="flex items-center justify-between rounded-xl border border-white/10 bg-white/5 px-3 py-2 text-xs">
-                            <span className="font-semibold text-white/80">Conformité (FNE)</span>
-                            <span className="font-semibold text-white/55">En place</span>
+                    <div className="mt-3 rounded-xl border border-white/10 bg-white/5 p-2.5 sm:mt-4 sm:rounded-2xl sm:p-3">
+                      <div className="flex items-start gap-2.5 sm:gap-3">
+                        <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-white/10 text-white sm:h-10 sm:w-10 sm:rounded-2xl">
+                          <Icon name="grid" className="h-4 w-4 sm:h-5 sm:w-5" />
+                        </span>
+                        <div>
+                          <div className="text-xs font-extrabold text-white sm:text-sm">3 solutions selon votre besoin</div>
+                          <div className="mt-0.5 text-xs text-white/75 sm:mt-1 sm:text-sm">
+                            Visibilité • Demandes • Organisation
                           </div>
                         </div>
                       </div>
@@ -422,68 +462,10 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-        </div>
+        </HomeContainer>
 
-        <div className="pointer-events-none absolute bottom-0 left-0 w-full border-t border-white/10" aria-hidden />
-
-        {/* Typed Text Effect Script */}
-        <Script id="hero-typed-text" strategy="afterInteractive">
-          {`(() => {
-  try {
-    const texts = [
-      "l'entreprise",
-      "les opérations",
-      "votre activité",
-      "la croissance"
-    ];
-    
-    const element = document.getElementById('typed-text');
-    if (!element) return;
-    
-    let textIndex = 0;
-    let charIndex = 0;
-    let isDeleting = false;
-    let isPaused = false;
-    
-    function type() {
-      const currentText = texts[textIndex];
-      
-      if (isPaused) {
-        setTimeout(type, 2000);
-        isPaused = false;
-        isDeleting = true;
-        return;
-      }
-      
-      if (isDeleting) {
-        element.textContent = currentText.substring(0, charIndex - 1);
-        charIndex--;
-        
-        if (charIndex === 0) {
-          isDeleting = false;
-          textIndex = (textIndex + 1) % texts.length;
-          setTimeout(type, 500);
-          return;
-        }
-      } else {
-        element.textContent = currentText.substring(0, charIndex + 1);
-        charIndex++;
-        
-        if (charIndex === currentText.length) {
-          isPaused = true;
-        }
-      }
-      
-      const speed = isDeleting ? 50 : 100;
-      setTimeout(type, speed);
-    }
-    
-    setTimeout(type, 2000);
-  } catch (e) {}
-})();`}
-        </Script>
-
-        <Script id="hero-spotlight" strategy="afterInteractive">
+        {/* Hero scripts & styles */}
+        <Script id="hero-cycle" strategy="afterInteractive">
           {`(() => {
   try {
     const hero = document.getElementById('hero');
@@ -492,27 +474,156 @@ export default function HomePage() {
     const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduce) return;
 
-    let raf = 0;
-    let tx = 0, ty = 0;
-    let cx = 0, cy = 0;
-
-    const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
-
-    const onMove = (e) => {
-      const r = hero.getBoundingClientRect();
-      const x = (e.clientX - r.left);
-      const y = (e.clientY - r.top);
-
-      hero.style.setProperty('--hx', x.toFixed(0) + 'px');
-      hero.style.setProperty('--hy', y.toFixed(0) + 'px');
-
-      const nx = (x / r.width) * 2 - 1;
-      const ny = (y / r.height) * 2 - 1;
-      tx = clamp(nx * 10, -10, 10);
-      ty = clamp(ny * 10, -10, 10);
-
-      if (!raf) raf = requestAnimationFrame(tick);
+    // Helper: restart CSS keyframe animations by toggling a gate class
+    const restartAnimations = () => {
+      hero.classList.remove('hero-restart');
+      // force reflow so keyframes restart cleanly
+      void hero.offsetHeight;
+      hero.classList.add('hero-restart');
     };
+
+    // Make restart callable from outside (home enter)
+    const onHomeEnter = () => {
+      try {
+        hero.classList.add('hero-live');
+        restartAnimations();
+      } catch (e) {}
+    };
+
+    // Listen when we navigate back to Home (App Router cache)
+    window.addEventListener('ec:home-enter', onHomeEnter);
+
+    let wasVisible = false;
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          const visible = e.isIntersecting && e.intersectionRatio >= 0.55;
+
+          if (visible) {
+            hero.classList.add('hero-live');
+            // If we are coming back into view, restart animations (one clean cycle)
+            if (!wasVisible) restartAnimations();
+            wasVisible = true;
+          } else {
+            hero.classList.remove('hero-live');
+            wasVisible = false;
+          }
+        }
+      },
+      { threshold: [0, 0.25, 0.55, 0.8], rootMargin: '0px' }
+    );
+
+    io.observe(hero);
+
+    window.addEventListener('pagehide', () => {
+      try {
+        window.removeEventListener('ec:home-enter', onHomeEnter);
+        io.disconnect();
+      } catch (e) {}
+    });
+  } catch (e) {}
+})();`}
+        </Script>
+        <Script id="hero-rotating-word" strategy="afterInteractive">
+          {`(() => {
+  try {
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) return;
+
+    const el = document.getElementById('hero-rotating');
+    if (!el) return;
+
+    const words = ["l'entreprise","les ventes","l'équipe","les demandes","le quotidien"];
+
+    let i = 0;
+    let isDeleting = false;
+    let charIndex = words[0].length;
+    let t = 0;
+
+    const typeSpeed = 110;
+    const deleteSpeed = 62;
+    const holdFull = 1500;
+    const holdEmpty = 520;
+
+    const clear = () => {
+      if (t) window.clearTimeout(t);
+      t = 0;
+    };
+
+    const setText = (txt) => {
+      el.textContent = txt;
+      el.setAttribute('data-word', txt);
+    };
+
+    const tick = () => {
+      const word = words[i];
+
+      if (!isDeleting) {
+        charIndex = Math.min(word.length, charIndex + 1);
+        setText(word.slice(0, charIndex));
+        if (charIndex === word.length) {
+          isDeleting = true;
+          t = window.setTimeout(tick, holdFull);
+          return;
+        }
+        t = window.setTimeout(tick, typeSpeed);
+        return;
+      }
+
+      charIndex = Math.max(0, charIndex - 1);
+      setText(word.slice(0, charIndex));
+      if (charIndex === 0) {
+        isDeleting = false;
+        i = (i + 1) % words.length;
+        t = window.setTimeout(tick, holdEmpty);
+        return;
+      }
+      t = window.setTimeout(tick, deleteSpeed);
+    };
+
+    const start = () => {
+      clear();
+      i = 0;
+      isDeleting = true;
+      charIndex = words[0].length;
+      setText(words[0]);
+      t = window.setTimeout(tick, 700);
+    };
+
+    // First run
+    start();
+
+    // Restart when we re-enter Home
+    const onHomeEnter = () => {
+      try { start(); } catch (e) {}
+    };
+    window.addEventListener('ec:home-enter', onHomeEnter);
+
+    window.addEventListener('pagehide', () => {
+      try {
+        window.removeEventListener('ec:home-enter', onHomeEnter);
+        clear();
+      } catch (e) {}
+    });
+  } catch (e) {}
+})();`}
+        </Script>
+        <Script id="hero-spotlight" strategy="afterInteractive">
+          {`(() => {
+  try {
+    const hero = document.getElementById('hero');
+    const cardWrap = document.getElementById('hero-card-wrap');
+    const cardInner = document.getElementById('hero-card-inner');
+    if (!hero) return;
+    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) return;
+    const canHover = window.matchMedia && window.matchMedia('(hover: hover)').matches;
+    if (!canHover) return;
+
+    let raf = 0, tx = 0, ty = 0, cx = 0, cy = 0;
+    let cardRx = 0, cardRy = 0, cRx = 0, cRy = 0;
+    const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
 
     const tick = () => {
       raf = 0;
@@ -520,10 +631,50 @@ export default function HomePage() {
       cy += (ty - cy) * 0.12;
       hero.style.setProperty('--dx', cx.toFixed(2));
       hero.style.setProperty('--dy', cy.toFixed(2));
+
+      if (cardWrap) {
+        cRx += (cardRx - cRx) * 0.08;
+        cRy += (cardRy - cRy) * 0.08;
+        cardWrap.style.transform = 'perspective(800px) rotateX(' + (-cRx).toFixed(2) + 'deg) rotateY(' + cRy.toFixed(2) + 'deg)';
+      }
+
+      if (Math.abs(tx - cx) > 0.01 || Math.abs(ty - cy) > 0.01 || Math.abs(cardRx - cRx) > 0.01 || Math.abs(cardRy - cRy) > 0.01) {
+        raf = requestAnimationFrame(tick);
+      }
+    };
+
+    const onMove = (e) => {
+      const r = hero.getBoundingClientRect();
+      const x = e.clientX - r.left;
+      const y = e.clientY - r.top;
+      hero.style.setProperty('--hx', x.toFixed(0) + 'px');
+      hero.style.setProperty('--hy', y.toFixed(0) + 'px');
+      const nx = (x / r.width) * 2 - 1;
+      const ny = (y / r.height) * 2 - 1;
+      tx = clamp(nx * 10, -10, 10);
+      ty = clamp(ny * 10, -10, 10);
+
+      if (cardWrap) {
+        const cr = cardWrap.getBoundingClientRect();
+        const cNx = ((e.clientX - cr.left) / cr.width) * 2 - 1;
+        const cNy = ((e.clientY - cr.top) / cr.height) * 2 - 1;
+        cardRy = clamp(cNx * 8, -8, 8);
+        cardRx = clamp(cNy * 5, -5, 5);
+
+        if (cardInner) {
+          const shineX = ((e.clientX - cr.left) / cr.width * 100).toFixed(0);
+          const shineY = ((e.clientY - cr.top) / cr.height * 100).toFixed(0);
+          cardInner.style.setProperty('--shine-x', shineX + '%');
+          cardInner.style.setProperty('--shine-y', shineY + '%');
+        }
+      }
+
+      if (!raf) raf = requestAnimationFrame(tick);
     };
 
     const onLeave = () => {
       tx = 0; ty = 0;
+      cardRx = 0; cardRy = 0;
       hero.style.setProperty('--hx', '50%');
       hero.style.setProperty('--hy', '30%');
       if (!raf) raf = requestAnimationFrame(tick);
@@ -531,1063 +682,431 @@ export default function HomePage() {
 
     hero.style.setProperty('--hx', '50%');
     hero.style.setProperty('--hy', '30%');
-
     hero.addEventListener('pointermove', onMove, { passive: true });
     hero.addEventListener('pointerleave', onLeave, { passive: true });
+    window.addEventListener('pagehide', () => { hero.removeEventListener('pointermove', onMove); hero.removeEventListener('pointerleave', onLeave); });
   } catch (e) {}
 })();`}
         </Script>
+        {/* (Hero section styles migrated to globals.css) */}
+      </section>
 
-        <style>{`
-          /* Typed cursor */
-          .typed-cursor {
-            display: inline-block;
-            animation: blink 1s step-end infinite;
-            margin-left: 2px;
-            font-weight: 300;
-          }
-          
-          @keyframes blink {
-            0%, 50% { opacity: 1; }
-            51%, 100% { opacity: 0; }
-          }
 
-          /* Pulse animation for CTA */
-          .cta-pulse {
-            position: relative;
-          }
-          
-          .cta-pulse::before {
-            content: '';
-            position: absolute;
-            inset: -4px;
-            border-radius: 14px;
-            background: linear-gradient(90deg, rgba(0,145,255,0.4), rgba(0,200,120,0.4));
-            opacity: 0;
-            filter: blur(12px);
-            animation: pulse-ring 2s ease-out infinite;
-          }
-          
-          @keyframes pulse-ring {
-            0% { transform: scale(0.95); opacity: 0; }
-            50% { opacity: 0.6; }
-            100% { transform: scale(1.05); opacity: 0; }
-          }
-
-          /* Particles */
-          .particle {
-            animation: float-particle linear infinite;
-          }
-          
-          @keyframes float-particle {
-            0% { transform: translate(0, 0) scale(0); opacity: 0; }
-            10% { opacity: 0.3; transform: scale(1); }
-            90% { opacity: 0.3; }
-            100% { transform: translate(100px, -100vh) scale(0); opacity: 0; }
-          }
-
-          /* Pulse slow for glows */
-          @keyframes pulse-slow {
-            0%, 100% { opacity: 0.7; transform: scale(1); }
-            50% { opacity: 1; transform: scale(1.05); }
-          }
-          
-          .animate-pulse-slow {
-            animation: pulse-slow 6s ease-in-out infinite;
-          }
-
-          /* Hero background glows */
-          @keyframes glow-blue {
-            0%, 100% { opacity: 1; transform: scale(1) translate(0, 0); }
-            50% { opacity: 0.8; transform: scale(1.1) translate(20px, -10px); }
-          }
-          
-          @keyframes glow-green {
-            0%, 100% { opacity: 1; transform: scale(1) translate(0, 0); }
-            50% { opacity: 0.7; transform: scale(1.15) translate(-15px, 15px); }
-          }
-          
-          .hero-glow-blue {
-            animation: glow-blue 15s ease-in-out infinite;
-          }
-          
-          .hero-glow-green {
-            animation: glow-green 18s ease-in-out infinite;
-          }
-
-          #hero{ --hx: 50%; --hy: 30%; --dx: 0; --dy: 0; }
-          .hero-bg{
-            transform: translate3d(calc(var(--dx) * -1px), calc(var(--dy) * -1px), 0);
-            transition: transform 120ms ease-out;
-            will-change: transform;
-          }
-          .hero-spot{
+      {/* ═══════════════════════════════════════
+          2) STATS BANNER — crédibilité immédiate
+      ═══════════════════════════════════════ */}
+      <section className="reveal reveal-repeat reveal-mobile stats-band relative left-1/2 right-1/2 w-screen -ml-[50vw] -mr-[50vw] overflow-hidden bg-slate-900 py-8 sm:py-10 md:py-14">
+        <div className="pointer-events-none absolute inset-0" aria-hidden>
+          <div className="absolute left-1/4 top-0 h-40 w-40 rounded-full bg-(--brand-blue)/10 blur-3xl" />
+          <div className="absolute right-1/4 bottom-0 h-48 w-48 rounded-full bg-(--brand-green)/8 blur-3xl" />
+        </div>
+        {/* Fondu sombre → clair (évite la bande blanche visible au scroll) */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-x-0 bottom-0 h-24"
+          style={{
             background:
-              radial-gradient(680px circle at var(--hx) var(--hy), rgba(0,145,255,0.18), transparent 58%),
-              radial-gradient(560px circle at calc(var(--hx) + 120px) calc(var(--hy) + 140px), rgba(0,200,120,0.14), transparent 60%);
-            mix-blend-mode: screen;
-            opacity: 0.9;
-            transform: translate3d(calc(var(--dx) * 1px), calc(var(--dy) * 1px), 0);
-            transition: transform 140ms ease-out;
-            will-change: transform;
-          }
-          @media (prefers-reduced-motion: reduce){
-            .hero-bg, .hero-spot, .particle, .hero-glow-blue, .hero-glow-green { 
-              transform: none !important; 
-              transition: none !important; 
-              animation: none !important;
-            }
-          }
-          .hero-highlight{
-            background: linear-gradient(90deg, rgba(0,145,255,1) 0%, rgba(0,200,120,1) 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            position: relative;
-          }
-          .hero-highlight::after{
-            content:"";
-            position:absolute;
-            left:-6px; right:-6px;
-            bottom:-6px;
-            height:12px;
-            border-radius:999px;
-            background: linear-gradient(90deg, rgba(0,145,255,0.24) 0%, rgba(0,200,120,0.18) 100%);
-            filter: blur(10px);
-            opacity: .85;
-            pointer-events:none;
-          }
-
-          @media (prefers-reduced-motion: no-preference){
-            .hero-flow{
-              stroke-dasharray: 40;
-              animation: heroDash 2600ms ease-in-out infinite;
-            }
-            .hero-dot{ animation: heroDot 2600ms ease-in-out infinite; }
-            .hero-dot2{ animation: heroDot2 2600ms ease-in-out infinite; }
-            .hero-card{ animation: heroFloat 3600ms ease-in-out infinite; }
-          }
-
-          @keyframes heroDash{
-            0%,100%{ opacity:.55; stroke-dashoffset:40; }
-            40%{ opacity:1; stroke-dashoffset:10; }
-            70%{ opacity:.75; stroke-dashoffset:0; }
-          }
-          @keyframes heroDot{
-            0%,100%{ transform: translateX(0); opacity:.35; }
-            50%{ transform: translateX(12px); opacity:.95; }
-          }
-          @keyframes heroDot2{
-            0%,100%{ transform: translateX(0); opacity:.35; }
-            50%{ transform: translateX(12px); opacity:.95; }
-          }
-          @keyframes heroFloat{
-            0%,100%{ transform: translateY(0); }
-            50%{ transform: translateY(-4px); }
-          }
-        `}</style>
-      </section>
-
-      <div className="home-divider" aria-hidden />
-
-      {/* TRANSITION 1 */}
-      <section className="reveal home-section">
-        <div className="rounded-2xl border border-slate-200 bg-slate-50 px-6 py-4 text-center">
-          <p className="text-sm font-semibold text-slate-700">
-            <span className="text-slate-900">Concrètement, ça veut dire quoi ?</span> Voici ce que vivent beaucoup
-            d'entreprises ivoiriennes.
-          </p>
-        </div>
-      </section>
-
-      {/* 2) PROBLÈME */}
-      <section className="reveal home-section">
-        <div className="grid gap-8 lg:grid-cols-2 lg:items-start">
-          <div>
-            <div className="flex items-start gap-3">
-              <div className="rounded-2xl bg-slate-100 p-2 text-slate-900">
-                <Icon name="warn" />
+              "linear-gradient(180deg, rgba(15,23,42,0) 0%, rgba(15,23,42,0.65) 35%, rgba(246,247,245,0.65) 70%, rgba(246,247,245,1) 100%)",
+          }}
+        />
+        <HomeContainer className="relative grid grid-cols-2 gap-4 sm:gap-6 md:grid-cols-4 md:gap-8">
+          {[
+            { value: "50+", label: "Entreprises accompagnées", icon: "users" as const },
+            { value: "<24h", label: "Temps de réponse", icon: "clock" as const },
+            { value: "6+", label: "Secteurs couverts", icon: "grid" as const },
+            { value: "100%", label: "Solutions sur-mesure", icon: "target" as const },
+          ].map((stat, idx) => (
+            <div key={idx} className="stagger-item text-center">
+              <div className="mx-auto mb-2 inline-flex h-8 w-8 items-center justify-center rounded-lg bg-white/5 text-white/50 sm:mb-3 sm:h-10 sm:w-10 sm:rounded-xl">
+                <Icon name={stat.icon} className="h-4 w-4 sm:h-5 sm:w-5" />
               </div>
-              <div>
-                <h2 className="text-2xl font-extrabold tracking-tight">Les réalités du terrain</h2>
-                <p className="mt-1 text-slate-600">
-                  Aujourd'hui, beaucoup d'entreprises font face à des contraintes concrètes :
-                </p>
+              <div className="stat-num text-xl font-extrabold tracking-tight text-white sm:text-3xl md:text-4xl">
+                {stat.value}
               </div>
+              <div className="mt-0.5 text-xs font-medium text-white/45 sm:mt-1 sm:text-sm">{stat.label}</div>
             </div>
-
-            <ul className="mt-6 space-y-3">
-              <Bullet>Des sites internet qui existent, mais ne génèrent aucune demande</Bullet>
-              <Bullet>Beaucoup de temps perdu entre Excel, WhatsApp, cahiers et logiciels isolés</Bullet>
-              <Bullet>La conformité et la facturation compliquent le quotidien</Bullet>
-              <Bullet>Des outils existants non conformes ou mal adaptés</Bullet>
-              <Bullet>La peur de mal faire (erreurs, sanctions, blocage)</Bullet>
-            </ul>
-
-            <p className="mt-6 text-slate-700">
-              Ce n'est pas un manque de volonté. Ce sont{" "}
-              <span className="font-semibold">des problèmes d'outils et d'organisation</span>.
-            </p>
-          </div>
-
-          <div className="relative">
-            <div className="overflow-hidden rounded-3xl border border-black/10 bg-white hover:shadow-2xl transition-shadow duration-500">
-              <div className="relative h-75 w-full lg:h-140 lg:max-h-155">
-                <Image
-                  src="/home/home-problemes-terrain.webp"
-                  alt="Facturation, organisation et outils du quotidien en entreprise"
-                  fill
-                  className="object-cover object-center"
-                  sizes="(min-width: 1024px) 520px, 100vw"
-                  priority={false}
-                  loading="lazy"
-                  quality={85}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
+          ))}
+        </HomeContainer>
       </section>
 
-      <div className="home-divider" aria-hidden />
-
-      {/* TRANSITION 2 */}
-      <section className="reveal home-section">
-        <div className="rounded-2xl border border-slate-200 bg-slate-50 px-6 py-4 text-center">
-          <p className="text-sm font-semibold text-slate-700">
-            <span className="text-slate-900">Ces situations ne sont pas une fatalité.</span> Notre approche est différente.
-          </p>
-        </div>
-      </section>
-
-      {/* 3) POURQUOI NOUS / APPROCHE */}
-      <section className="reveal home-section">
-        <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
-          <div>
-            <h2 className="text-2xl font-extrabold tracking-tight text-slate-900 md:text-4xl">
-              Terrain & efficacité. On construit ce qui simplifie.
+      {/* ═══════════════════════════════════════
+          3) SOLUTIONS — problème → réponse concrète (fusion objectifs + packs)
+      ═══════════════════════════════════════ */}
+      <section id="solutions" className="reveal py-16 sm:py-20 scroll-mt-28">
+        <HomeContainer>
+          <div className="max-w-none">
+            <h2 className="text-xl font-extrabold tracking-tight text-slate-900 sm:text-2xl md:text-4xl">
+              Quel problème vous coûte le plus aujourd&apos;hui ?
             </h2>
-            <p className="mt-3 max-w-2xl text-slate-700 md:text-lg">
-              Notre rôle n'est pas d'ajouter un outil de plus. C'est de résoudre des situations concrètes{" "}
-              <span className="font-semibold">sans perturber l'activité</span>.
+            <p className="mt-1.5 max-w-3xl text-sm text-slate-700 sm:mt-2 sm:text-base md:text-lg">
+              Trouvez votre situation — on vous montre exactement ce qu&apos;on met en place.
             </p>
-
-            <div className="mt-6 grid gap-3 md:grid-cols-2">
-              <div className="feature-card rounded-2xl border border-black/10 bg-white p-4 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-                <div className="flex items-center gap-2">
-                  <Icon name="users" className="h-5 w-5 text-slate-900" />
-                  <div className="text-sm font-extrabold text-slate-900">Simple à utiliser</div>
-                </div>
-                <div className="mt-1 text-sm text-slate-600">Compréhensible par vos équipes, sans usine à gaz.</div>
-              </div>
-              <div className="feature-card rounded-2xl border border-black/10 bg-white p-4 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-                <div className="flex items-center gap-2">
-                  <Icon name="bolt" className="h-5 w-5 text-slate-900" />
-                  <div className="text-sm font-extrabold text-slate-900">Sans arrêter l'activité</div>
-                </div>
-                <div className="mt-1 text-sm text-slate-600">Mise en place progressive, propre, sans rupture.</div>
-              </div>
-              <div className="feature-card rounded-2xl border border-black/10 bg-white p-4 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-                <div className="flex items-center gap-2">
-                  <Icon name="shield" className="h-5 w-5 text-slate-900" />
-                  <div className="text-sm font-extrabold text-slate-900">Conforme & sécurisé</div>
-                </div>
-                <div className="mt-1 text-sm text-slate-600">Conformité, données et process sécurisés.</div>
-              </div>
-              <div className="feature-card rounded-2xl border border-black/10 bg-white p-4 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-                <div className="flex items-center gap-2">
-                  <Icon name="zap" className="h-5 w-5 text-slate-900" />
-                  <div className="text-sm font-extrabold text-slate-900">V1 utile rapide</div>
-                </div>
-                <div className="mt-1 text-sm text-slate-600">Livrer vite, tester, ajuster — pas de projet interminable.</div>
-              </div>
-            </div>
           </div>
 
-          <div className="relative">
-            <div className="overflow-hidden rounded-3xl border border-black/10 bg-white hover:shadow-2xl transition-shadow duration-500">
-              <div className="relative h-75 w-full lg:h-130 lg:max-h-150">
-                <Image
-                  src="/home/home-dashboard.webp"
-                  alt="Exemple d'interface claire : suivi, organisation, facturation"
-                  fill
-                  className="object-cover object-center"
-                  sizes="(min-width: 1024px) 520px, 100vw"
-                  loading="lazy"
-                  quality={85}
-                />
+          {/* Option FNE — encart secondaire */}
+          <div className="mt-4 rounded-2xl border border-(--brand-green)/20 bg-white/80 backdrop-blur p-4 sm:mt-6 sm:rounded-3xl sm:p-6">
+            <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+              <div className="flex items-center gap-3">
+                <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-(--brand-blue)/10 text-(--brand-blue) sm:h-11 sm:w-11 sm:rounded-2xl">
+                  <Icon name="shield" className="h-4 w-4 sm:h-5 sm:w-5" />
+                </span>
+                <div>
+                  <div className="text-sm font-extrabold text-slate-900 sm:text-base">Conformité FNE : on vous met en règle sans bloquer l&apos;activité</div>
+                  <div className="text-xs text-slate-600 sm:text-sm">Audit, plan simple, mise en place progressive — sans usine à gaz.</div>
+                </div>
               </div>
-            </div>
-            <div className="mt-3 text-xs text-slate-500">Une interface claire = adoption plus rapide par l'équipe.</div>
-          </div>
-        </div>
-      </section>
-
-      <div className="home-divider" aria-hidden />
-
-      {/* TRANSITION 2B */}
-      <section className="reveal home-section">
-        <div className="rounded-2xl border border-slate-200 bg-slate-50 px-6 py-4 text-center">
-          <p className="text-sm font-semibold text-slate-700">
-            <span className="text-slate-900">Un autre levier clé :</span> la confiance, l'image et la visibilité.
-          </p>
-        </div>
-      </section>
-
-      {/* 3B) COMMUNICATION */}
-      <section
-        id="communication"
-        className="reveal relative left-1/2 right-1/2 w-screen -ml-[50vw] -mr-[50vw] bg-linear-to-b from-slate-950 via-slate-900 to-slate-950 py-8 md:py-10"
-      >
-        <div
-          className="pointer-events-none absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-white/15 to-transparent"
-          aria-hidden
-        />
-        <div
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-linear-to-r from-transparent via-white/15 to-transparent"
-          aria-hidden
-        />
-        <div
-          className="pointer-events-none absolute inset-x-0 top-0 h-14 bg-linear-to-b from-slate-50 to-transparent"
-          aria-hidden
-        />
-        <div
-          className="pointer-events-none absolute inset-x-0 bottom-0 h-14 bg-linear-to-b from-transparent to-slate-50"
-          aria-hidden
-        />
-        <div className="home-section">
-        <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-linear-to-b from-slate-950 via-slate-900 to-slate-950 p-5 md:p-6 text-white">
-          <div className="pointer-events-none absolute inset-0" aria-hidden>
-            <div className="absolute -left-24 -top-24 h-72 w-72 rounded-full bg-(--brand-blue)/18 blur-3xl animate-pulse-slow" />
-            <div
-              className="absolute -bottom-28 -right-28 h-80 w-80 rounded-full bg-(--brand-green)/16 blur-3xl animate-pulse-slow"
-              style={{ animationDelay: "1.2s" }}
-            />
-            <div className="absolute inset-0 opacity-[0.18]" style={{ backgroundImage: "radial-gradient(circle at 18% 12%, rgba(0,145,255,0.24) 0, transparent 52%), radial-gradient(circle at 88% 86%, rgba(0,200,120,0.18) 0, transparent 56%), radial-gradient(circle at 40% 30%, rgba(255,255,255,0.06) 0, transparent 55%)" }} />
-            <div className="absolute inset-0 opacity-[0.10]" style={{ backgroundImage: "linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px)", backgroundSize: "56px 56px" }} />
-          </div>
-
-          <div className="relative grid gap-6 lg:grid-cols-2 lg:items-start">
-            <div>
-              <h2 className="text-2xl font-extrabold tracking-tight text-white md:text-4xl">
-                Communication & image de marque
-              </h2>
-              <p className="mt-2 text-sm font-semibold text-white/75 md:text-base">
-                Une image claire qui inspire confiance — et qui déclenche des demandes.
-              </p>
-              <div className="mt-3 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-white/80">
-                Cohérence • crédibilité • visibilité
-              </div>
-              <p className="mt-3 max-w-2xl text-white/75 md:text-base">
-                Réseaux, supports, messages : on aligne tout pour que votre entreprise soit prise au sérieux.
-              </p>
-
-              <ul className="mt-5 space-y-3 text-white/80">
-                <Bullet>Charte + messages clés</Bullet>
-                <Bullet>Templates & contenus prêts à publier</Bullet>
-              </ul>
-
-              <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <div className="flex items-center gap-3">
                 <Link
                   href="/contact"
-                  className="inline-flex items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-white/30 focus:ring-offset-2 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(0,145,255,0.35)] active:scale-98"
+                  className="inline-flex items-center justify-center rounded-xl bg-(--brand-blue) px-4 py-2 text-xs font-semibold text-white sm:text-sm hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2"
                 >
-                  Parler de votre communication
+                  J&apos;en ai besoin →
                 </Link>
-                <Link
-                  href="/realisations"
-                  className="inline-flex items-center justify-center text-sm font-semibold text-white/80 underline underline-offset-4 hover:text-white"
-                >
-                  Voir des exemples de créations →
+                <Link href="/services/conformite-fne" className="inline-flex items-center justify-center text-xs font-semibold text-(--brand-blue) underline underline-offset-4 hover:opacity-90 sm:text-sm">
+                  En savoir plus
                 </Link>
               </div>
             </div>
+          </div>
 
-            <div className="grid gap-4 md:grid-cols-2">
-              {/* Studio showcase (premium) */}
-              <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-3.5 backdrop-blur md:col-span-2">
-                <div className="flex items-center justify-between gap-3">
-                  <div>
-                    <div className="text-sm font-extrabold text-white">Aperçu de créations</div>
-                    <div className="text-xs font-semibold text-white/75">Exemples de formats : posts, supports, templates</div>
-                  </div>
-                  <span className="inline-flex items-center rounded-full bg-white/10 px-2.5 py-1 text-xs font-semibold text-white/80">
-                    Studio
-                  </span>
-                </div>
-
-                <div className="mt-3 overflow-hidden rounded-2xl border border-white/10 bg-white/5">
-                  <div className="studio-marquee flex gap-3 p-2.5" aria-hidden>
-                    {(
-                      [
-                        { label: "Post social", src: "/home/studio/social-post.webp", alt: "Exemple de post réseaux sociaux" },
-                        { label: "Flyer", src: "/home/studio/flyer.webp", alt: "Exemple de flyer" },
-                        { label: "Brand kit", src: "/home/studio/brand-kit.webp", alt: "Exemple de charte graphique" },
-                      ] as const
-                    )
-                      .concat([
-                        { label: "Post social", src: "/home/studio/social-post.webp", alt: "Exemple de post réseaux sociaux" },
-                        { label: "Flyer", src: "/home/studio/flyer.webp", alt: "Exemple de flyer" },
-                        { label: "Brand kit", src: "/home/studio/brand-kit.webp", alt: "Exemple de charte graphique" },
-                      ])
-                      .map((item, idx) => (
-                        <div
-                          key={idx}
-                          className="studio-tile relative h-18 w-24 shrink-0 overflow-hidden rounded-xl border border-white/10 bg-white/5 shadow-sm"
-                        >
-                          {/* image */}
-                          <div className="absolute inset-0">
-                            <Image
-                              src={item.src}
-                              alt={item.alt}
-                              fill
-                              className="object-cover object-center"
-                              sizes="96px"
-                              loading="lazy"
-                              quality={75}
-                            />
-                            <div className="absolute inset-0 bg-linear-to-b from-black/0 via-black/0 to-black/55" aria-hidden />
-                          </div>
-
-                          {/* fallback glow (kept for premium feel) */}
-                          <div className="absolute inset-0 opacity-25" aria-hidden>
-                            <div className="absolute -left-8 -top-8 h-20 w-20 rounded-full bg-(--brand-blue)/15 blur-2xl" />
-                            <div className="absolute -right-8 -bottom-8 h-20 w-20 rounded-full bg-(--brand-green)/15 blur-2xl" />
-                          </div>
-
-                          {/* label */}
-                          <div className="relative flex h-full items-end p-2.5">
-                            <div className="inline-flex rounded-md bg-black/35 px-2 py-1 text-[11px] font-extrabold text-white shadow-sm border border-white/10">
-                              {item.label}
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                  </div>
-                </div>
-
-                <div className="mt-3 text-xs font-semibold text-white/75">
-                  Exemples de créations — posts sociaux, supports, identité visuelle.
-                </div>
-              </div>
-
-              {/* Différenciant : Études commerciales (bandeau compact) */}
-              <div className="rounded-3xl border border-white/10 bg-white/5 p-5 md:col-span-2 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                <div className="flex items-start justify-between gap-3">
-                  <div className="flex items-start gap-3">
-                    <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-slate-100 text-slate-900">
-                      <Icon name="target" className="h-5 w-5" />
+          <div className="mt-6 grid gap-4 sm:mt-8 sm:gap-6 lg:grid-cols-3">
+            {[
+              {
+                id: "sol-visibilite",
+                problem: "On ne nous trouve pas sur Google",
+                problemSub: "Les clients cherchent… et tombent sur un concurrent.",
+                icon: "map" as const,
+                title: "Visibilité & présence locale",
+                desc: "On met en place une présence claire (Google + pages utiles) pour être trouvé et rassurer.",
+                items: [
+                  "Fiche Google / Maps optimisée (infos, avis, cohérence)",
+                  "Pages services claires + preuves (pour rassurer)",
+                  "SEO local de base + structure propre",
+                ],
+                reco: "Commerce • Services • Restauration • Santé",
+                gradient: "from-(--brand-blue) to-(--brand-blue)/80",
+                shadow: "shadow-(--brand-blue)/20",
+                glow: "bg-(--brand-blue)",
+                check: "bg-(--brand-blue)/10 text-(--brand-blue)",
+                link: "/services/referencement-seo",
+              },
+              {
+                id: "sol-demandes",
+                problem: "On a un site, mais il ne rapporte rien",
+                problemSub: "Beaucoup d'infos… mais personne ne vous contacte.",
+                icon: "trending" as const,
+                title: "Site orienté demandes",
+                desc: "Un site pensé pour transformer : message clair, preuves, CTA simples, et suivi des demandes.",
+                items: [
+                  "Pages orientées demandes (clarté + preuves)",
+                  "Formulaire simple + WhatsApp / appel",
+                  "Performance + suivi (pour mesurer ce qui marche)",
+                ],
+                reco: "Commerce • Services • Santé • BTP",
+                gradient: "from-(--brand-green) to-(--brand-green)/80",
+                shadow: "shadow-(--brand-green)/20",
+                glow: "bg-(--brand-green)",
+                check: "bg-(--brand-green)/10 text-(--brand-green)",
+                link: "/services/creation-site-web",
+              },
+              {
+                id: "sol-organisation",
+                problem: "On perd du temps, tout est manuel",
+                problemSub: "Excel + WhatsApp + oublis = stress quotidien.",
+                icon: "database" as const,
+                title: "Outils & organisation",
+                desc: "On met un outil simple pour suivre votre activité (sans usine à gaz), et vos équipes adoptent vite.",
+                items: [
+                  "Suivi clair (clients, demandes, livraisons…)",
+                  "Automatisations basiques (notifications, exports)",
+                  "Mise en route progressive + accompagnement",
+                ],
+                reco: "Santé • Commerce • Services • Logistique",
+                gradient: "from-slate-800 to-slate-900",
+                shadow: "shadow-slate-900/20",
+                glow: "bg-slate-700",
+                check: "bg-slate-900/10 text-slate-700",
+                link: "/services/extranet-outils-gestion",
+              },
+            ].map((sol) => (
+              <div
+                key={sol.id}
+                id={sol.id}
+                className="group relative overflow-hidden rounded-2xl border border-black/8 bg-white p-5 shadow-sm sm:rounded-3xl sm:p-7 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500"
+              >
+                <div className={`pointer-events-none absolute -right-12 -top-12 h-32 w-32 rounded-full ${sol.glow}/6 blur-2xl group-hover:opacity-100 opacity-50 transition-opacity duration-500`} aria-hidden />
+                <div className="relative">
+                  {/* Le problème */}
+                  <div className="flex items-start gap-2.5 sm:gap-3">
+                    <span className={`inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${sol.gradient} text-white shadow-lg ${sol.shadow} sm:h-12 sm:w-12 sm:rounded-2xl`}>
+                      <Icon name={sol.icon} className="h-4 w-4 sm:h-5 sm:w-5" />
                     </span>
-                    <div>
-                      <div className="text-sm font-extrabold text-white">Études commerciales</div>
-                      <div className="text-sm text-white/75">Enquête • analyse • plan d’actions</div>
+                    <div className="min-w-0">
+                      <div className="text-sm font-extrabold text-slate-900 sm:text-base">❌ {sol.problem}</div>
+                      <div className="mt-0.5 text-xs text-slate-500 sm:text-sm">{sol.problemSub}</div>
                     </div>
                   </div>
 
-                  <span className="inline-flex items-center rounded-full bg-(--brand-blue)/10 px-2.5 py-1 text-xs font-semibold text-(--brand-blue)">
-                    Différenciant
-                  </span>
-                </div>
-
-                <p className="mt-3 text-sm text-white/75">
-                  On part du terrain (clients, besoins, objections) pour décider quoi dire, à qui, et avec quels supports.
-                </p>
-
-                <div className="mt-3 flex flex-wrap gap-2">
-                  <span className="inline-flex items-center rounded-full bg-white/10 px-2.5 py-1 text-xs font-semibold text-white/80">
-                    Comprendre
-                  </span>
-                  <span className="inline-flex items-center rounded-full bg-white/10 px-2.5 py-1 text-xs font-semibold text-white/80">
-                    Prioriser
-                  </span>
-                  <span className="inline-flex items-center rounded-full bg-white/10 px-2.5 py-1 text-xs font-semibold text-white/80">
-                    Agir
-                  </span>
-                </div>
-              </div>
-
-              <div className="rounded-3xl border border-white/10 bg-white/5 p-5 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                <div className="flex items-center gap-3">
-                  <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-(--brand-green)/10 text-(--brand-green)">
-                    <Icon name="megaphone" className="h-5 w-5" />
-                  </span>
-                  <div>
-                    <div className="text-sm font-extrabold text-white">Contenu & réseaux sociaux</div>
-                    <div className="text-sm text-white/75">Calendrier • posts • stories • cohérence</div>
+                  {/* Séparateur visuel problème → solution */}
+                  <div className="my-4 flex items-center gap-2 sm:my-5">
+                    <div className="h-px flex-1 bg-slate-200" />
+                    <span className="text-xs font-extrabold text-slate-400">CE QU&apos;ON MET EN PLACE</span>
+                    <div className="h-px flex-1 bg-slate-200" />
                   </div>
-                </div>
-                <p className="mt-3 text-sm text-white/75">
-                  Une présence régulière : contenus utiles, ton cohérent, messages clairs — sans improvisation.
-                </p>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  <span className="inline-flex items-center rounded-full bg-white/10 px-2.5 py-1 text-xs font-semibold text-white/80">
-                    Régularité
-                  </span>
-                  <span className="inline-flex items-center rounded-full bg-white/10 px-2.5 py-1 text-xs font-semibold text-white/80">
-                    Confiance
-                  </span>
-                  <span className="inline-flex items-center rounded-full bg-white/10 px-2.5 py-1 text-xs font-semibold text-white/80">
-                    Demandes
-                  </span>
-                </div>
-              </div>
 
-              <div className="rounded-3xl border border-white/10 bg-white/5 p-5 hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                <div className="flex items-center gap-3">
-                  <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-(--brand-blue)/10 text-(--brand-blue)">
-                    <Icon name="award" className="h-5 w-5" />
-                  </span>
-                  <div>
-                    <div className="text-sm font-extrabold text-white">Identité & supports</div>
-                    <div className="text-sm text-white/75">Logo • charte • documents</div>
+                  {/* La solution */}
+                  <div className="text-base font-extrabold text-slate-900 sm:text-lg">{sol.title}</div>
+                  <p className="mt-1.5 text-sm text-slate-700 sm:mt-2 sm:text-base">{sol.desc}</p>
+
+                  <div className="mt-4 space-y-2.5 sm:mt-5 sm:space-y-3">
+                    {sol.items.map((item, i) => (
+                      <div key={i} className="flex items-start gap-2.5 text-sm text-slate-700">
+                        <span className={`mt-1 inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full ${sol.check}`}>
+                          <Icon name="check" className="h-2.5 w-2.5" />
+                        </span>
+                        {item}
+                      </div>
+                    ))}
                   </div>
-                </div>
-                <p className="mt-3 text-sm text-white/75">
-                  On rend votre entreprise “présentable” : logo, styles, devis, présentation, plaquette — cohérents et sérieux.
-                </p>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  <Link
-                    href="/services/identite-visuelle-supports"
-                    className="inline-flex items-center text-sm font-semibold text-(--brand-blue) hover:opacity-90"
-                  >
-                    Voir Identité & supports →
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
 
-          <style>{`
-            @media (prefers-reduced-motion: no-preference) {
-              #communication .studio-marquee {
-                animation: studioMarquee 18s linear infinite;
-                will-change: transform;
-              }
-              #communication .studio-tile::after {
-                content: "";
-                position: absolute;
-                inset: 0;
-                background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.65) 50%, transparent 100%);
-                transform: translateX(-120%);
-                opacity: 0.0;
-                transition: opacity 200ms ease;
-              }
-              #communication .studio-tile:hover::after {
-                opacity: 0.55;
-                transform: translateX(120%);
-                transition: transform 700ms ease, opacity 200ms ease;
-              }
-            }
+                  <div className="mt-4 text-xs font-semibold text-(--brand-green)">{sol.reco}</div>
 
-            @keyframes studioMarquee {
-              from { transform: translateX(0); }
-              to { transform: translateX(-50%); }
-            }
-          `}</style>
-        </div>
-        </div>
-      </section>
-
-      {/* TRANSITION 3 */}
-      <section className="reveal home-section">
-        <div className="rounded-2xl border border-slate-200 bg-slate-50 px-6 py-4 text-center">
-          <p className="text-sm font-semibold text-slate-700">
-            <span className="text-slate-900">Ça donne quoi en pratique ?</span> Nos solutions principales.
-          </p>
-        </div>
-      </section>
-
-      {/* 4) NOS 4 SOLUTIONS (ENHANCED WITH 3D CARDS) */}
-      <section id="solutions" className="reveal home-section reveal-stagger space-y-4 scroll-mt-28">
-        <div className="max-w-3xl">
-          <h2 className="text-2xl font-extrabold tracking-tight">4 besoins essentiels, 4 solutions</h2>
-          <p className="mt-1 text-slate-600">Identifiez le besoin qui ressemble le plus à votre situation.</p>
-        </div>
-
-        <div className="grid gap-4 md:grid-cols-2">
-          {[
-            {
-              href: "/services/referencement-seo",
-              icon: "map" as const,
-              title: "Attirer",
-              badge: "Visibilité",
-              color: "blue",
-              desc: "Si vos clients ne vous trouvent pas : visibilité locale, crédibilité, présence Google.",
-              tools: "SEO local • Google Maps • Site vitrine",
-            },
-            {
-              href: "/services/creation-site-web",
-              icon: "trending" as const,
-              title: "Convertir",
-              badge: "Demandes",
-              color: "green",
-              desc: "Si votre site existe mais ne génère rien : un site pensé pour recevoir et convertir des demandes.",
-              tools: "Site orienté demandes • Identité • Supports",
-            },
-            {
-              href: "/services/extranet-outils-gestion",
-              icon: "database" as const,
-              title: "Structurer",
-              badge: "Organisation",
-              color: "green",
-              desc: "Si l'organisation repose sur Excel / WhatsApp : outils internes, extranet, automatisations.",
-              tools: "Outils internes • Extranet • Suivi",
-            },
-            {
-              href: "/services/conformite-fne",
-              icon: "shield" as const,
-              title: "Sécuriser",
-              badge: "Conformité",
-              color: "blue",
-              desc: "Si la conformité vous inquiète : interfaçage, FNE, données, tranquillité d'esprit.",
-              tools: "Interfaçage • Conformité • Sécurisation",
-            },
-          ].map((need) => (
-            <Link
-              key={need.href}
-              href={need.href}
-              className="card-3d-enhanced stagger-item group rounded-3xl border border-black/10 bg-white p-6 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2 relative overflow-hidden"
-            >
-              <div
-                className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none ${
-                  need.color === "blue"
-                    ? "bg-gradient-to-br from-(--brand-blue)/5 to-transparent"
-                    : "bg-gradient-to-br from-(--brand-green)/5 to-transparent"
-                }`}
-              />
-
-              <div className="relative z-10">
-                <div className="flex items-center gap-3">
-                  <div
-                    className={`
-                      rounded-2xl p-2 transition-all duration-300 group-hover:scale-110 group-hover:rotate-6
-                      ${
-                        need.color === "blue"
-                          ? "bg-(--brand-blue)/10 text-(--brand-blue) group-hover:bg-(--brand-blue)/20"
-                          : "bg-(--brand-green)/10 text-(--brand-green) group-hover:bg-(--brand-green)/20"
-                      }
-                    `}
-                  >
-                    <Icon name={need.icon} />
-                  </div>
-                  <div className="flex flex-wrap items-center gap-2">
-                    <div className="text-lg font-bold">{need.title}</div>
-                    <span
-                      className={
-                        need.color === "blue"
-                          ? "inline-flex items-center rounded-full bg-(--brand-blue)/10 px-2.5 py-0.5 text-xs font-semibold text-(--brand-blue)"
-                          : "inline-flex items-center rounded-full bg-(--brand-green)/10 px-2.5 py-0.5 text-xs font-semibold text-(--brand-green)"
-                      }
+                  <div className="mt-4 flex flex-col gap-2 sm:mt-5">
+                    <Link
+                      href="/contact"
+                      className="inline-flex items-center justify-center rounded-xl bg-(--brand-blue) px-4 py-2.5 text-xs font-semibold text-white sm:text-sm hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2 transition-all duration-300 hover:shadow-lg hover:shadow-(--brand-blue)/20"
                     >
-                      {need.badge}
-                    </span>
+                      C&apos;est mon cas — on en parle →
+                    </Link>
+                    <Link href={sol.link} className="inline-flex items-center justify-center text-xs font-semibold text-(--brand-blue) underline underline-offset-4 hover:opacity-90 sm:text-sm">
+                      En savoir plus
+                    </Link>
                   </div>
                 </div>
-                <p className="mt-2 text-slate-600">{need.desc}</p>
-                <div className="mt-3 text-xs font-semibold text-slate-500">{need.tools}</div>
-                <span className="mt-4 inline-flex items-center gap-1 font-semibold text-(--brand-green) group-hover:gap-2 transition-all duration-300">
-                  Découvrir <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
-                </span>
-              </div>
-            </Link>
-          ))}
-        </div>
-
-        <div className="mt-6 rounded-2xl border border-black/10 bg-slate-50 p-6">
-          <div className="flex items-start gap-3">
-            <div className="rounded-xl bg-(--brand-green)/10 p-2 text-(--brand-green)">
-              <Icon name="megaphone" className="h-4 w-4" />
-            </div>
-            <div>
-              <div className="text-sm font-extrabold text-slate-900">Souvent nécessaire : Communication & image de marque</div>
-              <p className="mt-1 text-sm text-slate-600">
-                Pour inspirer confiance dès le premier contact : réseaux sociaux, contenus, supports et cohérence de
-                l'image. Ce travail accompagne souvent un site (Convertir), la visibilité (Attirer) et la cohérence des
-                documents (Structurer / Sécuriser).
-              </p>
-              <div className="mt-3 flex flex-wrap gap-2">
-                <Link
-                  href="/#communication"
-                  className="inline-flex items-center text-sm font-semibold text-(--brand-blue) hover:opacity-90"
-                >
-                  Voir Communication & image →
-                </Link>
-                <Link href="/realisations" className="inline-flex items-center text-sm font-semibold text-slate-600 hover:text-slate-900">
-                  Exemples de communication →
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <style>{`
-          @media (prefers-reduced-motion: no-preference) {
-            .card-3d-enhanced {
-              transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-                          box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            }
-            .card-3d-enhanced:hover {
-              transform: translateY(-8px) scale(1.02);
-              box-shadow:
-                0 20px 40px rgba(0, 0, 0, 0.12),
-                0 0 0 1px rgba(0, 145, 255, 0.1);
-            }
-          }
-        `}</style>
-      </section>
-
-      <div className="home-divider" aria-hidden />
-
-      {/* TRANSITION 5 */}
-      <section className="reveal home-section">
-        <div className="rounded-2xl border border-slate-200 bg-slate-50 px-6 py-4 text-center">
-          <p className="text-sm font-semibold text-slate-700">
-            <span className="text-slate-900">Comment on procède ?</span> Notre méthode en 3 étapes.
-          </p>
-        </div>
-      </section>
-
-      {/* 6) MÉTHODE - ENHANCED TIMELINE */}
-      <section id="methode-timeline" className="timeline-anim reveal home-section space-y-4">
-        <div className="max-w-3xl">
-          <h2 className="text-2xl font-extrabold tracking-tight">Une méthode simple, adaptée au terrain</h2>
-          <p className="mt-1 text-slate-600">Pas de projets interminables. Pas de solutions compliquées.</p>
-        </div>
-
-        <div className="rounded-2xl bg-slate-50/60 p-6 md:p-8">
-          <div className="relative grid gap-6 md:grid-cols-3">
-            <svg
-              className="timeline-line pointer-events-none absolute left-0 top-12 hidden h-1 w-full md:block"
-              viewBox="0 0 100 2"
-              preserveAspectRatio="none"
-            >
-              <defs>
-                <linearGradient id="lineGradient" x1="0" y1="0" x2="1" y2="0">
-                  <stop offset="0%" stopColor="rgba(0,145,255,0.4)" />
-                  <stop offset="50%" stopColor="rgba(0,200,120,0.4)" />
-                  <stop offset="100%" stopColor="rgba(0,145,255,0.4)" />
-                </linearGradient>
-              </defs>
-              <line className="tl-base" x1="0" y1="1" x2="100" y2="1" stroke="rgba(15,23,42,0.12)" strokeWidth="2" />
-              <line className="tl-progress" x1="0" y1="1" x2="100" y2="1" stroke="url(#lineGradient)" strokeWidth="3" />
-            </svg>
-
-            {[
-              {
-                k: "01",
-                title: "On comprend votre situation réelle",
-                desc: "On regarde le fonctionnement actuel, les contraintes, et ce qui bloque vraiment.",
-                icon: "target" as const,
-              },
-              {
-                k: "02",
-                title: "On livre une V1 utile rapidement",
-                desc: "Vous voyez, vous testez, on ajuste — sans bloquer l'activité.",
-                icon: "zap" as const,
-              },
-              {
-                k: "03",
-                title: "On ajuste & on optimise",
-                desc: "On améliore sur des retours concrets : adoption, visibilité, conversion, suivi.",
-                icon: "tools" as const,
-              },
-            ].map((s, idx) => (
-              <div
-                key={s.k}
-                className={`timeline-step step-${idx} stagger-item relative rounded-2xl border border-black/10 bg-white p-4 sm:p-5 hover:shadow-xl transition-all duration-500`}
-              >
-                <div className="flex items-center gap-3">
-                  <span className="timeline-dot inline-flex h-9 w-9 items-center justify-center rounded-full bg-slate-900 text-sm font-extrabold text-white relative z-10">
-                    {s.k}
-                  </span>
-                  <span className="rounded-xl bg-slate-100 p-2 text-slate-900">
-                    <Icon name={s.icon} className="h-4 w-4" />
-                  </span>
-                </div>
-                <div className="mt-4 text-lg font-bold text-slate-900">{s.title}</div>
-                <div className="mt-1 text-slate-600">{s.desc}</div>
               </div>
             ))}
           </div>
-        </div>
-
-        <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-slate-700">
-            <span className="font-semibold">La première étape est toujours la même :</span> comprendre votre situation.
-          </p>
-          <Link
-            href="/contact"
-            className="inline-flex items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2 transition-all duration-300 hover:scale-105 hover:shadow-lg active:scale-98"
-          >
-            Décrire votre situation (2 min)
-          </Link>
-        </div>
-
-        <Script id="timeline-io" strategy="afterInteractive">
-          {`(() => {
-  try {
-    const timeline = document.getElementById('methode-timeline');
-    if (!timeline) return;
-
-    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduce) {
-      timeline.classList.add('no-anim');
-      return;
-    }
-
-    const io = new IntersectionObserver((entries) => {
-      const e = entries && entries[0];
-      if (e && e.isIntersecting) {
-        timeline.classList.add('is-active');
-        io.disconnect();
-      }
-    }, { threshold: 0.3 });
-
-    io.observe(timeline);
-  } catch (e) {}
-})();`}
-        </Script>
-
-        <style>{`
-          @media (prefers-reduced-motion: reduce) {
-            #methode-timeline .timeline-line,
-            #methode-timeline .timeline-step,
-            #methode-timeline .timeline-dot {
-              animation: none !important;
-            }
-          }
-
-          #methode-timeline .timeline-step,
-          #methode-timeline .timeline-dot {
-            opacity: 0;
-          }
-
-          #methode-timeline.no-anim .timeline-step,
-          #methode-timeline.no-anim .timeline-dot {
-            opacity: 1;
-          }
-
-          #methode-timeline .tl-progress {
-            stroke-dasharray: 100;
-            stroke-dashoffset: 100;
-            filter: drop-shadow(0 0 6px rgba(0, 145, 255, 0.3));
-          }
-
-          #methode-timeline.is-active .tl-progress {
-            animation: tlDraw 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-          }
-
-          #methode-timeline.is-active .timeline-step.step-0 {
-            animation: tlFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
-          }
-
-          #methode-timeline.is-active .timeline-step.step-1 {
-            animation: tlFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.9s forwards;
-          }
-
-          #methode-timeline.is-active .timeline-step.step-2 {
-            animation: tlFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.4s forwards;
-          }
-
-          @keyframes tlDraw {
-            to { stroke-dashoffset: 0; }
-          }
-
-          @keyframes tlFadeIn {
-            from {
-              opacity: 0;
-              transform: translateY(20px) scale(0.95);
-            }
-            to {
-              opacity: 1;
-              transform: translateY(0) scale(1);
-            }
-          }
-        `}</style>
+        </HomeContainer>
       </section>
 
-      <div className="home-divider" aria-hidden />
+      <div aria-hidden className="h-6 sm:h-10 md:h-14" />
 
-      {/* TRANSITION 6 */}
-      <section className="reveal home-section">
-        <div className="rounded-2xl border border-slate-200 bg-slate-50 px-6 py-4 text-center">
-          <p className="text-sm font-semibold text-slate-700">
-            <span className="text-slate-900">Qu'est-ce que ça donne en vrai ?</span> Voici ce que disent nos clients.
-          </p>
-        </div>
+      {/* ═══════════════════════════════════════
+          4) COMMENT ON TRAVAILLE — fusion Approche + Méthode
+      ═══════════════════════════════════════ */}
+      <section className="reveal py-16 sm:py-20">
+        <HomeContainer>
+          <div className="grid gap-8 lg:grid-cols-2 lg:items-center lg:gap-10">
+            <div>
+              <h2 className="text-xl font-extrabold tracking-tight text-slate-900 sm:text-2xl md:text-4xl">
+                Comment ça se passe concrètement
+              </h2>
+              <p className="mt-2 max-w-2xl text-sm text-slate-700 sm:mt-3 sm:text-base md:text-lg">
+                On part de votre fonctionnement réel, puis on simplifie — sans bloquer l&apos;activité.
+              </p>
+
+              {/* Les 3 étapes */}
+              <div className="mt-6 space-y-4 sm:mt-8 sm:space-y-5">
+                {[
+                  {
+                    k: "01",
+                    title: "On identifie le vrai blocage",
+                    desc: "Échange rapide pour comprendre ce qui freine (visibilité, demandes, organisation).",
+                    icon: "target" as const,
+                  },
+                  {
+                    k: "02",
+                    title: "On met une V1 en place",
+                    desc: "Vous testez rapidement quelque chose d'utile — pas de projet interminable.",
+                    icon: "zap" as const,
+                  },
+                  {
+                    k: "03",
+                    title: "On améliore avec vos retours",
+                    desc: "Adoption, demandes, organisation : on ajuste au réel.",
+                    icon: "tools" as const,
+                  },
+                ].map((step) => (
+                  <div key={step.k} className="flex items-start gap-3 stagger-item sm:gap-4">
+                    <span className="mt-0.5 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-(--brand-blue) to-(--brand-green) text-xs font-extrabold text-white shadow-md sm:h-10 sm:w-10 sm:text-sm">
+                      {step.k}
+                    </span>
+                    <div>
+                      <div className="text-sm font-extrabold text-slate-900 sm:text-base">{step.title}</div>
+                      <div className="mt-0.5 text-xs text-slate-600 sm:text-sm">{step.desc}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Engagements clés */}
+              <div className="mt-6 flex flex-wrap gap-2 sm:mt-8 sm:gap-3">
+                {[
+                  { icon: "users" as const, label: "Simple à utiliser" },
+                  { icon: "bolt" as const, label: "Sans arrêter l'activité" },
+                  { icon: "shield" as const, label: "Conforme & sécurisé" },
+                ].map((tag, i) => (
+                  <span key={i} className="inline-flex items-center gap-1.5 rounded-full border border-black/10 bg-slate-50 px-3 py-1.5 text-xs font-semibold text-slate-700 sm:text-sm">
+                    <Icon name={tag.icon} className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+                    {tag.label}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div className="relative">
+              <div className="overflow-hidden rounded-2xl border border-black/10 bg-white shadow-xl sm:rounded-3xl">
+                <div className="relative w-full aspect-[16/10] sm:aspect-[16/9] lg:aspect-[4/3]">
+                  <Image
+                    src="/home/home-dashboard.webp"
+                    alt="Exemple d'interface claire : suivi, organisation"
+                    fill
+                    className="object-cover object-center"
+                    sizes="(min-width: 1024px) 520px, 100vw"
+                    loading="lazy"
+                    quality={85}
+                  />
+                </div>
+              </div>
+              <div className="mt-3 text-xs text-slate-500">Une interface claire = adoption plus rapide par l&apos;équipe.</div>
+            </div>
+          </div>
+        </HomeContainer>
       </section>
 
-      {/* 7) TÉMOIGNAGES - ENHANCED */}
-      <section className="reveal home-section">
-        <div className="max-w-3xl">
-          <h2 className="text-2xl font-extrabold tracking-tight">Ils nous font confiance</h2>
-          <p className="mt-1 text-slate-600">Des entreprises ivoiriennes qui ont résolu leurs situations concrètes.</p>
-        </div>
+      <HomeContainer aria-hidden>
+        <div className="h-px w-full bg-slate-200/70" />
+      </HomeContainer>
 
-        <div className="mt-6 grid gap-6 md:grid-cols-2">
-          <div className="testimonial-card rounded-3xl border border-black/10 bg-white p-6 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500">
-            <div className="flex items-start gap-3">
-              <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-(--brand-blue) to-(--brand-green) text-sm font-extrabold text-white">
-                K
-              </div>
-              <div>
-                <div className="text-sm font-extrabold text-slate-900">Koffi M.</div>
-                <div className="text-xs font-semibold text-slate-600">Gérant — Restauration</div>
-              </div>
-            </div>
-            <p className="mt-4 text-slate-700">
-              "Avant, on n'apparaissait pas sur Google Maps. Maintenant on est visible, les avis sont bons, et on reçoit des appels tous les jours."
-            </p>
+      {/* ═══════════════════════════════════════
+          5) PREUVES — témoignages + livrable
+      ═══════════════════════════════════════ */}
+      <section className="reveal py-16 sm:py-20">
+        <HomeContainer>
+          <div className="max-w-none">
+            <h2 className="text-xl font-extrabold tracking-tight sm:text-2xl">Des résultats concrets</h2>
+            <p className="mt-1 max-w-3xl text-sm text-slate-600 sm:text-base">Ce que nos clients en disent.</p>
           </div>
 
-          <div className="testimonial-card rounded-3xl border border-black/10 bg-white p-6 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500">
-            <div className="flex items-start gap-3">
-              <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-(--brand-green) to-(--brand-blue) text-sm font-extrabold text-white">
-                J
+          <div className="mt-6 grid gap-4 sm:mt-8 sm:gap-6 md:grid-cols-2">
+            {[
+              {
+                initial: "K",
+                name: "Koffi M.",
+                role: "Gérant — Restauration",
+                quote:
+                  "Avant, on n'apparaissait pas sur Google Maps. Maintenant on est visible, les avis sont bons, et on reçoit des appels tous les jours.",
+                grad: "from-(--brand-blue) to-(--brand-green)",
+                corner: "from-(--brand-blue)/5",
+              },
+              {
+                initial: "J",
+                name: "Jean-Paul D.",
+                role: "Gérant — Services BTP",
+                quote:
+                  "Notre site existait depuis 3 ans mais générait zéro demande. Après la refonte orientée conversion, on reçoit 8–12 demandes qualifiées par semaine.",
+                grad: "from-(--brand-green) to-(--brand-blue)",
+                corner: "from-(--brand-green)/5",
+              },
+            ].map((t, idx) => (
+              <div
+                key={idx}
+                className="group relative overflow-hidden rounded-2xl border border-black/10 bg-white p-4 sm:rounded-3xl sm:p-6 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500"
+              >
+                <div className={`pointer-events-none absolute right-0 top-0 h-24 w-24 bg-gradient-to-bl ${t.corner} to-transparent rounded-bl-full sm:h-32 sm:w-32`} aria-hidden />
+                <div className="relative">
+                  <div className="flex items-center gap-0.5 text-(--brand-green) sm:gap-1">
+                    {[...Array(5)].map((_, i) => (
+                      <Icon key={i} name="star" className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+                    ))}
+                  </div>
+                  <p className="mt-3 text-sm leading-relaxed text-slate-700 sm:mt-4 sm:text-base">&quot;{t.quote}&quot;</p>
+                  <div className="mt-4 flex items-center gap-2.5 sm:mt-5 sm:gap-3">
+                    <div className={`inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br ${t.grad} text-xs font-extrabold text-white sm:h-10 sm:w-10 sm:text-sm`}>
+                      {t.initial}
+                    </div>
+                    <div>
+                      <div className="text-sm font-extrabold text-slate-900">{t.name}</div>
+                      <div className="text-xs font-semibold text-slate-500">{t.role}</div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div>
-                <div className="text-sm font-extrabold text-slate-900">Jean-Paul D.</div>
-                <div className="text-xs font-semibold text-slate-600">Gérant — Services BTP</div>
-              </div>
-            </div>
-            <p className="mt-4 text-slate-700">
-              "Notre site existait depuis 3 ans mais générait zéro demande. Après la refonte orientée conversion, on
-              reçoit 8-12 demandes qualifiées par semaine."
-            </p>
-          </div>
+            ))}
 
-          <div className="testimonial-card rounded-3xl border border-black/10 bg-white p-6 hover:shadow-2xl hover:-translate-y-2 transition-all duration-500">
-            <div className="flex items-start gap-3">
-              <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-(--brand-blue) to-(--brand-green) text-sm font-extrabold text-white">
-                A
+            <div className="group rounded-2xl border border-black/10 bg-white p-4 sm:rounded-3xl sm:p-6 hover:shadow-xl transition-all duration-500 md:col-span-2">
+              <div className="flex items-center gap-2.5 sm:gap-3">
+                <div className="rounded-xl bg-(--brand-blue)/10 p-1.5 text-(--brand-blue) sm:rounded-2xl sm:p-2">
+                  <Icon name="award" className="h-4 w-4 sm:h-5 sm:w-5" />
+                </div>
+                <div>
+                  <div className="text-sm font-extrabold text-slate-900">Extrait d’un extranet réalisé</div>
+                  <div className="text-xs font-semibold text-slate-600">Tableau de bord : trésorerie, alertes, indicateurs (exemple réel)</div>
+                </div>
               </div>
-              <div>
-                <div className="text-sm font-extrabold text-slate-900">Aya S.</div>
-                <div className="text-xs font-semibold text-slate-600">Directrice — Logistique</div>
+              <div className="relative mt-3 overflow-hidden rounded-xl border border-black/10 sm:mt-4 sm:rounded-2xl">
+                <div className="relative w-full aspect-[16/9] sm:aspect-[2/1]">
+                  <Image
+                    src="/home/demo-extranet-dashboard.png"
+                    alt="Extrait d’un extranet réalisé : tableau de bord (trésorerie, alertes, indicateurs)"
+                    fill
+                    className="object-cover object-center"
+                    sizes="(min-width: 768px) 720px, 100vw"
+                    loading="lazy"
+                    quality={85}
+                  />
+                </div>
+              </div>
+              <div className="mt-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <p className="text-sm text-slate-600">Extrait réel : simple, clair, et pensé pour être adopté par l&apos;équipe.</p>
+                <Link href="/realisations" className="inline-flex items-center text-sm font-semibold text-(--brand-blue) hover:opacity-90 group">
+                  Voir plus d&apos;exemples <span className="inline-block transition-transform group-hover:translate-x-1 ml-1">→</span>
+                </Link>
               </div>
             </div>
-            <p className="mt-4 text-slate-700">
-              "On gérait tout sur Excel et WhatsApp. L'outil de suivi qu'ils ont créé a simplifié notre organisation. On gagne du temps et on fait moins d'erreurs."
-            </p>
           </div>
-
-          <div className="rounded-3xl border border-black/10 bg-slate-50 p-6 hover:shadow-xl transition-all duration-500">
-            <div className="flex items-center gap-3">
-              <div className="rounded-2xl bg-(--brand-blue)/10 p-2 text-(--brand-blue)">
-                <Icon name="award" className="h-5 w-5" />
-              </div>
-              <div>
-                <div className="text-sm font-extrabold text-slate-900">Dernière réalisation</div>
-                <div className="text-xs font-semibold text-slate-600">Interface de suivi & organisation</div>
-              </div>
-            </div>
-            <div className="relative mt-4 overflow-hidden rounded-2xl border border-black/10">
-              <div className="relative h-48 w-full">
-                <Image
-                  src="/home/home-dashboard.webp"
-                  alt="Interface de suivi et organisation"
-                  fill
-                  className="object-cover object-center"
-                  sizes="(min-width: 768px) 320px, 100vw"
-                  loading="lazy"
-                  quality={85}
-                />
-              </div>
-            </div>
-            <p className="mt-3 text-sm text-slate-600">Un exemple de livrable : simple, clair, adopté rapidement.</p>
-            <Link
-              href="/realisations"
-              className="mt-3 inline-flex items-center text-sm font-semibold text-(--brand-blue) hover:opacity-90 group"
-            >
-              Voir plus d'exemples{" "}
-              <span className="inline-block transition-transform group-hover:translate-x-1">→</span>
-            </Link>
-          </div>
-        </div>
+        </HomeContainer>
       </section>
 
-      <div className="home-divider" aria-hidden />
+      <HomeContainer aria-hidden>
+        <div className="h-px w-full bg-slate-200/70" />
+      </HomeContainer>
 
-      {/* 8) SIGNATURE */}
-      <section className="reveal home-section">
-        <p className="text-lg font-semibold text-slate-900">
-          Nous ne vendons pas du digital.{" "}
-          <span className="text-slate-700">
-            Nous aidons les entreprises ivoiriennes à fonctionner et évoluer grâce au digital.
-          </span>
-        </p>
-      </section>
-
-      <div className="home-divider" aria-hidden />
-
-      {/* 9) CTA FINAL - ENHANCED */}
+      {/* ═══════════════════════════════════════
+          6) CTA FINAL — maintenant le visiteur comprend
+      ═══════════════════════════════════════ */}
       <section className="reveal home-band-dark relative overflow-hidden">
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute -left-20 -top-20 h-56 w-56 rounded-full bg-(--brand-blue)/10 blur-3xl animate-pulse-slow" />
-          <div
-            className="absolute -bottom-24 -right-24 h-72 w-72 rounded-full bg-(--brand-green)/10 blur-3xl animate-pulse-slow"
-            style={{ animationDelay: "2s" }}
-          />
+          <div className="absolute -bottom-24 -right-24 h-72 w-72 rounded-full bg-(--brand-green)/10 blur-3xl animate-pulse-slow" />
         </div>
-
-        <div className="home-section">
+        <HomeContainer className="py-16 sm:py-20">
           <div className="relative flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
             <div>
-              <h2 className="text-2xl font-extrabold tracking-tight">On regarde votre cas, et on vous dit si c'est adapté.</h2>
-              <p className="mt-1 text-white/75">
-                Échange rapide, sans engagement. On vise une solution utile, pas un projet compliqué.
+              <h2 className="text-xl font-extrabold tracking-tight sm:text-2xl">On vous aide à débloquer la situation</h2>
+              <p className="mt-1 text-sm text-white/75 sm:text-base">
+                Échange rapide, sans engagement. On regarde ensemble ce qui bloque et ce qu&apos;on peut simplifier.
               </p>
             </div>
-            <div className="text-sm font-semibold text-white/70">Réponse sous 24h</div>
+            <div className="text-xs font-semibold text-white/70 sm:text-sm">Réponse sous 24h</div>
           </div>
-
-          <div className="relative mt-5 flex flex-col gap-3 sm:flex-row sm:items-center">
+          <div className="relative mt-4 flex flex-col gap-3 sm:mt-5 sm:flex-row sm:items-center">
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-white/30 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(0,145,255,0.5)] active:scale-98"
+              className="cta-pulse inline-flex items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-xs font-semibold text-white sm:text-sm hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-white/30 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(0,145,255,0.5)] active:scale-98"
             >
-              Décrire votre situation (2 min)
+              Faire le point (gratuit, 2 min)
             </Link>
-
             <Link
               href="/realisations"
-              className="inline-flex items-center justify-center text-sm font-semibold text-white/70 underline underline-offset-4 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/30 transition-colors duration-300"
+              className="inline-flex items-center justify-center rounded-xl border border-white/15 bg-transparent px-5 py-3 text-xs font-semibold text-white/80 backdrop-blur hover:bg-white/5 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/30 transition-all duration-300 sm:text-sm"
             >
               Consulter des exemples concrets
             </Link>
           </div>
-        </div>
+        </HomeContainer>
       </section>
 
-      {/* Global reveal animations script */}
-      <Script id="reveal-animations" strategy="afterInteractive">
-        {`(() => {
-  try {
-    const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduce) return;
-
-    const reveals = document.querySelectorAll('.reveal');
-    
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('revealed');
-          
-          // Stagger children if present
-          const staggerItems = entry.target.querySelectorAll('.stagger-item');
-          staggerItems.forEach((item, idx) => {
-            setTimeout(() => {
-              item.classList.add('revealed');
-            }, idx * 100);
-          });
-        }
-      });
-    }, { threshold: 0.1, rootMargin: '0px 0px -100px 0px' });
-
-    reveals.forEach(el => observer.observe(el));
-  } catch (e) {}
-})();`}
-      </Script>
     </div>
   );
 }

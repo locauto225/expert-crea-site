@@ -1,18 +1,18 @@
-// ✅ Fichier : app/services/conformite-fne/page.tsx
 import type { Metadata } from "next";
 import Link from "next/link";
 import { site } from "@/lib/site";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { Container } from "@/components/Container";
 
 export const metadata: Metadata = {
-  title: "Conformité (FNE) en Côte d’Ivoire — sans stress",
+  title: "Facture Normalisée Électronique (FNE) en Côte d'Ivoire — mise en conformité",
   description:
-    "Se mettre en conformité (dont la FNE) sans bloquer l’activité. Interfaçage avec vos outils existants, sécurisation des données, continuité d’activité et accompagnement.",
+    "Mise en conformité FNE complète : facturation normalisée, logiciel certifié, interfaçage avec vos outils existants, formation et accompagnement. Sans bloquer votre activité. Basés en Côte d'Ivoire.",
   alternates: { canonical: `${site.url}/services/conformite-fne` },
   openGraph: {
-    title: "Conformité (FNE) sans stress — EXPERT CRÉA",
+    title: "Facture Normalisée Électronique (FNE) — EXPERT CRÉA",
     description:
-      "Adapter vos outils existants, sécuriser vos données et continuer à travailler sereinement — sans tout refaire.",
+      "On vous met en conformité FNE sans bloquer votre activité. Facturation normalisée, interfaçage, formation, accompagnement.",
     url: `${site.url}/services/conformite-fne`,
     siteName: site.name,
     type: "website",
@@ -22,43 +22,65 @@ export const metadata: Metadata = {
 
 const faqs = [
   {
-    q: "Est-ce que vous remplacez notre logiciel actuel ?",
-    a: "Non. Notre approche privilégie l’adaptation et l’interfaçage : on connecte l’existant aux obligations (dont la FNE) sans repartir de zéro, sauf si c’est réellement nécessaire.",
+    q: "Est-ce que vous remplacez notre logiciel de facturation ?",
+    a: "Pas forcément. Si votre logiciel peut être mis à jour ou interfacé, on le connecte aux exigences FNE. Si ce n'est pas possible, on vous propose une solution adaptée à votre activité. L'objectif : le moins de changement possible pour votre équipe.",
   },
   {
     q: "Est-ce que ça va bloquer notre activité ?",
-    a: "Non. On avance de façon progressive, avec une V1 utile rapidement, puis des ajustements. L’objectif est la continuité d’activité : pas d’arrêt brutal, pas de “big bang”.",
+    a: "Non. On avance de façon progressive. Votre facturation continue pendant la mise en place. Pas d'arrêt brutal, pas de « big bang ».",
   },
   {
-    q: "On n’est pas technique : est-ce que c’est compréhensible pour nous ?",
-    a: "Oui. Chaque action est expliquée en termes simples et validée avec vous. On privilégie des solutions claires, utilisables par l’équipe, sans complexité inutile.",
+    q: "Nos équipes ne sont pas techniques, c'est un problème ?",
+    a: "Non. On forme votre équipe à l'utilisation. L'interface est simple. Et on reste disponible après la mise en place pour les questions.",
   },
   {
-    q: "Combien de temps pour être en place ?",
-    a: "Cela dépend de vos outils et de votre organisation. Un diagnostic rapide permet de cadrer un plan. On peut livrer une première base en quelques jours/semaines, puis renforcer progressivement.",
+    q: "Combien de temps pour être conforme ?",
+    a: "Selon votre situation : quelques jours si vous avez déjà un logiciel compatible, 2 à 4 semaines si un interfaçage ou un changement est nécessaire. On cadre un planning dès le diagnostic.",
+  },
+  {
+    q: "Que se passe-t-il si on n'est pas conforme ?",
+    a: "La DGI prévoit des sanctions : amendes, redressements, et impossibilité de déduire les charges non facturées conformément. Mieux vaut se mettre en règle maintenant que sous la pression d'un contrôle.",
+  },
+  {
+    q: "On a déjà un logiciel certifié, mais on galère. Vous pouvez aider ?",
+    a: "Oui. On peut intervenir sur la configuration, la formation de l'équipe, ou l'interfaçage avec vos autres outils (comptabilité, stock, etc.). Pas besoin de tout refaire.",
   },
 ];
 
 export default function ConformiteFnePage() {
   const msg = encodeURIComponent(
-    "Bonjour EXPERT CRÉA, je dois me mettre en conformité (FNE) sans bloquer mon activité. Pouvez-vous analyser notre situation et proposer un plan ?"
+    "Bonjour EXPERT CRÉA, je dois me mettre en conformité FNE. Pouvez-vous analyser notre situation et proposer un plan ?"
   );
   const wa = `https://wa.me/${site.whatsappNumber}?text=${msg}`;
 
-  // ✅ Service schema
+  const jsonLdBreadcrumb = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Accueil", item: `${site.url}/` },
+      { "@type": "ListItem", position: 2, name: "Services", item: `${site.url}/services` },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: "Conformité FNE",
+        item: `${site.url}/services/conformite-fne`,
+      },
+    ],
+  };
+
   const jsonLdService = {
     "@context": "https://schema.org",
     "@type": "Service",
-    name: "Mise en conformité (FNE) & continuité d’activité",
+    name: "Mise en conformité Facture Normalisée Électronique (FNE)",
     serviceType:
-      "Interfaçage, organisation des données, sécurisation et accompagnement pour obligations réglementaires (dont la FNE)",
+      "Facturation normalisée FNE, logiciel certifié, interfaçage, formation et accompagnement",
     provider: {
       "@type": "Organization",
       name: site.legalName,
       url: site.url,
       telephone: site.phoneDisplay,
     },
-    areaServed: { "@type": "Country", name: "Côte d’Ivoire" },
+    areaServed: { "@type": "Country", name: "Côte d'Ivoire" },
     audience: { "@type": "BusinessAudience", name: "Entreprises & PME" },
     offers: {
       "@type": "Offer",
@@ -68,7 +90,6 @@ export default function ConformiteFnePage() {
     },
   };
 
-  // ✅ FAQ schema
   const jsonLdFaq = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -79,269 +100,559 @@ export default function ConformiteFnePage() {
     })),
   };
 
-  // ✅ Breadcrumb schema
-  const jsonLdBreadcrumb = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Accueil", item: `${site.url}/` },
-      { "@type": "ListItem", position: 2, name: "Services", item: `${site.url}/services` },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: "Conformité (FNE)",
-        item: `${site.url}/services/conformite-fne`,
-      },
-    ],
-  };
-
   return (
-    <div className="space-y-16">
-      <Breadcrumbs
-        className="mb-2"
-        items={[
-          { label: "Services", href: "/services" },
-          { label: "Conformité (FNE)", href: "/services/conformite-fne" },
-        ]}
-      />
+    <Container>
+      <div className="space-y-20 pt-20 pb-8 sm:space-y-24 sm:pt-24 sm:pb-12">
 
-      {/* HERO (même famille visuelle que SEO / Outils métiers) */}
-      <section className="reveal relative overflow-hidden rounded-3xl border border-black/10 bg-linear-to-b from-slate-50 via-white to-white p-8 md:p-10">
-        <div className="pointer-events-none absolute -left-24 -top-24 h-65 w-65 rounded-full bg-(--brand-blue)/8 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-28 -right-24 h-80 w-80 rounded-full bg-(--brand-green)/7 blur-3xl" />
+        {/* BREADCRUMB */}
+        <Breadcrumbs
+          className="mb-6 sm:mb-8"
+          items={[
+            { label: "Services", href: "/services" },
+            { label: "Conformité FNE", href: "/services/conformite-fne" },
+          ]}
+        />
 
-        <div className="relative">
-          <p className="text-xs font-semibold tracking-wide text-slate-500">
-            Service • Conformité • Continuité • Interfaçage
-          </p>
 
-          <h1 className="mt-2 text-3xl font-extrabold tracking-tight md:text-5xl">
-            Se mettre en conformité sans stress
-          </h1>
+        {/* ─── HERO ─── split texte + mock facture avant/après */}
+        <section className="reveal pt-2 sm:pt-4 grid gap-10 md:grid-cols-2 md:items-center">
 
-          <p className="mt-4 max-w-2xl text-slate-600 md:text-lg leading-relaxed">
-            Respecter les obligations (dont la FNE) sans bloquer votre activité.
-            On adapte vos outils existants, on sécurise vos données et on vous accompagne
-            — sans tout refaire.
-          </p>
+          {/* Colonne gauche — texte */}
+          <div className="space-y-6">
+            <div className="space-y-4">
+              <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 md:text-5xl">
+                Facture Normalisée Électronique (FNE)
+              </h1>
 
-          <p className="mt-3 max-w-2xl text-sm text-slate-500">
-            Idéal si vous devez être conforme, mais sans arrêter votre entreprise.
-          </p>
+              <p className="text-slate-600 md:text-lg leading-relaxed">
+                On vous met en conformité — sans bloquer votre activité. Facturation aux normes, logiciel certifié, équipe formée.
+              </p>
+            </div>
 
-          <div className="mt-6 flex flex-col gap-3 sm:flex-row">
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white hover:opacity-95"
-            >
-              Parler de ma situation
-            </Link>
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+              <Link
+                href="/contact?sujet=conformite"
+                className="inline-flex items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-(--brand-blue)/30 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(0,145,255,0.35)] active:scale-98"
+              >
+                Faire le point (gratuit, 2 min)
+              </Link>
+              <a
+                href={wa}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center justify-center rounded-xl border border-black/15 bg-white px-5 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-slate-200"
+              >
+                WhatsApp (réponse rapide)
+              </a>
+            </div>
 
-            <a
-              href={wa}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center justify-center rounded-xl border border-black/10 bg-white px-5 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-50"
-            >
-              WhatsApp (réponse rapide)
-            </a>
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+              <span className="text-sm font-semibold text-slate-400">Réponse sous 24h</span>
+              <span className="hidden sm:inline text-slate-200">·</span>
+              <div className="flex flex-wrap gap-1.5">
+                {(["Commerce", "Distribution", "Santé", "Hôtellerie", "Restauration", "PME"] as const).map((s) => (
+                  <span key={s} className="rounded-full bg-slate-100 px-2.5 py-0.5 text-[11px] font-semibold text-slate-500">
+                    {s}
+                  </span>
+                ))}
+              </div>
+            </div>
           </div>
 
-          <div className="mt-8 grid gap-3 sm:grid-cols-4">
-            {[
-              ["Continuité", "Pas d’arrêt brutal"],
-              ["Interfaçage", "On adapte l’existant"],
-              ["Sécurité", "Données structurées"],
-              ["Accompagnement", "Simple & expliqué"],
-            ].map(([t, d]) => (
-              <div key={t} className="rounded-2xl border border-black/10 p-4">
-                <div className="text-sm font-semibold text-slate-900">{t}</div>
-                <div className="text-sm text-slate-600">{d}</div>
+          {/* Colonne droite — Mock facture avant/après */}
+          <div className="hidden md:block space-y-4">
+            {/* AVANT — facture non conforme */}
+            <div className="rounded-2xl border border-red-200/60 bg-red-50/30 p-4">
+              <div className="mb-2 inline-flex rounded-md bg-red-100 px-2 py-0.5 text-[10px] font-bold text-red-600">Facture actuelle</div>
+              <div className="rounded-xl border border-black/10 bg-white p-4 space-y-3">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <div className="h-2.5 w-20 rounded bg-slate-200" />
+                    <div className="mt-1 h-2 w-28 rounded bg-slate-100" />
+                  </div>
+                  <div className="text-right">
+                    <div className="text-[10px] text-slate-400">Facture #</div>
+                    <div className="text-[11px] text-slate-500">0047</div>
+                  </div>
+                </div>
+                <div className="border-t border-dashed border-black/6 pt-2 space-y-1.5">
+                  <div className="flex justify-between text-[10px]">
+                    <span className="text-slate-500">Article X</span>
+                    <span className="text-slate-500">15 000 F</span>
+                  </div>
+                  <div className="flex justify-between text-[10px]">
+                    <span className="text-slate-500">Service Y</span>
+                    <span className="text-slate-500">25 000 F</span>
+                  </div>
+                  <div className="flex justify-between text-[11px] font-semibold border-t border-black/6 pt-1.5">
+                    <span className="text-slate-600">Total</span>
+                    <span className="text-slate-600">40 000 F</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 text-[10px] text-red-500 pt-1">
+                  <svg className="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6 6 18M6 6l12 12" /></svg>
+                  Pas de QR code · Pas de numéro DGI · Format libre
+                </div>
+              </div>
+            </div>
+
+            {/* APRÈS — facture FNE conforme */}
+            <div className="rounded-2xl border border-(--brand-green)/30 bg-(--brand-green)/4 p-4">
+              <div className="mb-2 inline-flex rounded-md bg-(--brand-green)/15 px-2 py-0.5 text-[10px] font-bold text-(--brand-green)">Facture FNE conforme</div>
+              <div className="rounded-xl border border-black/10 bg-white p-4 space-y-3">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <div className="h-5 w-5 rounded-md bg-(--brand-blue)/10" />
+                      <div className="text-[11px] font-bold text-slate-700">Votre entreprise</div>
+                    </div>
+                    <div className="mt-0.5 text-[10px] text-slate-400">NCC : CI-XXXX-XXXX</div>
+                  </div>
+                  <div className="text-right">
+                    <div className="text-[10px] text-slate-400">FNE N°</div>
+                    <div className="text-[11px] font-semibold text-(--brand-blue)">FN-2026-00047</div>
+                  </div>
+                </div>
+                <div className="border-t border-dashed border-black/6 pt-2 space-y-1.5">
+                  <div className="flex justify-between text-[10px]">
+                    <span className="text-slate-600">Article X</span>
+                    <span className="text-slate-600">15 000 F</span>
+                  </div>
+                  <div className="flex justify-between text-[10px]">
+                    <span className="text-slate-600">Service Y</span>
+                    <span className="text-slate-600">25 000 F</span>
+                  </div>
+                  <div className="flex justify-between text-[10px] text-slate-400">
+                    <span>TVA 18%</span>
+                    <span>7 200 F</span>
+                  </div>
+                  <div className="flex justify-between text-[11px] font-semibold border-t border-black/6 pt-1.5">
+                    <span className="text-slate-700">Total TTC</span>
+                    <span className="text-slate-700">47 200 F</span>
+                  </div>
+                </div>
+                <div className="flex items-center justify-between pt-1">
+                  {/* QR code mock */}
+                  <div className="flex items-center gap-2">
+                    <div className="grid grid-cols-5 gap-[1.5px]">
+                      {[1,1,1,0,1, 1,0,1,1,0, 0,1,0,1,1, 1,1,0,0,1, 1,0,1,1,1].map((v, i) => (
+                        <span key={i} className={`h-[4px] w-[4px] rounded-[0.5px] ${v ? "bg-slate-800" : "bg-slate-100"}`} />
+                      ))}
+                    </div>
+                    <span className="text-[9px] text-slate-400">QR DGI</span>
+                  </div>
+                  <div className="flex items-center gap-1 text-[10px] text-(--brand-green)">
+                    <svg className="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 6 9 17l-5-5" /></svg>
+                    Conforme
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ─── APERÇU (compact, visible mobile) ─── */}
+        <section className="reveal -mt-2 md:hidden">
+          <div className="grid gap-4">
+            <div className="rounded-2xl border border-black/10 bg-white p-5">
+              <div className="text-xs font-bold text-slate-500">Facture actuelle</div>
+              <div className="mt-2 space-y-1">
+                <div className="text-xs text-slate-500">Facture libre · format non normalisé</div>
+                <div className="text-sm font-semibold text-slate-900 leading-snug">
+                  Pas de QR code / pas de numéro DGI
+                </div>
+                <div className="text-sm text-slate-500 leading-relaxed">
+                  Risque de rejet, stress en cas de contrôle, équipe perdue.
+                </div>
+              </div>
+              <div className="mt-3 flex items-center gap-2 text-xs text-red-500">
+                <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M18 6 6 18M6 6l12 12" />
+                </svg>
+                Non conforme
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-(--brand-green)/30 bg-(--brand-green)/5 p-5">
+              <div className="text-xs font-bold text-(--brand-green)">Facture FNE conforme</div>
+              <div className="mt-2 space-y-1">
+                <div className="text-xs text-slate-500">Numéro normalisé · QR DGI · mentions obligatoires</div>
+                <div className="text-sm font-semibold text-slate-900 leading-snug">
+                  Process simple + équipe formée
+                </div>
+                <div className="text-sm text-slate-600 leading-relaxed">
+                  L’activité continue pendant la mise en place. Vous êtes serein.
+                </div>
+              </div>
+              <div className="mt-3 flex items-center gap-2 text-xs text-(--brand-green)">
+                <svg className="h-3.5 w-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M20 6 9 17l-5-5" />
+                </svg>
+                Conforme
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        {/* ─── SCROLL HINT ─── */}
+        <div className="hidden sm:flex justify-center -mt-10 -mb-10">
+          <a href="#ce-quon-fait" className="group flex flex-col items-center gap-1 text-slate-400 hover:text-(--brand-blue) transition-colors">
+            <span className="text-xs font-semibold">Ce qu&apos;on met en place</span>
+            <svg className="h-5 w-5 animate-bounce" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="m7 13 5 5 5-5" /><path d="m7 7 5 5 5-5" />
+            </svg>
+          </a>
+        </div>
+
+
+        {/* ─── CHIFFRES CLÉS ─── (responsive, sans swipe) */}
+        <section className="reveal grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-5">
+          {([
+            { number: "0", label: "interruption d'activité", sub: "on vous met en conformité sans bloquer la facturation" },
+            { number: "2–4", label: "semaines pour être conforme", sub: "diagnostic, mise en place, formation incluse" },
+            { number: "100%", label: "conforme DGI", sub: "QR code, numéro normalisé, format réglementaire" },
+          ] as const).map((stat, idx) => (
+            <div
+              key={stat.number}
+              className={`rounded-2xl bg-slate-50/80 p-4 text-center sm:p-6 ${idx === 2 ? "col-span-2 sm:col-span-1" : ""}`}
+            >
+              <div className="text-2xl font-extrabold text-(--brand-blue) sm:text-3xl md:text-4xl">{stat.number}</div>
+              <div className="mt-1 text-xs font-semibold text-slate-900 sm:text-sm">{stat.label}</div>
+              <div className="mt-1 text-[11px] leading-snug text-slate-500 sm:text-xs">{stat.sub}</div>
+            </div>
+          ))}
+        </section>
+
+
+        {/* ─── CE QU'ON FAIT (le quoi) ─── accent cards */}
+        <section id="ce-quon-fait" className="reveal reveal-stagger space-y-8">
+          <div className="prose-container-left space-y-2">
+            <h2 className="text-2xl font-extrabold tracking-tight md:text-3xl">
+              Concrètement, on fait quoi ?
+            </h2>
+            <p className="text-slate-600 leading-relaxed">
+              Tout ce qu&apos;il faut pour que vos factures soient aux normes — et que votre équipe sache s&apos;en servir.
+            </p>
+          </div>
+
+          <div className="grid gap-5 md:grid-cols-2">
+            {([
+              {
+                icon: (
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z" />
+                    <path d="M14 2v6h6" /><path d="M16 13H8" /><path d="M16 17H8" />
+                  </svg>
+                ),
+                title: "Facturation conforme FNE",
+                desc: "Vos factures respectent le format réglementaire : numéro normalisé, QR code DGI, TVA, mentions obligatoires. Prêtes en cas de contrôle.",
+                accent: "blue" as const,
+              },
+              {
+                icon: (
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M8 3H5a2 2 0 0 0-2 2v3" /><path d="M21 8V5a2 2 0 0 0-2-2h-3" />
+                    <path d="M3 16v3a2 2 0 0 0 2 2h3" /><path d="M16 21h3a2 2 0 0 0 2-2v-3" />
+                  </svg>
+                ),
+                title: "Logiciel certifié ou interfacé",
+                desc: "On met en place un logiciel certifié DGI, ou on interface votre outil existant. L'objectif : le moins de changement possible pour votre équipe.",
+                accent: "blue" as const,
+              },
+              {
+                icon: (
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                    <circle cx="9" cy="7" r="4" />
+                    <path d="M22 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                  </svg>
+                ),
+                title: "Formation de l'équipe",
+                desc: "On forme vos collaborateurs à émettre des factures conformes. Interface simple, guide fourni, support après mise en place.",
+                accent: "green" as const,
+              },
+              {
+                icon: (
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z" />
+                  </svg>
+                ),
+                title: "Suivi, maintenance & évolutions",
+                desc: "Mises à jour réglementaires, ajustements, connexion avec la comptabilité ou le stock. Votre conformité reste à jour.",
+                accent: "green" as const,
+              },
+            ]).map((item) => (
+              <div
+                key={item.title}
+                className="stagger-item relative overflow-hidden rounded-3xl border border-black/10 bg-white p-6 sm:p-7"
+              >
+                <span
+                  className={`absolute left-0 top-0 bottom-0 w-1 rounded-l-3xl ${
+                    item.accent === "green" ? "bg-(--brand-green)" : "bg-(--brand-blue)"
+                  }`}
+                  aria-hidden="true"
+                />
+                <div className="flex items-start gap-4">
+                  <span
+                    className={`inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl ${
+                      item.accent === "green"
+                        ? "bg-(--brand-green)/10 text-(--brand-green)"
+                        : "bg-(--brand-blue)/10 text-(--brand-blue)"
+                    }`}
+                  >
+                    {item.icon}
+                  </span>
+                  <div>
+                    <div className="font-bold text-slate-900">{item.title}</div>
+                    <p className="mt-1 text-sm leading-relaxed text-slate-600">{item.desc}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+
+        {/* ─── AVANT / APRÈS ─── */}
+        <section className="reveal space-y-6">
+          <div className="prose-container-left space-y-2">
+            <h2 className="text-2xl font-extrabold tracking-tight md:text-3xl">
+              La différence que ça fait
+            </h2>
+          </div>
+
+          <div className="grid gap-5 md:grid-cols-2">
+            <div className="rounded-2xl border border-red-200 bg-red-50/50 p-5 sm:p-6">
+              <div className="mb-3 inline-flex rounded-md bg-red-100 px-2 py-0.5 text-xs font-bold text-red-600">Sans mise en conformité</div>
+              <ul className="space-y-2 text-sm text-slate-600">
+                {([
+                  "Factures non conformes — risque de sanction DGI",
+                  "Pas de QR code, pas de numéro normalisé",
+                  "Charges non déductibles (factures rejetées)",
+                  "Peur du contrôle fiscal",
+                  "Le sujet est repoussé, le risque grandit",
+                ] as const).map((p) => (
+                  <li key={p} className="flex gap-2">
+                    <svg className="mt-0.5 h-3.5 w-3.5 shrink-0 text-red-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M18 6 6 18M6 6l12 12" />
+                    </svg>
+                    <span className="leading-relaxed">{p}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="rounded-2xl border border-(--brand-green)/30 bg-(--brand-green)/5 p-5 sm:p-6">
+              <div className="mb-3 inline-flex rounded-md bg-(--brand-green)/15 px-2 py-0.5 text-xs font-bold text-(--brand-green)">Avec la mise en conformité</div>
+              <ul className="space-y-2 text-sm text-slate-700">
+                {([
+                  "Chaque facture est conforme, numérotée, signée",
+                  "QR code DGI, format réglementaire, TVA correcte",
+                  "Charges déductibles, comptabilité propre",
+                  "Serein en cas de contrôle",
+                  "L'équipe sait émettre une facture conforme",
+                ] as const).map((p) => (
+                  <li key={p} className="flex gap-2">
+                    <svg className="mt-0.5 h-3.5 w-3.5 shrink-0 text-(--brand-green)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M20 6 9 17l-5-5" />
+                    </svg>
+                    <span className="leading-relaxed">{p}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </section>
+
+
+        {/* ─── CTA INTERMÉDIAIRE ─── */}
+        <div className="reveal flex flex-col items-center gap-3 sm:flex-row sm:justify-center text-center">
+          <Link
+            href="/contact?sujet=conformite"
+            className="inline-flex items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white hover:opacity-95 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(0,145,255,0.35)] active:scale-98"
+          >
+            Faire le point (gratuit, 2 min)
+          </Link>
+          <span className="text-sm text-slate-400">ou continuez pour voir comment on travaille ↓</span>
+        </div>
+
+
+        {/* ─── MÉTHODE (le comment) ─── fond slate */}
+        <section className="reveal rounded-3xl bg-slate-50/80 p-6 sm:p-8 md:p-10 space-y-6">
+          <div className="prose-container-left space-y-2">
+            <h2 className="text-2xl font-extrabold tracking-tight md:text-3xl">
+              Comment on avance ensemble
+            </h2>
+            <p className="text-slate-600 leading-relaxed">
+              On part de l&apos;existant. On ne remplace pas tout — on adapte et on connecte.
+            </p>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {([
+              { n: "01", t: "Diagnostic", d: "On cartographie vos outils, flux de facturation et contraintes." },
+              { n: "02", t: "Plan d'action", d: "Interfaçage ou nouveau logiciel, planning, priorités claires." },
+              { n: "03", t: "Mise en place", d: "Installation, configuration, connexion. L'activité continue." },
+              { n: "04", t: "Formation & suivi", d: "L'équipe est formée. On reste dispo pour les ajustements." },
+            ] as const).map((step) => (
+              <div key={step.n} className="rounded-2xl bg-white p-5">
+                <div className="text-xs font-extrabold text-(--brand-blue)">{step.n}</div>
+                <div className="mt-1 font-semibold text-slate-900">{step.t}</div>
+                <div className="mt-2 text-sm leading-relaxed text-slate-600">{step.d}</div>
               </div>
             ))}
           </div>
 
-          <p className="mt-4 max-w-2xl text-sm text-slate-600">
-            Chaque action est expliquée. Rien n’est fait sans validation.
+          <p className="text-sm text-slate-500 leading-relaxed">
+            On vous explique chaque étape en termes simples. Rien n&apos;est fait sans votre validation. L&apos;interfaçage avec vos outils existants est notre priorité — pas de remplacement inutile.
           </p>
-        </div>
-      </section>
+        </section>
 
-      {/* PROBLÈME (dédramatiser) */}
-      <section className="reveal grid gap-6 md:grid-cols-2">
-        <div className="rounded-3xl border border-black/10 p-8">
-          <h2 className="text-xl font-bold">Quand la conformité devient une source de stress</h2>
-          <p className="mt-3 text-slate-600 leading-relaxed">
-            Beaucoup d’entreprises veulent faire les choses correctement, mais se retrouvent
-            bloquées par des outils non adaptés, des informations dispersées, et la peur de
-            faire une erreur.
-          </p>
-          <ul className="mt-4 list-disc space-y-2 pl-5 text-slate-600">
-            <li>Outils existants non conformes ou difficiles à adapter</li>
-            <li>Peur de mal faire, de se tromper, d’être sanctionné</li>
-            <li>Données éparpillées (Excel, WhatsApp, mails, cahiers)</li>
-            <li>Solutions trop complexes ou imposées brutalement</li>
-          </ul>
-        </div>
 
-        <div className="rounded-3xl border border-black/10 p-8">
-          <h2 className="text-xl font-bold">Ce qu’on cherche à éviter</h2>
-          <p className="mt-3 text-slate-600 leading-relaxed">
-            Le problème n’est pas la conformité. Le problème, ce sont des outils mal intégrés
-            à la réalité du terrain.
-          </p>
-          <div className="mt-4 rounded-2xl border border-black/10 bg-slate-50 p-5">
-            <div className="text-sm font-semibold text-slate-900">
-              Notre principe : continuité d’activité.
-            </div>
-            <div className="mt-2 text-sm text-slate-600">
-              On avance par étapes, sans bloquer l’entreprise, avec une V1 utile rapidement.
+        {/* ─── FOCUS URGENCE ─── amber warning */}
+        <section className="reveal rounded-2xl border border-amber-200/60 bg-amber-50/40 p-6 sm:p-8">
+          <div className="flex items-start gap-4">
+            <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl bg-amber-100 text-amber-600">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z" />
+                <path d="M12 9v4" /><path d="M12 17h.01" />
+              </svg>
+            </span>
+            <div>
+              <div className="font-bold text-slate-900">Pourquoi ne pas attendre</div>
+              <p className="mt-2 text-sm leading-relaxed text-slate-600 max-w-2xl">
+                La FNE est une obligation de la DGI. Les contrôles se renforcent. Les entreprises non conformes s&apos;exposent à des amendes, des redressements, et à l&apos;impossibilité de déduire certaines charges. Ceux qui se mettent en règle maintenant, sereinement, évitent la précipitation et les solutions imposées dans l&apos;urgence.
+              </p>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* APPROCHE (différenciation) */}
-      <section className="reveal rounded-3xl border border-black/10 bg-slate-50 p-8">
-        <h2 className="text-xl font-bold">Notre approche : on ne remplace pas. On adapte.</h2>
-        <p className="mt-3 max-w-3xl text-slate-600 leading-relaxed">
-          Vous avez déjà des outils (Excel, logiciel, facturation, application, process interne) ?
-          On ne repart pas de zéro. On met en place des solutions d’interfaçage pour connecter
-          l’existant aux obligations (ex : FNE), sécuriser les données et structurer les flux.
-        </p>
 
-        <div className="mt-6 grid gap-4 md:grid-cols-4">
-          {[
-            ["Adapter", "On part de votre fonctionnement réel."],
-            ["Connecter", "Interfaçage avec l’existant."],
-            ["Sécuriser", "Données claires, accès contrôlés."],
-            ["Stabiliser", "Suivi et ajustements continus."],
-          ].map(([t, d]) => (
-            <div key={t} className="rounded-2xl border border-black/10 bg-white/70 p-4">
-              <div className="text-sm font-semibold text-slate-900">{t}</div>
-              <div className="text-sm text-slate-600">{d}</div>
+        {/* ─── POUR QUI ─── */}
+        <section className="reveal space-y-6">
+          <div className="prose-container-left">
+            <h2 className="text-2xl font-extrabold tracking-tight md:text-3xl">
+              Ce service est fait pour vous si…
+            </h2>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-2">
+            <div className="rounded-3xl border border-black/10 bg-white p-6 sm:p-7">
+              <div className="text-sm font-bold text-(--brand-green)">Adapté</div>
+              <ul className="mt-4 space-y-3 text-sm text-slate-700">
+                {([
+                  "Vous devez émettre des factures conformes FNE",
+                  "Vous avez un logiciel en place que vous voulez conserver",
+                  "Vous ne voulez pas bloquer votre activité pour la mise en conformité",
+                  "Votre équipe n'est pas technique et a besoin d'être formée",
+                  "Vous voulez être serein en cas de contrôle DGI",
+                ] as const).map((p) => (
+                  <li key={p} className="flex gap-2">
+                    <svg className="mt-0.5 h-4 w-4 shrink-0 text-(--brand-green)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M20 6 9 17l-5-5" />
+                    </svg>
+                    <span className="leading-relaxed">{p}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
-          ))}
-        </div>
-      </section>
 
-      {/* CE QUE VOUS OBTENEZ + POUR QUI */}
-      <section className="reveal grid gap-6 md:grid-cols-2">
-        <div className="rounded-3xl border border-black/10 p-8">
-          <h2 className="text-xl font-bold">Ce que vous obtenez concrètement</h2>
-          <ul className="mt-3 list-disc space-y-2 pl-5 text-slate-600">
-            <li>Analyse de votre situation (outils, flux, contraintes)</li>
-            <li>Mise en conformité progressive et sécurisée</li>
-            <li>Interfaçage avec vos outils existants</li>
-            <li>Organisation claire des données et des accès</li>
-            <li>Traçabilité, sécurité et continuité</li>
-            <li>Accompagnement à chaque étape</li>
-          </ul>
-          <p className="mt-4 text-sm text-slate-600">
-            Objectif : être conforme, sans perturber le quotidien.
-          </p>
-        </div>
+            <div className="rounded-3xl bg-slate-50/80 p-6 sm:p-7">
+              <div className="text-sm font-bold text-slate-400">Pas idéal</div>
+              <ul className="mt-4 space-y-3 text-sm text-slate-500">
+                {([
+                  "Vous êtes déjà conforme et n'avez besoin de rien",
+                  "Votre besoin est uniquement juridique / fiscal (pas technique)",
+                  "Vous cherchez un logiciel clé en main sans accompagnement",
+                ] as const).map((p) => (
+                  <li key={p} className="flex gap-2">
+                    <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-slate-300" />
+                    <span className="leading-relaxed">{p}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-4 text-xs text-slate-400">
+                Pour le volet purement juridique ou fiscal, on peut vous orienter vers le bon interlocuteur.
+              </p>
+            </div>
+          </div>
+        </section>
 
-        <div className="rounded-3xl border border-black/10 p-8">
-          <h2 className="text-xl font-bold">Pour qui ?</h2>
-          <p className="mt-3 text-slate-600 leading-relaxed">
-            Entreprises et PME qui doivent répondre à des obligations (dont la FNE) et
-            veulent rester opérationnelles, sans refonte brutale.
-          </p>
 
-          <ul className="mt-4 space-y-2 text-sm text-slate-700">
-            {[
-              "Vous avez déjà un outil ou un système en place",
-              "Vous voulez éviter une rupture ou un arrêt",
-              "Vous cherchez une solution claire, expliquée, accompagnée",
-              "Vous voulez sécuriser l’information et les accès",
-            ].map((p) => (
-              <li key={p} className="flex gap-2">
-                <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-slate-300" />
-                <span className="leading-6">{p}</span>
-              </li>
+        {/* ─── FAQ ─── accordéons */}
+        <section className="reveal space-y-6">
+          <div className="prose-container-left">
+            <h2 className="text-2xl font-extrabold tracking-tight md:text-3xl">
+              Questions fréquentes
+            </h2>
+          </div>
+
+          <div className="space-y-3 max-w-3xl">
+            {faqs.map((f) => (
+              <details key={f.q} className="group rounded-2xl border border-black/10 bg-white">
+                <summary className="flex cursor-pointer items-center justify-between p-6 text-base font-bold text-slate-900 hover:text-(--brand-blue) transition-colors">
+                  {f.q}
+                  <svg className="h-5 w-5 shrink-0 rotate-90 transition-transform group-open:rotate-[-90deg]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
+                  </svg>
+                </summary>
+                <div className="border-t border-slate-100 p-6 pt-4">
+                  <p className="text-slate-600 leading-relaxed">{f.a}</p>
+                </div>
+              </details>
             ))}
-          </ul>
-
-          <div className="mt-5 rounded-2xl border border-black/10 bg-slate-50 p-5">
-            <div className="text-sm font-semibold text-slate-900">À savoir</div>
-            <div className="mt-2 text-sm text-slate-600 leading-relaxed">
-              Si vous cherchez uniquement une solution imposée “clé en main” sans adaptation,
-              ce service n’est probablement pas le plus adapté.
-            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* MÉTHODE (stagger) */}
-      <section className="reveal reveal-stagger rounded-3xl border border-black/10 p-8">
-        <h2 className="text-xl font-bold">Méthode</h2>
-        <div className="mt-4 grid gap-4 md:grid-cols-4">
-          {[
-            ["Diagnostic", "On cartographie vos outils et vos flux."],
-            ["Cadrage", "On définit un plan clair, réaliste."],
-            ["Mise en place", "Interfaçage + sécurité + V1 utile."],
-            ["Suivi", "Ajustements, documentation, continuité."],
-          ].map(([t, d]) => (
-            <div key={t} className="stagger-item rounded-2xl border border-black/10 bg-white/70 p-4">
-              <div className="text-sm font-semibold">{t}</div>
-              <div className="text-sm text-slate-600">{d}</div>
+
+        {/* ─── CTA FINAL ─── dark */}
+        <section className="reveal relative overflow-hidden rounded-3xl border border-black/10 bg-linear-to-b from-slate-950 to-slate-900 p-8 sm:p-10 text-white">
+          <div className="pointer-events-none absolute -left-20 -top-20 h-56 w-56 rounded-full bg-(--brand-blue)/18 blur-3xl animate-pulse-slow" />
+          <div className="pointer-events-none absolute -bottom-24 -right-24 h-72 w-72 rounded-full bg-(--brand-green)/16 blur-3xl animate-pulse-slow" style={{ animationDelay: "1.2s" }} />
+          <div className="pointer-events-none absolute inset-0 opacity-[0.15]" style={{ backgroundImage: "radial-gradient(circle at 20% 15%, rgba(0,145,255,0.2) 0, transparent 50%), radial-gradient(circle at 85% 80%, rgba(0,200,120,0.15) 0, transparent 50%)" }} />
+
+          <div className="relative flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+            <div className="prose-container-left space-y-2">
+              <h2 className="text-2xl font-extrabold tracking-tight md:text-3xl">
+                Se mettre en règle, sereinement
+              </h2>
+              <p className="text-white/75 md:text-lg leading-relaxed">
+                Décrivez votre situation — on vous répond avec un diagnostic et un plan clair.
+              </p>
             </div>
-          ))}
-        </div>
-      </section>
+            <div className="text-sm font-semibold text-white/70">Réponse sous 24h</div>
+          </div>
 
-      {/* FAQ (stagger) */}
-      <section className="reveal reveal-stagger rounded-3xl border border-black/10 p-8">
-        <h2 className="text-xl font-bold">FAQ</h2>
-        <div className="mt-4 grid gap-4 md:grid-cols-2">
-          {faqs.map((f) => (
-            <div key={f.q} className="stagger-item rounded-2xl border border-black/10 bg-white/70 p-5">
-              <div className="font-semibold">{f.q}</div>
-              <div className="mt-2 text-sm text-slate-600 leading-relaxed">{f.a}</div>
-            </div>
-          ))}
-        </div>
-      </section>
+          <div className="relative mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <Link
+              href="/contact?sujet=conformite"
+              className="inline-flex items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2 focus:ring-offset-slate-950 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(0,145,255,0.35)] active:scale-98"
+            >
+              Faire le point (gratuit, 2 min)
+            </Link>
+            <a
+              href={wa}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center justify-center px-3 py-3 text-sm font-semibold text-white/80 underline decoration-white/20 underline-offset-4 hover:text-white hover:decoration-white/40"
+            >
+              WhatsApp
+            </a>
+            <Link
+              href="/services"
+              className="inline-flex items-center justify-center px-3 py-3 text-sm font-semibold text-white/70 underline decoration-white/20 underline-offset-4 hover:text-white hover:decoration-white/35"
+            >
+              Voir tous les services
+            </Link>
+          </div>
+        </section>
 
-      {/* CTA FINAL (1 principal + WhatsApp secondaire outline) */}
-      <section className="rounded-3xl border border-black/10 p-8">
-        <h2 className="text-xl font-bold">On regarde votre situation, simplement</h2>
-        <p className="mt-2 max-w-3xl text-slate-600 leading-relaxed">
-          Décrivez votre fonctionnement actuel (outils, équipe, flux). On vous répond avec
-          un diagnostic clair et un plan réaliste — sans jargon.
-        </p>
-        <div className="mt-4 flex flex-col gap-3 sm:flex-row">
-          <Link
-            href="/contact"
-            className="inline-flex items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white hover:opacity-95"
-          >
-            Parler de ma situation
-          </Link>
-          <a
-            href={wa}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center justify-center rounded-xl border border-black/10 bg-white px-5 py-3 text-sm font-semibold text-slate-900 hover:bg-slate-50"
-          >
-            WhatsApp
-          </a>
-        </div>
-      </section>
-
-      {/* ✅ JSON-LD */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdService) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }}
-      />
-    </div>
+        {/* JSON-LD */}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdService) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdFaq) }} />
+      </div>
+    </Container>
   );
 }

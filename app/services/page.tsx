@@ -1,5 +1,5 @@
-
 import Link from "next/link";
+import { Container } from "@/components/Container";
 
 function ServiceIcon({
   name,
@@ -60,23 +60,27 @@ function ServiceIcon({
   );
 }
 
+
 export default function ServicesPage() {
   const items = [
     {
-      title: "Attirer",
-      desc: "Être trouvé et contacté localement.",
+      problem: "On ne nous trouve pas sur Google",
+      label: "Attirer",
+      desc: "Visibilité locale, crédibilité, image de marque — pour que les clients vous trouvent avant vos concurrents.",
       points: [
         "SEO local (Google + Maps)",
         "Fiche Google optimisée",
         "Pages simples, rapides, utiles",
+        "Charte graphique & supports de communication",
       ],
       href: "/services/referencement-seo",
       accent: "blue",
-      tag: "Visibilité",
+      delai: "V1 en 2-3 semaines",
     },
     {
-      title: "Convertir",
-      desc: "Transformer les visites en demandes.",
+      problem: "On a un site, mais il ne rapporte rien",
+      label: "Convertir",
+      desc: "Un site pensé pour transformer les visiteurs en demandes concrètes — pas juste une vitrine.",
       points: [
         "Site clair orienté demandes",
         "Pages de vente (simples)",
@@ -84,11 +88,12 @@ export default function ServicesPage() {
       ],
       href: "/services/creation-site-web",
       accent: "green",
-      tag: "Demandes",
+      delai: "V1 en 3-4 semaines",
     },
     {
-      title: "Structurer",
-      desc: "Organiser l’activité sans Excel et WhatsApp.",
+      problem: "On perd du temps, tout est manuel",
+      label: "Structurer",
+      desc: "Outils internes, extranet, automatisations — pour remplacer Excel et WhatsApp.",
       points: [
         "Extranet / outil interne",
         "Suivi, organisation, automatisation",
@@ -96,11 +101,12 @@ export default function ServicesPage() {
       ],
       href: "/services/extranet-outils-gestion",
       accent: "green",
-      tag: "Organisation",
+      delai: "V1 en 4-6 semaines",
     },
     {
-      title: "Sécuriser",
-      desc: "Conformité, FNE, données, continuité.",
+      problem: "La conformité nous inquiète",
+      label: "Sécuriser",
+      desc: "Interfaçage, FNE, données — on vous met en règle sans bloquer l’activité.",
       points: [
         "Interfaçage avec l’existant",
         "Conformité / sécurisation des données",
@@ -108,383 +114,323 @@ export default function ServicesPage() {
       ],
       href: "/services/conformite-fne",
       accent: "blue",
-      tag: "Conformité",
+      delai: "V1 en 2-4 semaines",
     },
   ] as const;
 
-  const firstItems = [items[0], items[1]] as const;
-  const lastItems = [items[2], items[3]] as const;
-
   return (
-    <div className="space-y-20 sm:space-y-24">
-      {/* HERO (continuité visuelle avec Home) */}
-      <section className="reveal relative -mx-4 overflow-hidden rounded-3xl border border-black/10 bg-linear-to-b from-slate-950 to-slate-900 px-6 py-12 text-white sm:-mx-6 md:px-10 md:py-14 lg:-mx-8">
-        <div className="pointer-events-none absolute -left-24 -top-24 h-70 w-70 rounded-full bg-(--brand-blue)/10 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-28 -right-24 h-80 w-80 rounded-full bg-(--brand-green)/10 blur-3xl" />
+    <Container>
+    <div className="space-y-20 py-8 sm:space-y-24 sm:py-12">
 
-        <div className="relative">
-          <div className="max-w-3xl space-y-6">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="inline-flex rounded-full bg-white/10 px-3 py-1 text-xs font-semibold tracking-wide">
-                Services (4 besoins)
-              </span>
-            </div>
+      {/* HERO + CARDS */}
+      <section id="solutions" className="reveal reveal-stagger space-y-10 scroll-mt-28">
+        <div className="space-y-4">
+          <div className="text-sm font-semibold text-slate-400">Services</div>
+          <h1 className="text-3xl font-extrabold tracking-tight text-slate-900 md:text-5xl">
+            Quel problème vous coûte le plus&nbsp;aujourd&apos;hui&nbsp;?
+          </h1>
+          <p className="prose-container-left text-slate-600 md:text-lg leading-relaxed">
+            Choisissez votre situation — on vous montre exactement ce qu&apos;on met en place, puis on livre une V1 utile sans bloquer l&apos;activité.
+          </p>
+        </div>
 
-            <h1 className="text-3xl font-extrabold tracking-tight md:text-5xl">
-              Des solutions pensées pour des situations réelles
-            </h1>
+        {/* Grille 2×2 des 4 services */}
+        <div className="grid gap-6 md:grid-cols-2">
+          {items.map((it) => (
+            <Link
+              key={it.label}
+              href={it.href}
+              className={`stagger-item card-3d-enhanced group relative overflow-hidden rounded-3xl border border-black/10 bg-white p-6 sm:p-7 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2 hover:border-black/20`}
+            >
+              {/* Accent left border */}
+              <span
+                className={`absolute left-0 top-0 bottom-0 w-1 rounded-l-3xl ${
+                  it.accent === "green" ? "bg-(--brand-green)" : "bg-(--brand-blue)"
+                }`}
+                aria-hidden="true"
+              />
+              <div className="flex items-start gap-4">
+                <ServiceIcon name={it.label} accent={it.accent} />
+                <div className="min-w-0">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <div className="text-base font-bold text-slate-900 sm:text-lg">{it.problem}</div>
+                    <span className="text-xs font-semibold text-slate-400">{it.label}</span>
+                  </div>
+                  <div className="mt-1 text-sm leading-relaxed text-slate-600">{it.desc}</div>
+                </div>
+              </div>
 
-            <p className="max-w-2xl text-white/80 md:text-lg leading-relaxed">
-              Choisissez un besoin ci-dessous. On cadre, puis on livre une V1 utile — sans bloquer l’activité.
-            </p>
+              <ul className="mt-5 hidden sm:block space-y-2 text-sm text-slate-700">
+                {it.points.map((p) => (
+                  <li key={p} className="flex gap-2">
+                    <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-slate-300" />
+                    <span className="leading-6">{p}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-4 flex items-center justify-between">
+                <span className="text-xs font-semibold text-slate-500">{it.delai}</span>
+                <span className="inline-flex click-hint">Découvrir</span>
+              </div>
+            </Link>
+          ))}
+        </div>
 
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-white/30"
-              >
-                Décrire votre situation (2 min)
-              </Link>
-              <div className="text-sm font-semibold text-white/70">Réponse sous 24h — sans engagement</div>
-            </div>
+
+        {/* BADGES DE RÉASSURANCE */}
+        <div className="stagger-item flex flex-wrap gap-3 justify-center">
+          <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700">
+            <svg className="h-4 w-4 text-(--brand-green)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M20 6 9 17l-5-5" />
+            </svg>
+            Devis clair en 24h
+          </div>
+          <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700">
+            <svg className="h-4 w-4 text-(--brand-blue)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M13 2 3 14h9l-1 8 10-12h-9l1-8Z" />
+            </svg>
+            V1 rapide (2-6 semaines)
+          </div>
+          <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700">
+            <svg className="h-4 w-4 text-slate-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M12 2l8 4v6c0 5-3.4 9.4-8 10-4.6-.6-8-5-8-10V6l8-4z" />
+              <path d="M9 12l2 2 4-5" />
+            </svg>
+            Sans bloquer l&apos;activité
+          </div>
+          <div className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700">
+            <svg className="h-4 w-4 text-(--brand-green)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="m22 7-8.5 8.5-5-5L2 17" />
+              <path d="M16 7h6v6" />
+            </svg>
+            Optimisation continue
           </div>
         </div>
       </section>
 
 
-      {/* SOLUTIONS */}
-      <section id="solutions" className="reveal reveal-stagger space-y-8 scroll-mt-28">
-        <div className="space-y-2">
+      {/* TABLEAU COMPARATIF */}
+      <section className="reveal space-y-6">
+        
+        <div className="prose-container-left">
           <h2 className="text-2xl font-extrabold tracking-tight md:text-3xl">
-            Par où commencer ?
+            Comparatif rapide
           </h2>
-          <p className="max-w-2xl text-slate-600 md:text-lg leading-relaxed">
-            Choisissez votre besoin principal — on vous dit par quoi commencer.
-          </p>
-          <p className="text-sm font-semibold text-slate-700">
-            Quel est votre cas aujourd’hui ? Cliquez sur le bloc qui vous ressemble le plus.
+          <p className="mt-2 text-slate-600">
+            Pour vous aider à choisir le service adapté à votre situation.
           </p>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-2">
-          {firstItems.map((it) => (
-            <Link
-              key={it.title}
-              href={it.href}
-              className={`stagger-item card-wow group relative rounded-3xl border border-black/10 bg-white p-6 sm:p-7 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2 hover:border-black/20`}
-            >
-              <div className="flex items-start gap-4">
-                <ServiceIcon name={it.title} accent={it.accent} />
-                <div className="min-w-0">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <div className="text-lg font-bold text-slate-900">{it.title}</div>
-                    <span
-                      className={
-                        it.accent === "green"
-                          ? "inline-flex rounded-full bg-(--brand-green)/10 px-2.5 py-1 text-xs font-semibold text-(--brand-green)"
-                          : "inline-flex rounded-full bg-(--brand-blue)/10 px-2.5 py-1 text-xs font-semibold text-(--brand-blue)"
-                      }
-                    >
-                      {it.tag}
-                    </span>
-                  </div>
-                  <div className="mt-1 text-sm leading-relaxed text-slate-600">{it.desc}</div>
-                </div>
-              </div>
-
-              <ul className="mt-5 hidden sm:block space-y-2 text-sm text-slate-700">
-                {it.points.map((p) => (
-                  <li key={p} className="flex gap-2">
-                    <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-slate-300" />
-                    <span className="leading-6">{p}</span>
-                  </li>
-                ))}
-              </ul>
-              <span className="mt-4 inline-flex click-hint">Découvrir →</span>
-            </Link>
-          ))}
-        </div>
-
-        <div className="grid gap-6 md:grid-cols-2">
-          {lastItems.map((it) => (
-            <Link
-              key={it.title}
-              href={it.href}
-              className={`stagger-item card-wow group relative rounded-3xl border border-black/10 bg-white p-6 sm:p-7 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2 hover:border-black/20`}
-            >
-              <div className="flex items-start gap-4">
-                <ServiceIcon name={it.title} accent={it.accent} />
-                <div className="min-w-0">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <div className="text-lg font-bold text-slate-900">{it.title}</div>
-                    <span
-                      className={
-                        it.accent === "green"
-                          ? "inline-flex rounded-full bg-(--brand-green)/10 px-2.5 py-1 text-xs font-semibold text-(--brand-green)"
-                          : "inline-flex rounded-full bg-(--brand-blue)/10 px-2.5 py-1 text-xs font-semibold text-(--brand-blue)"
-                      }
-                    >
-                      {it.tag}
-                    </span>
-                  </div>
-                  <div className="mt-1 text-sm leading-relaxed text-slate-600">{it.desc}</div>
-                </div>
-              </div>
-
-              <ul className="mt-5 hidden sm:block space-y-2 text-sm text-slate-700">
-                {it.points.map((p) => (
-                  <li key={p} className="flex gap-2">
-                    <span className="mt-2 h-1.5 w-1.5 flex-none rounded-full bg-slate-300" />
-                    <span className="leading-6">{p}</span>
-                  </li>
-                ))}
-              </ul>
-              <span className="mt-4 inline-flex click-hint">Découvrir →</span>
-            </Link>
-          ))}
-        </div>
-
-        {/* LEVIER DE CRÉDIBILITÉ (complément) */}
-        <div className="stagger-item rounded-3xl border border-black/10 bg-slate-50 p-6 sm:p-7">
-          <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-            <div className="min-w-0">
-              <div className="flex items-center gap-3">
-                <span
-                  aria-hidden="true"
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-2xl bg-(--brand-green)/10 text-(--brand-green)"
-                >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 2l1.2 4.6L18 8l-4.8 1.4L12 14l-1.2-4.6L6 8l4.8-1.4L12 2z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"/>
+        {/* Tableau = pleine largeur */}
+        <div className="overflow-x-auto">
+          <div className="min-w-[800px] rounded-3xl border border-black/10 bg-white p-6 sm:p-8">
+            <div className="grid grid-cols-5 gap-4">
+              
+              {/* Header */}
+              <div className="col-span-1"></div>
+              <div className="text-center rounded-2xl bg-(--brand-blue)/5 p-3">
+                <div className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-(--brand-blue)/10">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M12 22s7-5.2 7-12a7 7 0 1 0-14 0c0 6.8 7 12 7 12Z" />
+                    <path d="M12 11.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
                   </svg>
-                </span>
-                <div className="text-sm font-semibold text-slate-900">Souvent nécessaire pour être crédible</div>
-              </div>
-
-              <div className="mt-2 text-sm text-slate-600">
-                Identité visuelle &amp; supports — sans bling-bling.
-              </div>
-              <div className="mt-1 text-sm text-slate-600">Pour inspirer confiance dès le premier contact.</div>
-            </div>
-
-            <Link
-              href="/services/identite-visuelle-supports"
-              className="inline-flex items-center gap-2 text-sm font-semibold text-(--brand-blue) underline decoration-(--brand-blue)/30 underline-offset-4 hover:decoration-(--brand-blue)/60 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2"
-            >
-              Découvrir →
-            </Link>
-          </div>
-        </div>
-
-        {/* PROJECTION (via réalisations) */}
-        <div className="stagger-item overflow-hidden rounded-3xl border border-black/10 bg-slate-50">
-          <div className="px-6 py-5 sm:px-7">
-            <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-              <div className="min-w-0">
-                <div className="text-sm font-semibold text-slate-900">Vous voulez voir concrètement ?</div>
-                <div className="mt-1 max-w-2xl text-sm text-slate-600">
-                  Consultez nos réalisations : sites, supports et outils utiles — pour vous projeter simplement.
                 </div>
+                <div className="mt-2 text-sm font-bold text-slate-900">Attirer</div>
+              </div>
+              <div className="text-center rounded-2xl bg-(--brand-green)/5 p-3">
+                <div className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-(--brand-green)/10">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M12 3l1.6 5.1H19l-4.2 3 1.6 5.1L12 13.2 7.6 16.2 9.2 11 5 8.1h5.4L12 3Z" />
+                    <path d="M4 21h16" />
+                  </svg>
+                </div>
+                <div className="mt-2 text-sm font-bold text-slate-900">Convertir</div>
+              </div>
+              <div className="text-center rounded-2xl bg-(--brand-green)/5 p-3">
+                <div className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-(--brand-green)/10">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M4 4h7v7H4V4Z" />
+                    <path d="M13 4h7v7h-7V4Z" />
+                    <path d="M4 13h7v7H4v-7Z" />
+                    <path d="M13 13h7v7h-7v-7Z" />
+                  </svg>
+                </div>
+                <div className="mt-2 text-sm font-bold text-slate-900">Structurer</div>
+              </div>
+              <div className="text-center rounded-2xl bg-(--brand-blue)/5 p-3">
+                <div className="inline-flex h-10 w-10 items-center justify-center rounded-2xl bg-(--brand-blue)/10">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M12 2l8 4v6c0 5-3.4 9.4-8 10-4.6-.6-8-5-8-10V6l8-4z" />
+                    <path d="M9 12l2 2 4-5" />
+                  </svg>
+                </div>
+                <div className="mt-2 text-sm font-bold text-slate-900">Sécuriser</div>
               </div>
 
-              <Link
-                href="/realisations"
-                className="inline-flex items-center gap-2 text-sm font-semibold text-(--brand-blue) underline decoration-(--brand-blue)/30 underline-offset-4 hover:decoration-(--brand-blue)/60 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2"
-              >
-                Voir nos réalisations →
-              </Link>
-            </div>
-          </div>
-        </div>
+              {/* Séparateur */}
+              <div className="col-span-5 my-2 h-px bg-slate-200"></div>
 
-        <div className="stagger-item rounded-3xl border border-black/10 bg-slate-50 p-6 sm:p-7">
-          <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-            <div>
-              <div className="text-sm font-semibold text-slate-900">Vous hésitez entre plusieurs solutions ?</div>
-              <div className="mt-1 text-sm text-slate-600">
-                Décrivez votre situation en 2 minutes — on vous dit par où commencer.
+              {/* Ligne 1: Délai V1 */}
+              <div className="flex items-center text-sm font-semibold text-slate-700">
+                <svg className="mr-2 h-4 w-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <circle cx="12" cy="12" r="10" />
+                  <path d="M12 6v6l4 2" />
+                </svg>
+                Délai V1
               </div>
+              <div className="rounded-xl bg-slate-50 p-3 text-center text-sm font-semibold text-slate-900">2-3 sem</div>
+              <div className="rounded-xl bg-slate-50 p-3 text-center text-sm font-semibold text-slate-900">3-4 sem</div>
+              <div className="rounded-xl bg-slate-50 p-3 text-center text-sm font-semibold text-slate-900">4-6 sem</div>
+              <div className="rounded-xl bg-slate-50 p-3 text-center text-sm font-semibold text-slate-900">2-4 sem</div>
+
+              {/* Ligne 2: Objectif */}
+              <div className="flex items-center text-sm font-semibold text-slate-700">
+                <svg className="mr-2 h-4 w-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <circle cx="12" cy="12" r="10" />
+                  <circle cx="12" cy="12" r="4" />
+                  <path d="M12 2v4" />
+                  <path d="M12 18v4" />
+                  <path d="M4.93 4.93l2.83 2.83" />
+                  <path d="M16.24 16.24l2.83 2.83" />
+                </svg>
+                Objectif
+              </div>
+              <div className="rounded-xl bg-slate-50 p-3 text-center text-xs text-slate-600">Être trouvé localement</div>
+              <div className="rounded-xl bg-slate-50 p-3 text-center text-xs text-slate-600">Générer des demandes</div>
+              <div className="rounded-xl bg-slate-50 p-3 text-center text-xs text-slate-600">Organiser l&apos;activité</div>
+              <div className="rounded-xl bg-slate-50 p-3 text-center text-xs text-slate-600">Conformité & sécurité</div>
+
+              {/* Ligne 3: Pour qui */}
+              <div className="flex items-center text-sm font-semibold text-slate-700">
+                <svg className="mr-2 h-4 w-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                  <circle cx="9" cy="7" r="4" />
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+                Pour qui ?
+              </div>
+              <div className="rounded-xl bg-slate-50 p-3 text-center text-xs text-slate-600">TPE/PME locales</div>
+              <div className="rounded-xl bg-slate-50 p-3 text-center text-xs text-slate-600">Sites existants peu efficaces</div>
+              <div className="rounded-xl bg-slate-50 p-3 text-center text-xs text-slate-600">Croissance & désorganisation</div>
+              <div className="rounded-xl bg-slate-50 p-3 text-center text-xs text-slate-600">Gros contrats & FNE</div>
+
+              {/* Ligne 4: Outils */}
+              <div className="flex items-center text-sm font-semibold text-slate-700">
+                <svg className="mr-2 h-4 w-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+                </svg>
+                Outils
+              </div>
+              <div className="rounded-xl bg-slate-50 p-3 text-center text-xs text-slate-600">SEO • Maps • Site</div>
+              <div className="rounded-xl bg-slate-50 p-3 text-center text-xs text-slate-600">Site • Identité • Supports</div>
+              <div className="rounded-xl bg-slate-50 p-3 text-center text-xs text-slate-600">Extranet • Suivi • Auto</div>
+              <div className="rounded-xl bg-slate-50 p-3 text-center text-xs text-slate-600">Interface • Conformité</div>
+
             </div>
-            <div>
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 text-sm font-semibold text-(--brand-blue) underline decoration-(--brand-blue)/30 underline-offset-4 hover:decoration-(--brand-blue)/60 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2"
-              >
-                Décrire votre situation (2 min) →
-              </Link>
+
+            {/* Note bas de tableau */}
+            <div className="mt-6 flex items-start gap-2 rounded-xl bg-slate-50 p-4">
+              <svg className="mt-0.5 h-5 w-5 flex-none text-(--brand-blue)" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="12" cy="12" r="10" />
+                <path d="M12 16v-4" />
+                <path d="M12 8h.01" />
+              </svg>
+              <div className="text-xs text-slate-600">
+                <span className="font-semibold text-slate-900">Besoin de plusieurs services ?</span> Ils sont conçus pour fonctionner ensemble. Contactez-nous pour un devis combiné adapté à votre situation.
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* SECTIONS EXPLICATIVES (mobile = accordéons) */}
-      <div className="md:hidden space-y-4">
-        <details className="rounded-3xl border border-black/10 bg-slate-50">
-          <summary className="cursor-pointer list-none px-7 py-5 text-sm font-semibold text-slate-900">
-            Cadre déjà appliqué
-          </summary>
-          <div className="px-7 pb-7 pt-0">
-            <div className="text-sm font-semibold text-slate-900">
-              Cadre déjà appliqué sur des sites, des outils internes et des prototypes utilisés au quotidien en Côte d’Ivoire.
-            </div>
-            <div className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600">
-              Le but : un outil utile, clair, adopté par l’équipe.
-            </div>
-          </div>
-        </details>
+      {/* FAQ */}
+      <section className="reveal space-y-6">
+        <div className="prose-container-left">
+          <h2 className="text-2xl font-extrabold tracking-tight md:text-3xl">
+            Questions fréquentes
+          </h2>
+          <p className="mt-2 text-slate-600">
+            Réponses aux questions les plus posées sur nos services.
+          </p>
+        </div>
 
-        <details className="rounded-3xl border border-black/10 bg-slate-50">
-          <summary className="cursor-pointer list-none px-7 py-5 text-sm font-semibold text-slate-900">
-            À retenir
-          </summary>
-          <div className="px-7 pb-7 pt-0">
-            <div className="text-xl font-extrabold tracking-tight text-slate-900">
-              Même objectif : des demandes + moins de stress au quotidien.
+        <div className="space-y-3 max-w-3xl">
+          <details className="group rounded-2xl border border-black/10 bg-white">
+            <summary className="flex cursor-pointer items-center justify-between p-6 text-base font-bold text-slate-900 hover:text-(--brand-blue) transition-colors">
+              Comment choisir entre vos différents services ?
+              <svg className="h-5 w-5 rotate-90 transition-transform group-open:rotate-[-90deg]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M5 12h14" />
+                <path d="m12 5 7 7-7 7" />
+              </svg>
+            </summary>
+            <div className="border-t border-slate-100 p-6 pt-4">
+              <p className="text-slate-600">
+                Identifiez votre priorité : besoin de visibilité (Attirer), de conversions (Convertir), d&apos;organisation (Structurer) ou de conformité (Sécuriser). Contactez-nous si vous hésitez, on vous guide.
+              </p>
             </div>
-            <div className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600">
-              Services = le cadre. On l’applique à votre secteur et à votre réalité terrain. V1 utile rapidement, continuité d’activité, puis optimisation — sans complexifier l’existant.
+          </details>
+
+          <details className="group rounded-2xl border border-black/10 bg-white">
+            <summary className="flex cursor-pointer items-center justify-between p-6 text-base font-bold text-slate-900 hover:text-(--brand-blue) transition-colors">
+              Quels sont vos délais de livraison ?
+              <svg className="h-5 w-5 rotate-90 transition-transform group-open:rotate-[-90deg]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M5 12h14" />
+                <path d="m12 5 7 7-7 7" />
+              </svg>
+            </summary>
+            <div className="border-t border-slate-100 p-6 pt-4">
+              <p className="text-slate-600">
+                Nous livrons une V1 utile en 2 à 6 semaines selon le service. L&apos;objectif est d&apos;avoir quelque chose d&apos;opérationnel rapidement, puis d&apos;optimiser en continu.
+              </p>
             </div>
+          </details>
 
-            <div className="mt-5 grid gap-3">
-              <div className="rounded-2xl border border-black/10 bg-white p-5">
-                <div className="text-sm font-semibold text-slate-900">Un point d’entrée clair</div>
-                <div className="mt-1 text-sm text-slate-600">Votre situation → notre cadre → V1 utile</div>
-              </div>
-              <div className="rounded-2xl border border-black/10 bg-white p-5">
-                <div className="text-sm font-semibold text-slate-900">Un objectif concret</div>
-                <div className="mt-1 text-sm text-slate-600">Demandes, clarté, organisation au quotidien</div>
-              </div>
-              <div className="rounded-2xl border border-black/10 bg-white p-5">
-                <div className="text-sm font-semibold text-slate-900">Zéro rupture</div>
-                <div className="mt-1 text-sm text-slate-600">On améliore sans bloquer l’activité</div>
-              </div>
+          <details className="group rounded-2xl border border-black/10 bg-white">
+            <summary className="flex cursor-pointer items-center justify-between p-6 text-base font-bold text-slate-900 hover:text-(--brand-blue) transition-colors">
+              Combien coûtent vos services ?
+              <svg className="h-5 w-5 rotate-90 transition-transform group-open:rotate-[-90deg]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M5 12h14" />
+                <path d="m12 5 7 7-7 7" />
+              </svg>
+            </summary>
+            <div className="border-t border-slate-100 p-6 pt-4">
+              <p className="text-slate-600">
+                Chaque projet est différent. Nous vous envoyons un devis clair en 24h après échange. Nos tarifs sont adaptés au marché ivoirien et nous proposons des paiements échelonnés.
+              </p>
             </div>
+          </details>
 
-            <div className="mt-5 text-xs font-semibold text-slate-500">V1 rapide • continuité d’activité • optimisation concrète</div>
-          </div>
-        </details>
-
-        <details className="rounded-3xl border border-black/10 bg-white">
-          <summary className="cursor-pointer list-none px-7 py-5 text-sm font-semibold text-slate-900">
-            Comment on intervient
-          </summary>
-          <div className="px-7 pb-7 pt-0">
-            <p className="text-slate-600 leading-relaxed">
-              Pas de projets interminables. On avance par étapes, avec une V1 utile rapidement.
-            </p>
-
-            <div className="mt-5 grid gap-3">
-              {[
-                { n: "01", t: "On comprend votre réalité", d: "Objectifs, contraintes, outils déjà en place." },
-                { n: "02", t: "On livre une V1 utile", d: "Simple, claire, utilisable par votre équipe." },
-                { n: "03", t: "On ajuste & on sécurise", d: "Optimisation, suivi, continuité d’activité." },
-              ].map((s) => (
-                <div key={s.n} className="rounded-2xl border border-black/10 bg-slate-50 p-5">
-                  <div className="text-xs font-extrabold text-slate-500">{s.n}</div>
-                  <div className="mt-1 font-semibold text-slate-900">{s.t}</div>
-                  <div className="mt-2 text-sm leading-relaxed text-slate-600">{s.d}</div>
-                </div>
-              ))}
+          <details className="group rounded-2xl border border-black/10 bg-white">
+            <summary className="flex cursor-pointer items-center justify-between p-6 text-base font-bold text-slate-900 hover:text-(--brand-blue) transition-colors">
+              Est-ce que je peux combiner plusieurs services ?
+              <svg className="h-5 w-5 rotate-90 transition-transform group-open:rotate-[-90deg]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M5 12h14" />
+                <path d="m12 5 7 7-7 7" />
+              </svg>
+            </summary>
+            <div className="border-t border-slate-100 p-6 pt-4">
+              <p className="text-slate-600">
+                Oui ! Nos services sont conçus pour fonctionner ensemble. Par exemple : Attirer + Convertir, ou Structurer + Sécuriser. Nous vous proposons la meilleure combinaison selon vos besoins.
+              </p>
             </div>
-          </div>
-        </details>
-      </div>
-
-      {/* SECTIONS EXPLICATIVES (desktop = visibles) */}
-      <div className="hidden md:block space-y-20 sm:space-y-24">
-        <section className="reveal rounded-3xl border border-black/10 bg-slate-50 p-7 sm:p-8">
-          <div className="text-sm font-semibold text-slate-900">
-            Cadre déjà appliqué sur des sites, des outils internes et des prototypes utilisés au quotidien en Côte d’Ivoire.
-          </div>
-          <div className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-600">
-            Le but : un outil utile, clair, adopté par l’équipe.
-          </div>
-        </section>
-
-        {/* À RETENIR (après le choix) */}
-        <section className="reveal rounded-3xl border border-black/10 bg-slate-50 p-7 sm:p-8">
-          <div className="space-y-2">
-            <div className="text-xs font-semibold text-slate-500">À retenir</div>
-            <div className="text-xl font-extrabold tracking-tight text-slate-900">
-              Même objectif : des demandes + moins de stress au quotidien.
-            </div>
-            <div className="max-w-3xl text-sm leading-relaxed text-slate-600">
-              Services = le cadre. On l’applique à votre secteur et à votre réalité terrain.
-              V1 utile rapidement, continuité d’activité, puis optimisation — sans complexifier l’existant.
-            </div>
-          </div>
-
-          <div className="mt-6 grid gap-4 md:grid-cols-3">
-            <div className="rounded-2xl border border-black/10 bg-white p-5">
-              <div className="text-sm font-semibold text-slate-900">Un point d’entrée clair</div>
-              <div className="mt-1 text-sm text-slate-600">Votre situation → notre cadre → V1 utile</div>
-            </div>
-            <div className="rounded-2xl border border-black/10 bg-white p-5">
-              <div className="text-sm font-semibold text-slate-900">Un objectif concret</div>
-              <div className="mt-1 text-sm text-slate-600">Demandes, clarté, organisation au quotidien</div>
-            </div>
-            <div className="rounded-2xl border border-black/10 bg-white p-5">
-              <div className="text-sm font-semibold text-slate-900">Zéro rupture</div>
-              <div className="mt-1 text-sm text-slate-600">On améliore sans bloquer l’activité</div>
-            </div>
-          </div>
-
-          <div className="mt-6 text-xs font-semibold text-slate-500">
-            V1 rapide • continuité d’activité • optimisation concrète
-          </div>
-        </section>
-
-        {/* COMMENT ON INTERVIENT */}
-        <section className="reveal reveal-stagger space-y-8">
-          <div className="max-w-3xl space-y-2">
-            <h2 className="text-2xl font-extrabold tracking-tight md:text-3xl">
-              Comment on intervient
-            </h2>
-            <p className="text-slate-600 md:text-lg leading-relaxed">
-              Pas de projets interminables. On avance par étapes, avec une V1 utile rapidement.
-            </p>
-          </div>
-
-          <div className="rounded-3xl border border-black/10 bg-white p-7 sm:p-8">
-            <div className="grid gap-6 md:grid-cols-3">
-              {[
-                {
-                  n: "01",
-                  t: "On comprend votre réalité",
-                  d: "Objectifs, contraintes, outils déjà en place.",
-                },
-                {
-                  n: "02",
-                  t: "On livre une V1 utile",
-                  d: "Simple, claire, utilisable par votre équipe.",
-                },
-                {
-                  n: "03",
-                  t: "On ajuste & on sécurise",
-                  d: "Optimisation, suivi, continuité d’activité.",
-                },
-              ].map((s) => (
-                <div key={s.n} className="stagger-item rounded-2xl border border-black/10 bg-slate-50 p-4 sm:p-5">
-                  <div className="text-xs font-extrabold text-slate-500">{s.n}</div>
-                  <div className="mt-1 font-semibold text-slate-900">{s.t}</div>
-                  <div className="mt-2 text-sm leading-relaxed text-slate-600">{s.d}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      </div>
+          </details>
+        </div>
+      </section>
 
       {/* CTA FINAL */}
       <section className="reveal relative overflow-hidden rounded-3xl border border-black/10 bg-linear-to-b from-slate-950 to-slate-900 p-8 sm:p-10 text-white">
-        <div className="pointer-events-none absolute -left-20 -top-20 h-56 w-56 rounded-full bg-(--brand-blue)/10 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-24 -right-24 h-72 w-72 rounded-full bg-(--brand-green)/10 blur-3xl" />
+        <div className="pointer-events-none absolute -left-20 -top-20 h-56 w-56 rounded-full bg-(--brand-blue)/18 blur-3xl animate-pulse-slow" />
+        <div className="pointer-events-none absolute -bottom-24 -right-24 h-72 w-72 rounded-full bg-(--brand-green)/16 blur-3xl animate-pulse-slow" style={{ animationDelay: "1.2s" }} />
+        <div className="pointer-events-none absolute inset-0 opacity-[0.15]" style={{ backgroundImage: "radial-gradient(circle at 20% 15%, rgba(0,145,255,0.2) 0, transparent 50%), radial-gradient(circle at 85% 80%, rgba(0,200,120,0.15) 0, transparent 50%)" }} />
 
         <div className="relative flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-          <div className="space-y-2">
+          
+          <div className="prose-container-left space-y-2">
             <h2 className="text-2xl font-extrabold tracking-tight md:text-3xl">
-              On regarde votre cas, et on vous dit si c’est adapté.
+              On regarde votre cas, et on vous dit si c&apos;est adapté.
             </h2>
-            <p className="max-w-2xl text-white/75 md:text-lg leading-relaxed">
+            <p className="text-white/75 md:text-lg leading-relaxed">
               Échange rapide, sans engagement. On vise une solution utile, pas un projet compliqué.
             </p>
           </div>
@@ -494,7 +440,7 @@ export default function ServicesPage() {
         <div className="relative mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
           <Link
             href="/contact"
-            className="inline-flex items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2 focus:ring-offset-slate-950"
+            className="inline-flex items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2 focus:ring-offset-slate-950 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(0,145,255,0.35)] active:scale-98"
           >
             Décrire votre situation (2 min)
           </Link>
@@ -513,5 +459,6 @@ export default function ServicesPage() {
         </div>
       </section>
     </div>
+    </Container>
   );
 }

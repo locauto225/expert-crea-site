@@ -1,18 +1,19 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import Image from "next/image";
-import { Breadcrumbs } from "@/components/Breadcrumbs";
+import Link from "next/link";
 import { site } from "@/lib/site";
+import { Breadcrumbs } from "@/components/Breadcrumbs";
+import { Container } from "@/components/Container";
 
 export const metadata: Metadata = {
-  title: "À propos",
+  title: "À propos — EXPERT CRÉA",
   description:
-    "EXPERT CRÉA : digital & communication pour aider les entreprises à gagner du temps, être mieux organisées et développer leur activité.",
+    "Deux fondateurs, une méthode claire. Digital, visibilité et outils pour entreprises en Côte d'Ivoire. Basés à Abidjan, orientés résultats.",
   alternates: { canonical: `${site.url}/a-propos` },
   openGraph: {
     title: "À propos — EXPERT CRÉA",
     description:
-      "Digital & communication : organisation, outils, visibilité et crédibilité pour développer votre activité.",
+      "Qui sommes-nous ? Deux associés complémentaires, basés en Côte d'Ivoire, qui livrent des solutions concrètes.",
     url: `${site.url}/a-propos`,
     siteName: site.name,
     type: "website",
@@ -20,24 +21,9 @@ export const metadata: Metadata = {
   },
 };
 
-const values = [
-  {
-    title: "Clarté",
-    desc: "Objectifs, livrables et étapes nettes. Pas de projets flous.",
-  },
-  {
-    title: "Exécution",
-    desc: "On livre une V1 utile rapidement, puis on améliore avec des itérations.",
-  },
-  {
-    title: "Accompagnement",
-    desc: "On forme, on suit et on mesure. L’objectif : adoption et impact.",
-  },
-];
-
 export default function AproposPage() {
   const msg = encodeURIComponent(
-    "Bonjour EXPERT CRÉA, je souhaite échanger sur mon projet. Pouvez-vous m’aider ?"
+    "Bonjour EXPERT CRÉA, je souhaite échanger sur mon projet. Pouvez-vous m'aider ?"
   );
   const wa = `https://wa.me/${site.whatsappNumber}?text=${msg}`;
 
@@ -65,227 +51,309 @@ export default function AproposPage() {
   };
 
   return (
-    <div className="space-y-16">
-      <Breadcrumbs className="mb-2" items={[{ label: "À propos", href: "/a-propos" }]} />
+    <Container>
+      <div className="space-y-12 pt-[calc(var(--header-h)+1rem)] pb-10 sm:space-y-16 sm:pt-[calc(var(--header-h)+1.5rem)] sm:pb-12 lg:space-y-20 lg:pt-[calc(var(--header-h)+2rem)] lg:pb-14">
 
-      {/* HERO (même famille que Avis / Méthode) */}
-      <section className="reveal relative overflow-hidden rounded-3xl border border-black/10 bg-linear-to-b from-slate-50 via-white to-white p-8 md:p-10">
-        <div className="pointer-events-none absolute -left-24 -top-24 h-65 w-65 rounded-full bg-(--brand-blue)/8 blur-3xl" />
-        <div className="pointer-events-none absolute -bottom-28 -right-24 h-80 w-80 rounded-full bg-(--brand-green)/7 blur-3xl" />
+        {/* BREADCRUMB */}
+        <Breadcrumbs
+          className="mb-2 sm:mb-4"
+          items={[{ label: "À propos", href: "/a-propos" }]}
+        />
 
-        <div className="relative space-y-6">
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="inline-flex rounded-full border border-black/10 bg-white px-3 py-1 text-xs font-semibold tracking-wide text-slate-700">
-              À propos
-            </span>
-            <span className="inline-flex rounded-full border border-black/10 bg-white px-3 py-1 text-xs font-semibold tracking-wide text-slate-700">
-              Côte d’Ivoire • terrain & sérieux
-            </span>
+
+        {/* ─── HERO LÉGER ─── */}
+        <section className="reveal space-y-4 sm:space-y-5">
+          <p className="text-sm font-semibold text-(--brand-blue)">À propos</p>
+          <h1 className="text-balance text-3xl font-extrabold tracking-tight text-slate-900 sm:text-4xl md:text-5xl">
+            Deux associés, une seule obsession : que ça marche
+          </h1>
+          <p className="max-w-2xl text-slate-600 leading-relaxed sm:text-base md:text-lg">
+            EXPERT CRÉA est une SAS basée en Côte d&apos;Ivoire. On construit des sites, des outils et de la visibilité pour les entreprises qui veulent avancer — pas juste &laquo;&nbsp;être en ligne&nbsp;&raquo;.
+          </p>
+        </section>
+
+
+        {/* ─── L'ÉQUIPE ─── section principale */}
+        <section className="reveal space-y-7 sm:space-y-8">
+          <div className="prose-container-left space-y-2">
+            <h2 className="text-2xl font-extrabold tracking-tight md:text-3xl">
+              Qui fait quoi
+            </h2>
+            <p className="text-slate-600 leading-relaxed">
+              Deux profils complémentaires. Vous avez un seul interlocuteur selon votre besoin.
+            </p>
           </div>
 
-          <h1 className="text-3xl font-extrabold tracking-tight md:text-5xl">
-            Une équipe engagée, orientée résultats.
-          </h1>
+          <div className="grid gap-5 sm:gap-6 md:grid-cols-2">
+            {/* Georges */}
+            <div className="relative overflow-hidden rounded-3xl border border-black/10 bg-white p-6 sm:p-8">
+              <span className="absolute left-0 top-0 bottom-0 w-1 rounded-l-3xl bg-(--brand-blue)" aria-hidden="true" />
 
-          <p className="max-w-3xl text-slate-600 md:text-lg leading-relaxed">
-            EXPERT CRÉA est une SAS fondée par deux associés complémentaires. Notre rôle : aider les entreprises
-            à gagner du temps, mieux s’organiser et développer leur activité, grâce à des solutions pensées pour le terrain.
-          </p>
+              <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-4">
+                <div className="shrink-0">
+                  {/* Place the image file at: public/georges-konan.jpg */}
+                  <Image
+                    src="/georges-konan.jpg"
+                    alt="Georges KONAN"
+                    width={128}
+                    height={128}
+                    className="h-20 w-20 rounded-2xl object-cover object-[50%_18%] sm:h-24 sm:w-24 lg:h-28 lg:w-28"
+                    sizes="(min-width: 1024px) 112px, (min-width: 640px) 96px, 80px"
+                    priority
+                  />
+                </div>
+                <div className="min-w-0">
+                  <div className="text-lg font-bold text-slate-900 sm:text-xl">Georges KONAN</div>
+                  <div className="text-sm font-semibold text-(--brand-blue)">Digital &amp; Produit</div>
+                  <div className="text-xs text-slate-500">Co-fondateur</div>
+                </div>
+              </div>
 
-          <div className="flex flex-col gap-3 sm:flex-row">
+              <p className="mt-4 text-sm leading-relaxed text-slate-600 sm:mt-5">
+                Votre interlocuteur sur tout ce qui est technique : sites web, outils de gestion, extranets, parcours de conversion. Il conçoit, développe et met en production. Son approche : livrer une V1 utile rapidement, puis améliorer en continu.
+              </p>
+
+              <div className="mt-4 flex flex-wrap gap-2">
+                {(["Sites web", "Outils / Extranet", "Développement", "Performance", "FNE"] as const).map((t) => (
+                  <span key={t} className="rounded-full bg-(--brand-blue)/8 px-2.5 py-0.5 text-[10.5px] sm:text-[11px] font-semibold text-(--brand-blue)">
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Philipe */}
+            <div className="relative overflow-hidden rounded-3xl border border-black/10 bg-white p-6 sm:p-8">
+              <span className="absolute left-0 top-0 bottom-0 w-1 rounded-l-3xl bg-(--brand-green)" aria-hidden="true" />
+
+              <div className="flex flex-col items-start gap-3 sm:flex-row sm:items-center sm:gap-4">
+                <div className="shrink-0">
+                  {/* Place the image file at: public/philipe-tanbge.jpg */}
+                  <Image
+                    src="/philipe-tanbge.jpg"
+                    alt="Philipe TANBGÉ"
+                    width={128}
+                    height={128}
+                    className="h-20 w-20 rounded-2xl object-cover object-[50%_18%] sm:h-24 sm:w-24 lg:h-28 lg:w-28"
+                    sizes="(min-width: 1024px) 112px, (min-width: 640px) 96px, 80px"
+                  />
+                </div>
+                <div className="min-w-0">
+                  <div className="text-lg font-bold text-slate-900 sm:text-xl">Philipe TANBGÉ</div>
+                  <div className="text-sm font-semibold text-(--brand-green)">Communication &amp; Visibilité</div>
+                  <div className="text-xs text-slate-500">Co-fondateur</div>
+                </div>
+              </div>
+
+              <p className="mt-4 text-sm leading-relaxed text-slate-600 sm:mt-5">
+                Votre référent sur l&apos;image de marque, la visibilité Google, les supports commerciaux et la structuration de la communication. Son rôle : que vos clients vous trouvent, vous fassent confiance et passent à l&apos;action.
+              </p>
+
+              <div className="mt-4 flex flex-wrap gap-2">
+                {(["SEO / Google Maps", "Image de marque", "Supports", "Stratégie commerciale"] as const).map((t) => (
+                  <span key={t} className="rounded-full bg-(--brand-green)/10 px-2.5 py-0.5 text-[10.5px] sm:text-[11px] font-semibold text-(--brand-green)">
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        {/* ─── POURQUOI EXPERT CRÉA ─── */}
+        <section className="reveal space-y-8">
+          <div className="prose-container-left space-y-2">
+            <h2 className="text-2xl font-extrabold tracking-tight md:text-3xl">
+              Ce qui nous différencie
+            </h2>
+          </div>
+
+          <div className="grid gap-4 sm:gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {([
+              {
+                icon: (
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10 15 15 0 0 1-4-10 15 15 0 0 1 4-10Z" />
+                    <path d="M2 12h20" />
+                  </svg>
+                ),
+                title: "Basés en Côte d'Ivoire",
+                desc: "On connaît le terrain, les contraintes locales, les habitudes des clients. Pas de prestataire distant qui ne comprend pas le contexte.",
+              },
+              {
+                icon: (
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M13 2 3 14h9l-1 8 10-12h-9l1-8Z" />
+                  </svg>
+                ),
+                title: "Du concret, pas des promesses",
+                desc: "Pas de slides ou de roadmaps sans fin. On met en place et on avance — une V1 utile en 2 à 4 semaines.",
+              },
+              {
+                icon: (
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M12 20h9" /><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z" />
+                  </svg>
+                ),
+                title: "V1 d'abord, perfection ensuite",
+                desc: "On livre une première version utile rapidement. Puis on améliore en continu selon l'usage réel — pas selon des hypothèses.",
+              },
+              {
+                icon: (
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                    <circle cx="9" cy="7" r="4" />
+                    <path d="M22 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                  </svg>
+                ),
+                title: "On forme l'équipe",
+                desc: "Un outil que personne n'utilise ne sert à rien. On forme, on accompagne l'adoption, et on reste disponible.",
+              },
+            ]).map((item) => (
+              <div key={item.title} className="rounded-2xl border border-black/10 bg-white p-5 sm:p-6">
+                <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-600">
+                  {item.icon}
+                </span>
+                <div className="mt-3 font-bold text-slate-900">{item.title}</div>
+                <p className="mt-1 text-sm leading-relaxed text-slate-600">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+
+        {/* ─── EN CHIFFRES ─── */}
+        <section className="reveal grid grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-5">
+          {([
+            { number: "SAS", label: "Société formelle", sub: "enregistrée en Côte d'Ivoire" },
+            { number: "2", label: "Associés", sub: "digital + communication" },
+            { number: "2–4", label: "Semaines", sub: "pour une V1 opérationnelle" },
+            { number: "24h", label: "Réponse", sub: "sur chaque demande" },
+          ] as const).map((stat) => (
+            <div key={stat.number} className="rounded-2xl bg-slate-50/80 p-3.5 text-center sm:p-5">
+              <div className="text-2xl font-extrabold text-(--brand-blue) md:text-3xl">{stat.number}</div>
+              <div className="mt-1 text-sm font-semibold text-slate-900">{stat.label}</div>
+              <div className="mt-0.5 text-xs text-slate-500">{stat.sub}</div>
+            </div>
+          ))}
+        </section>
+
+
+        {/* ─── MID CTA ─── */}
+        <div className="reveal flex flex-col items-stretch gap-3 text-center sm:flex-row sm:items-center sm:justify-center sm:gap-4">
+          <Link
+            href="/contact"
+            className="inline-flex w-full items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white hover:opacity-95 transition-all duration-300 sm:w-auto hover:scale-105 hover:shadow-[0_0_30px_rgba(0,145,255,0.35)] active:scale-98"
+          >
+            Parler de votre situation
+          </Link>
+          <span className="text-sm text-slate-400">ou explorez ce qu&apos;on fait ↓</span>
+        </div>
+
+
+        {/* ─── CE QU'ON FAIT (liens simples) ─── */}
+        <section className="reveal space-y-6">
+          <div className="prose-container-left">
+            <h2 className="text-2xl font-extrabold tracking-tight md:text-3xl">
+              Nos services
+            </h2>
+          </div>
+
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {([
+              {
+                title: "SEO & Google Maps",
+                desc: "Être trouvé quand ça compte",
+                href: "/services/referencement-seo",
+                accent: "blue" as const,
+              },
+              {
+                title: "Création de site web",
+                desc: "Un site qui génère des demandes",
+                href: "/services/creation-site-web",
+                accent: "blue" as const,
+              },
+              {
+                title: "Outils de gestion",
+                desc: "Extranet, suivi, tableaux de bord",
+                href: "/services/extranet-outils-gestion",
+                accent: "green" as const,
+              },
+              {
+                title: "Conformité FNE",
+                desc: "Facturation aux normes DGI",
+                href: "/services/conformite-fne",
+                accent: "green" as const,
+              },
+            ]).map((s) => (
+              <Link
+                key={s.title}
+                href={s.href}
+                className="group relative overflow-hidden rounded-2xl border border-black/10 bg-white p-5 sm:p-6 transition-all hover:shadow-md hover:border-black/15"
+              >
+                <span
+                  className={`absolute left-0 top-0 bottom-0 w-1 rounded-l-2xl ${
+                    s.accent === "green" ? "bg-(--brand-green)" : "bg-(--brand-blue)"
+                  }`}
+                  aria-hidden="true"
+                />
+                <div className="font-semibold text-slate-900 group-hover:text-(--brand-blue) transition-colors">{s.title}</div>
+                <div className="mt-0.5 text-sm text-slate-500">{s.desc}</div>
+                <div className="mt-2 text-xs font-semibold text-(--brand-blue)">En savoir plus →</div>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+
+        {/* ─── CTA FINAL ─── dark */}
+        <section className="reveal relative overflow-hidden rounded-3xl border border-black/10 bg-linear-to-b from-slate-950 to-slate-900 p-6 text-white sm:p-8 lg:p-10">
+          <div className="pointer-events-none absolute -left-20 -top-20 h-56 w-56 rounded-full bg-(--brand-blue)/18 blur-3xl animate-pulse-slow" />
+          <div className="pointer-events-none absolute -bottom-24 -right-24 h-72 w-72 rounded-full bg-(--brand-green)/16 blur-3xl animate-pulse-slow" style={{ animationDelay: "1.2s" }} />
+          <div className="pointer-events-none absolute inset-0 opacity-[0.15]" style={{ backgroundImage: "radial-gradient(circle at 20% 15%, rgba(0,145,255,0.2) 0, transparent 50%), radial-gradient(circle at 85% 80%, rgba(0,200,120,0.15) 0, transparent 50%)" }} />
+
+          <div className="relative flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+            <div className="prose-container-left space-y-2">
+              <h2 className="text-2xl font-extrabold tracking-tight md:text-3xl">
+                Prêt à avancer ?
+              </h2>
+              <p className="text-white/75 md:text-lg leading-relaxed">
+                Décrivez votre activité, votre zone et votre objectif. On vous répond avec un plan clair.
+              </p>
+            </div>
+            <div className="text-sm font-semibold text-white/70">Réponse sous 24h</div>
+          </div>
+
+          <div className="relative mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2"
+              className="inline-flex w-full items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white hover:opacity-95 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2 focus:ring-offset-slate-950 transition-all duration-300 sm:w-auto hover:scale-105 hover:shadow-[0_0_30px_rgba(0,145,255,0.35)] active:scale-98"
             >
               Parler de votre situation
             </Link>
-
             <a
               href={wa}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center justify-center rounded-xl border border-black/15 bg-transparent px-5 py-3 text-sm font-semibold text-slate-900 hover:bg-black/5 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2"
+              className="inline-flex items-center justify-center px-3 py-3 text-sm font-semibold text-white/80 underline decoration-white/20 underline-offset-4 hover:text-white hover:decoration-white/40"
             >
-              WhatsApp (réponse rapide)
+              WhatsApp
             </a>
-
             <Link
-              href="/services"
-              className="inline-flex items-center justify-center rounded-xl px-3 py-3 text-sm font-semibold text-slate-700 underline decoration-slate-300 underline-offset-4 hover:text-slate-900 hover:decoration-slate-400 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2"
+              href="/realisations"
+              className="inline-flex items-center justify-center px-3 py-3 text-sm font-semibold text-white/70 underline decoration-white/20 underline-offset-4 hover:text-white hover:decoration-white/35"
             >
-              Voir les services
+              Voir nos réalisations
             </Link>
           </div>
+        </section>
 
-          <div className="rounded-2xl border border-black/10 bg-white/70 p-4">
-            <div className="text-xs font-semibold tracking-wide text-slate-500">À retenir</div>
-            <div className="mt-1 text-sm text-slate-700">
-              Clarté d’abord (objectifs, livrables, étapes). V1 utile rapidement, puis amélioration continue — sans bloquer l’activité.
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* VALEURS */}
-      <section className="reveal rounded-3xl border border-black/10 p-8">
-        <h2 className="text-xl font-bold">Nos valeurs</h2>
-        <p className="mt-2 max-w-3xl text-slate-600">
-          On cherche du concret : des livrables clairs, une exécution rapide, et un vrai accompagnement.
-        </p>
-
-        <div className="mt-6 grid gap-4 md:grid-cols-3">
-          {values.map((v) => (
-            <div key={v.title} className="rounded-2xl border border-black/10 bg-white p-6">
-              <div className="text-lg font-bold">{v.title}</div>
-              <div className="mt-2 text-slate-600">{v.desc}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* CE QU’ON FAIT */}
-      <section className="reveal grid gap-6 md:grid-cols-2">
-        <div className="rounded-3xl border border-black/10 p-8">
-          <h2 className="text-xl font-bold">1) Structurer (digital & outils)</h2>
-          <p className="mt-3 text-slate-600">
-            Sites web, extranet, outils de gestion, organisation des informations, sécurité,
-            et accompagnement à l’utilisation.
-          </p>
-          <div className="mt-5 flex flex-col gap-3 sm:flex-row">
-            <Link
-              href="/services/creation-site-web"
-              className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white hover:opacity-95"
-            >
-              Création de site
-            </Link>
-            <Link
-              href="/services/extranet-outils-gestion"
-              className="inline-flex items-center justify-center rounded-xl bg-slate-100 px-5 py-3 text-sm font-semibold text-slate-900 hover:opacity-95"
-            >
-              Extranet & outils
-            </Link>
-          </div>
-        </div>
-
-        <div className="rounded-3xl border border-black/10 p-8">
-          <h2 className="text-xl font-bold">2) Développer (visibilité & communication)</h2>
-          <p className="mt-3 text-slate-600">
-            Identité visuelle, supports, stratégie de visibilité, SEO local (Google Maps),
-            et structuration pour attirer clients et partenaires.
-          </p>
-          <div className="mt-5 flex flex-col gap-3 sm:flex-row">
-            <Link
-              href="/services/referencement-seo"
-              className="inline-flex items-center justify-center rounded-xl bg-slate-900 px-5 py-3 text-sm font-semibold text-white hover:opacity-95"
-            >
-              SEO & Google Maps
-            </Link>
-            <Link
-              href="/services/identite-visuelle-supports"
-              className="inline-flex items-center justify-center rounded-xl bg-slate-100 px-5 py-3 text-sm font-semibold text-slate-900 hover:opacity-95"
-            >
-              Identité & supports
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ÉQUIPE */}
-      <section className="reveal rounded-3xl border border-black/10 p-8">
-        <h2 className="text-xl font-bold">L’équipe</h2>
-        <p className="mt-2 max-w-3xl text-slate-600">
-          Deux associés, deux compétences complémentaires, un seul objectif : des résultats.
-        </p>
-
-        <div className="mt-6 grid gap-4 md:grid-cols-2">
-          <div className="rounded-2xl border border-black/10 bg-white p-6">
-            <div className="flex items-center gap-4">
-              <div className="relative h-14 w-14 overflow-hidden rounded-2xl border border-black/10 bg-slate-100">
-                {/* Placeholder propre (tu pourras remplacer par une vraie photo plus tard) */}
-                <Image
-                  src="/brand/avatar-placeholder.png"
-                  alt="Georges KONAN"
-                  fill
-                  className="object-cover"
-                  sizes="56px"
-                  priority={false}
-                />
-              </div>
-              <div>
-                <div className="font-bold">Georges KONAN</div>
-                <div className="text-sm text-slate-600">Co-fondateur • Digital / Produit</div>
-              </div>
-            </div>
-            <p className="mt-4 text-sm text-slate-600">
-              Interlocuteur principal sur la structuration digitale et les outils.
-              <br />
-              Conception et réalisation de sites, outils de gestion, parcours de conversion,
-              performance et structuration.
-            </p>
-          </div>
-
-          <div className="rounded-2xl border border-black/10 bg-white p-6">
-            <div className="flex items-center gap-4">
-              <div className="relative h-14 w-14 overflow-hidden rounded-2xl border border-black/10 bg-slate-100">
-                <Image
-                  src="/brand/avatar-placeholder.png"
-                  alt="Philipe TANBGÉ"
-                  fill
-                  className="object-cover"
-                  sizes="56px"
-                />
-              </div>
-              <div>
-                <div className="font-bold">Philipe TANBGÉ</div>
-                <div className="text-sm text-slate-600">Co-fondateur • Communication / Visibilité</div>
-              </div>
-            </div>
-            <p className="mt-4 text-sm text-slate-600">
-              Référent sur la visibilité et la crédibilité commerciale.
-              <br />
-              Image de marque, supports, structuration commerciale, et accompagnement
-              pour renforcer la crédibilité.
-            </p>
-          </div>
-        </div>
-
-        <p className="mt-4 text-xs text-slate-500">
-          Astuce : tu peux remplacer les images par de vraies photos plus tard (mêmes dimensions).
-        </p>
-      </section>
-
-      {/* CTA */}
-      <section className="reveal rounded-3xl border border-black/10 bg-slate-50 p-8">
-        <h2 className="text-xl font-bold">Prêt à avancer ?</h2>
-        <p className="mt-2 text-slate-600">
-          Dis-nous ton secteur, ta ville/quartier et ton objectif. On te répond avec une proposition claire.
-        </p>
-        <div className="mt-4 flex flex-col gap-3 sm:flex-row">
-          <Link
-            href="/contact"
-            className="inline-flex items-center justify-center rounded-xl bg-(--brand-blue) px-5 py-3 text-sm font-semibold text-white hover:opacity-95"
-          >
-            Nous contacter
-          </Link>
-          <a
-            href={wa}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center justify-center rounded-xl border border-black/15 bg-transparent px-5 py-3 text-sm font-semibold text-slate-900 hover:bg-black/5 focus:outline-none focus:ring-2 focus:ring-(--brand-blue) focus:ring-offset-2"
-          >
-            WhatsApp (réponse rapide)
-          </a>
-        </div>
-      </section>
-
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }}
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdOrg) }}
-      />
-    </div>
+        {/* JSON-LD */}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdBreadcrumb) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdOrg) }} />
+      </div>
+    </Container>
   );
 }

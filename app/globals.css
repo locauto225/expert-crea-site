@@ -1,29 +1,97 @@
+/* =========================
+   Hero nav pill shimmer (migrated from Header.tsx)
+========================= */
+.hero-nav-pill::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  pointer-events: none;
+  opacity: 0.45;
+  background: linear-gradient(
+    110deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.09) 22%,
+    rgba(11, 60, 97, 0.12) 42%,
+    rgba(0, 200, 120, 0.1) 58%,
+    rgba(255, 255, 255, 0.07) 72%,
+    transparent 100%
+  );
+  transform: translateX(-60%);
+  animation: heroPillShimmer 11s linear infinite;
+}
+
+.hero-nav-pill::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: 16px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.09), inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+  opacity: 1;
+}
+
+@keyframes heroPillShimmer {
+  0% {
+    transform: translateX(-60%);
+  }
+  100% {
+    transform: translateX(60%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-nav-pill::before {
+    animation: none !important;
+    opacity: 0.16;
+    transform: none;
+  }
+}
 @import "tailwindcss";
 
 :root {
   --brand-blue: #5170ff;
   --brand-green: #00be62;
+
+  /* Header height (used for body padding, anchors, hero offsets)
+     Keep in sync with Header.tsx HEADER_H (base/md/lg).
+     JS will override at runtime, but we set correct CSS defaults for first paint. */
+  --header-h: 56px;
+  --headerH: var(--header-h);
+}
+
+/* If your header height changes by breakpoint, adjust here */
+@media (min-width: 768px) {
+  :root { --header-h: 60px; }
+}
+@media (min-width: 1024px) {
+  :root { --header-h: 64px; }
 }
 
 html,
 body {
-  height: 100%;
+  /* ✅ évite le blanc à droite (full-bleed + scrollbar) */
+  min-height: 100%;
+  overflow-x: hidden;
 }
 
 /* =========================
    Ancres / scroll (stable)
    - Smooth scroll (sans JS)
-   - Padding pour header sticky
+   - Le scroll-padding-top est géré dans app/layout.tsx (body: scroll-pt-[var(--header-h)])
 ========================= */
 html {
   scroll-behavior: smooth;
-  /* évite que les ancres arrivent sous un header sticky */
-  scroll-padding-top: 7rem; /* ajuste si ton header est plus grand/petit */
 }
 
 /* Optionnel : petites corrections si besoin sur les ancres */
 :target {
-  scroll-margin-top: 7rem;
+  scroll-margin-top: var(--header-h);
+}
+
+/* Helper: full-viewport hero minus sticky header */
+.hero-fullheight {
+  /* Fallback keeps working even if only one var is referenced */
+  min-height: calc(100svh - var(--headerH, var(--header-h)));
 }
 
 /* =========================
@@ -33,25 +101,12 @@ body {
   color: rgb(15 23 42);
   background: #ffffff;
   position: relative;
+
+  /* évite que certaines couches (backdrop/filters) donnent une sensation de scroll “bloqué” */
+  touch-action: pan-y;
 }
 
-/* =========================
-   Fond premium stable
-   (évite l'effet "patchy")
-========================= */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
 
-  background:
-    radial-gradient(1200px 600px at 50% -10%, rgba(81, 112, 255, 0.08), transparent 60%),
-    radial-gradient(1000px 520px at 90% 0%, rgba(0, 190, 98, 0.06), transparent 55%);
-
-  filter: saturate(1.05);
-}
 
 /* =========================
    Home unified layout (Adveris-like)
@@ -60,27 +115,41 @@ body::before {
 ========================= */
 .home-unified {
   position: relative;
+
+  /* Full-bleed wrapper (robust even inside a padded, centered <main>)
+     main has: px-4 / sm:px-6 / lg:px-8
+     Gutters are now handled by inner containers, so no compensation here.
+  */
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+
+  /* Prevent horizontal seams/scrollbars due to 100vw + scrollbar */
+  overflow-x: clip;
 }
 
-/* Very subtle extra veil for Home only (optional) */
-.home-bg {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  opacity: 0.25;
-  background:
-    radial-gradient(1200px 620px at 18% -10%, rgba(81, 112, 255, 0.10), transparent 60%),
-    radial-gradient(1000px 540px at 92% 6%, rgba(0, 190, 98, 0.08), transparent 58%);
+@media (min-width: 640px) {
+  .home-unified {
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+  }
 }
+
+@media (min-width: 1024px) {
+  .home-unified {
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+  }
+}
+
 
 /* One consistent rhythm: spacing creates sections, not boxes */
 .home-section {
   margin-left: auto;
   margin-right: auto;
   max-width: 80rem; /* ~max-w-7xl */
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
+  padding-left: 1rem;   /* px-4 */
+  padding-right: 1rem;  /* px-4 */
   padding-top: 4rem;
   padding-bottom: 4rem;
 }
@@ -89,22 +158,48 @@ body::before {
   .home-section {
     padding-top: 5.5rem;
     padding-bottom: 5.5rem;
-    padding-left: 2rem;
-    padding-right: 2rem;
+  }
+}
+
+@media (min-width: 640px) {
+  .home-section {
+    padding-left: 1.5rem;  /* sm:px-6 */
+    padding-right: 1.5rem; /* sm:px-6 */
+  }
+}
+
+@media (min-width: 1024px) {
+  .home-section {
+    padding-left: 2rem;  /* lg:px-8 */
+    padding-right: 2rem; /* lg:px-8 */
+  }
+}
+
+@media (min-width: 640px) {
+  .home-divider {
+    padding-left: 1.5rem;  /* sm:px-6 */
+    padding-right: 1.5rem; /* sm:px-6 */
+  }
+}
+
+@media (min-width: 1024px) {
+  .home-divider {
+    padding-left: 2rem;  /* lg:px-8 */
+    padding-right: 2rem; /* lg:px-8 */
   }
 }
 
 @media (min-width: 1536px) {
   .home-section {
     max-width: 96rem; /* agency wide on 2xl */
-    padding-left: 2.5rem;
-    padding-right: 2.5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
 
   .home-divider {
     max-width: 96rem;
-    padding-left: 2.5rem;
-    padding-right: 2.5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
 }
 
@@ -112,8 +207,8 @@ body::before {
   margin-left: auto;
   margin-right: auto;
   max-width: 80rem;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
+  padding-left: 1rem;  /* px-4 */
+  padding-right: 1rem; /* px-4 */
 }
 
 .home-divider::before {
@@ -143,7 +238,7 @@ body::before {
    - Desktop souris : peut apparaître au hover (plus épuré)
    Usage :
      - Sur le lien : class="click-hint"
-     - Si tu veux l’apparition au hover : mettre le parent en `group` et le lien en `click-hint click-hint--hover`
+     - Si tu veux l'apparition au hover : mettre le parent en `group` et le lien en `click-hint click-hint--hover`
 ========================= */
 .click-hint {
   display: inline-flex;
@@ -226,7 +321,7 @@ body::before {
   pointer-events: none;
 }
 
-/* Hover lift uniquement si l’élément est cliquable (évite l’illusion sur des blocs informatifs) */
+/* Hover lift uniquement si l'élément est cliquable (évite l'illusion sur des blocs informatifs) */
 .card-wow:is(a, button, [role="button"]) {
   cursor: pointer;
 }
@@ -241,7 +336,7 @@ body::before {
   opacity: 1;
 }
 
-/* Variante soft pour les blocs non cliquables (hover discret, sans “lift”) */
+/* Variante soft pour les blocs non cliquables (hover discret, sans "lift") */
 .card-soft {
   transition: background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
 }
@@ -305,7 +400,7 @@ body::before {
 }
 
 /* =========================
-   SunMark (repère “premium”)
+   SunMark (repère "premium")
    - CSS only, ultra léger
    - Rotation très lente (style agence)
    Usage:
@@ -466,5 +561,382 @@ body::before {
   }
   .home-bg {
     opacity: 0.18;
+  }
+}
+/* =========================
+   PHASE 2 : Animations & Effets Premium
+   - Blobs animés (pulse-slow)
+   - Effets 3D sur cartes
+   - Effets boutons
+========================= */
+
+/* Animation pulse-slow pour les blobs */
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 0.18;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.28;
+    transform: scale(1.08);
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 8s ease-in-out infinite;
+}
+
+/* Effet 3D sur les cartes (premium) */
+.card-3d-enhanced {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-3d-enhanced:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12),
+              0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.card-3d-enhanced:active {
+  transform: translateY(-2px) scale(1.005);
+}
+
+/* Effet scale-98 pour les boutons */
+.active\:scale-98:active {
+  transform: scale(0.98);
+}
+
+/* Désactiver animations si motion réduite */
+@media (prefers-reduced-motion: reduce) {
+  .animate-pulse-slow {
+    animation: none !important;
+    opacity: 0.18 !important;
+    transform: none !important;
+  }
+  
+  .card-3d-enhanced {
+    transition: none !important;
+  }
+  
+  .card-3d-enhanced:hover {
+    transform: none !important;
+    box-shadow: 0 8px 22px rgba(2, 6, 23, 0.08) !important;
+  }
+}
+
+/* =========================
+   PHASE 3 : Animation Marquee Communication
+   - Défilement infini horizontal
+   - Utilisé pour showcase studio
+========================= */
+
+@keyframes studio-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.studio-marquee {
+  animation: studio-marquee 20s linear infinite;
+}
+
+.studio-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Styles pour les tuiles studio */
+.studio-tile {
+  user-select: none;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .studio-marquee {
+    animation: none !important;
+  }
+}
+
+/* =========================
+   CONFORT DE LECTURE B2B
+   - Limite la largeur du texte à ~70 caractères
+   - Centré dans le parent
+   - À utiliser sur les paragraphes, FAQ, descriptions
+   
+   Principe : "Layout large, texte étroit"
+   → Les grilles/cards restent larges (pleine largeur du main)
+   → Les paragraphes sont limités pour le confort de lecture
+   
+   Usage :
+   - .prose-container       → paragraphes standards (centré)
+   - .prose-container-lg    → intros de section (centré, plus large)
+   - .prose-container-left  → titres + paragraphes (aligné gauche)
+   - .prose-container-faq   → section FAQ entière (centré)
+========================= */
+
+/* Conteneur standard (paragraphes, descriptions) - centré */
+.prose-container {
+  max-width: 70ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Variante plus large pour les intros de section - centré */
+.prose-container-lg {
+  max-width: 85ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Variante alignée à gauche (pour les sections avec titre + paragraphe) */
+.prose-container-left {
+  max-width: 70ch;
+}
+
+/* Variante FAQ (un peu plus large car questions + réponses) - centré */
+.prose-container-faq {
+  max-width: 75ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+/* =========================
+   Home HERO styles (migrated from app/page.tsx)
+   Scoped to #hero to avoid global side-effects
+========================= */
+#hero{ --hx: 50%; --hy: 30%; --dx: 0; --dy: 0; }
+
+#hero-rotating{
+  display:inline-block;
+  will-change: opacity, transform;
+  white-space: nowrap;
+  min-width: 12ch;
+}
+@media (max-width: 639px){
+  #hero-rotating{ min-width: 0; }
+}
+
+@keyframes heroBlink{ 0%, 55%{ opacity: 0.65; } 56%, 100%{ opacity: 0.0; } }
+
+@keyframes heroPulseSlow { 0%, 100% { opacity: 0.7; transform: scale(1); } 50% { opacity: 1; transform: scale(1.05); } }
+.hero-pulse-slow { animation: heroPulseSlow 6s ease-in-out infinite; }
+
+@keyframes glow-blue { 0%, 100% { opacity: 1; transform: scale(1) translate(0, 0); } 50% { opacity: 0.8; transform: scale(1.1) translate(20px, -10px); } }
+@keyframes glow-green { 0%, 100% { opacity: 1; transform: scale(1) translate(0, 0); } 50% { opacity: 0.7; transform: scale(1.15) translate(-15px, 15px); } }
+
+/* ── Cycle: pause animations when hero is out of view ── */
+#hero:not(.hero-live) .hero-glow-blue,
+#hero:not(.hero-live) .hero-glow-green,
+#hero:not(.hero-live) .hero-particle,
+#hero:not(.hero-live) .hero-perspective {
+  animation-play-state: paused !important;
+}
+#hero.hero-live .hero-glow-blue,
+#hero.hero-live .hero-glow-green,
+#hero.hero-live .hero-particle,
+#hero.hero-live .hero-perspective {
+  animation-play-state: running !important;
+}
+
+#hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:0.07;
+  mix-blend-mode: overlay;
+  background-image:
+    radial-gradient(circle at 20% 10%, rgba(255,255,255,0.10) 0, transparent 55%),
+    radial-gradient(circle at 80% 80%, rgba(255,255,255,0.07) 0, transparent 55%),
+    repeating-linear-gradient(0deg, rgba(255,255,255,0.05) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.04) 0 1px, transparent 1px 4px);
+}
+
+.hero-particles{ overflow:hidden; }
+.hero-particle{
+  position:absolute;
+  border-radius:999px;
+  background: radial-gradient(circle, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.10) 60%, rgba(255,255,255,0) 70%);
+  filter: blur(0.2px);
+  transform: translate3d(0, 12px, 0) scale(0.9);
+}
+
+@keyframes heroParticleFloat{
+  0%{ transform: translate3d(0, 14px, 0) scale(0.92); opacity: 0; }
+  12%{ opacity: inherit; }
+  55%{ transform: translate3d(18px, -22px, 0) scale(1); }
+  100%{ transform: translate3d(36px, -64px, 0) scale(0.96); opacity: 0; }
+}
+
+.hero-bg{
+  transform: translate3d(calc(var(--dx) * -1px), calc(var(--dy) * -1px), 0);
+  transition: transform 120ms ease-out;
+  will-change: transform;
+}
+
+.hero-spot{
+  background:
+    radial-gradient(720px circle at var(--hx) var(--hy), rgba(0,145,255,0.12), transparent 62%),
+    radial-gradient(620px circle at calc(var(--hx) + 140px) calc(var(--hy) + 160px), rgba(0,200,120,0.10), transparent 64%);
+  mix-blend-mode: screen;
+  opacity: 0.65;
+  transform: translate3d(calc(var(--dx) * 1px), calc(var(--dy) * 1px), 0);
+  transition: transform 140ms ease-out;
+  will-change: transform;
+}
+
+.hero-highlight{
+  background: linear-gradient(90deg, rgba(0,145,255,1) 0%, rgba(0,200,120,1) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  position: relative;
+}
+
+.hero-highlight::after{
+  content:"";
+  position:absolute;
+  left:-6px;
+  right:-6px;
+  bottom:-6px;
+  height:12px;
+  border-radius:999px;
+  background: linear-gradient(90deg, rgba(0,145,255,0.24) 0%, rgba(0,200,120,0.18) 100%);
+  filter: blur(10px);
+  opacity: .85;
+  pointer-events:none;
+}
+
+/* ── 3D Card System ── */
+.hero-perspective {
+  position: relative;
+  transform-style: preserve-3d;
+  perspective: 800px;
+  will-change: transform;
+  transition: transform 200ms cubic-bezier(0.03, 0.98, 0.52, 0.99);
+}
+
+@media (hover: none) {
+  .hero-perspective { perspective: none; transform-style: flat; }
+  .hero-depth-layer { display: none !important; }
+  .hero-shine { display: none !important; }
+}
+
+.hero-card { --shine-x: 50%; --shine-y: 30%; transform-style: preserve-3d; transform: translateZ(0); }
+
+.hero-card::after {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border-radius: 22px;
+  pointer-events: none;
+  z-index: -1;
+  box-shadow:
+    0 8px 20px -4px rgba(0,0,0,0.3),
+    0 25px 50px -8px rgba(0,0,0,0.35),
+    0 50px 100px -12px rgba(0,0,0,0.25),
+    0 80px 160px -20px rgba(0,0,0,0.15);
+  transition: box-shadow 400ms ease;
+}
+
+.hero-perspective:hover .hero-card::after {
+  box-shadow:
+    0 12px 24px -4px rgba(0,0,0,0.35),
+    0 30px 60px -8px rgba(0,0,0,0.4),
+    0 60px 120px -12px rgba(0,0,0,0.3),
+    0 100px 200px -20px rgba(0,0,0,0.2);
+}
+
+.hero-shine {
+  background: radial-gradient(350px circle at var(--shine-x) var(--shine-y), rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.04) 40%, transparent 70%);
+  transition: opacity 300ms ease;
+}
+
+.hero-perspective:hover .hero-shine { opacity: 1 !important; }
+
+.hero-depth-layer { transition: transform 300ms cubic-bezier(0.03, 0.98, 0.52, 0.99); }
+.hero-depth-back { transform: translateZ(-60px) scale(1.15); }
+.hero-depth-mid { transform: translateZ(-30px) scale(1.08); }
+.hero-depth-front { transform: translateZ(30px) scale(0.95); }
+
+@media (prefers-reduced-motion: no-preference) and (hover: hover) {
+  #hero.hero-restart .hero-perspective { animation: heroFloat3D 4s ease-in-out infinite; }
+}
+
+@keyframes heroFloat3D {
+  0%, 100% { transform: perspective(800px) rotateX(0deg) rotateY(0deg) translateY(0); }
+  25% { transform: perspective(800px) rotateX(0.5deg) rotateY(-0.5deg) translateY(-3px); }
+  50% { transform: perspective(800px) rotateX(-0.3deg) rotateY(0.4deg) translateY(-5px); }
+  75% { transform: perspective(800px) rotateX(0.2deg) rotateY(-0.3deg) translateY(-2px); }
+}
+
+.hero-perspective:hover { animation: none; }
+
+@media (prefers-reduced-motion: reduce){
+  .hero-bg, .hero-spot, .hero-glow-blue, .hero-glow-green, .hero-particle, .hero-cursor,
+  .hero-perspective, .hero-depth-layer {
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* Gated hero animation triggers */
+#hero.hero-restart .hero-glow-blue { animation: glow-blue 15s ease-in-out infinite; }
+#hero.hero-restart .hero-glow-green { animation: glow-green 18s ease-in-out infinite; }
+#hero.hero-restart .hero-particle { animation: heroParticleFloat ease-in-out infinite; }
+/* =========================
+   Home: STATS gradient (migrated from app/page.tsx)
+   Scoped to .stats-band
+========================= */
+.stats-band .stat-num {
+  background: linear-gradient(135deg, #fff 40%, rgba(0, 200, 120, 0.85));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* =========================
+   Home: CTA pulse (migrated from app/page.tsx)
+   Scoped to .cta-pulse / .home-band-dark
+========================= */
+.cta-pulse {
+  position: relative;
+}
+
+.cta-pulse::before {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 14px;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 145, 255, 0.4),
+    rgba(0, 200, 120, 0.4)
+  );
+  opacity: 0;
+  filter: blur(12px);
+  animation: pulse-ring 2s ease-out infinite;
+}
+
+.home-band-dark .animate-pulse-slow:nth-of-type(2) {
+  animation-delay: 2s;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1.05);
+    opacity: 0;
   }
 }

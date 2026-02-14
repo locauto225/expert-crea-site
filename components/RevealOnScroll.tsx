@@ -7,13 +7,22 @@ export default function RevealOnScroll() {
   const pathname = usePathname();
 
   useEffect(() => {
-    // ✅ Active le mode "JS ready" même si le Script du layout manque
+    // ✅ Active le mode "JS ready" (permet d'appliquer les styles .reveal gated)
     document.documentElement.classList.add("js");
 
-    // ✅ Respect accessibilité : si reduce motion → tout visible
+    // ✅ Quand on arrive (ou revient) sur la Home : relance les animations du hero
+    if (pathname === "/") {
+      requestAnimationFrame(() => {
+        window.dispatchEvent(new Event("ec:home-enter"));
+      });
+    }
+
+    // ✅ Accessibilité : si reduce motion → tout visible (aucun observer)
     const reduce = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
     if (reduce) {
-      document.querySelectorAll<HTMLElement>(".reveal").forEach((el) => el.classList.add("is-visible"));
+      document
+        .querySelectorAll<HTMLElement>(".reveal")
+        .forEach((el) => el.classList.add("is-visible"));
       return;
     }
 
@@ -26,42 +35,43 @@ export default function RevealOnScroll() {
       return;
     }
 
+    // ✅ Mobile/tablet : aucun reveal (tout visible)
     const isDesktop = window.matchMedia?.("(min-width: 1024px)")?.matches ?? false;
+    if (!isDesktop) {
+      els.forEach((el) => el.classList.add("is-visible"));
+      return;
+    }
 
-    // ✅ Si un élément est déjà dans le viewport, on le rend visible immédiatement
-    // (évite les cas "retour navigation" où rien n’apparaît pendant un instant)
-    const makeVisible = (el: HTMLElement) => {
-      if (el.classList.contains("is-visible")) return;
-
-      // Stagger optionnel : data-delay="80" (ms) — uniquement desktop
-      if (isDesktop) {
-        const delay = el.getAttribute("data-delay");
-        if (delay) el.style.transitionDelay = `${Number(delay)}ms`;
-      } else {
-        // Sur mobile : pas de delay
-        el.style.transitionDelay = "0ms";
-      }
-
-      el.classList.add("is-visible");
-    };
-
+    // Helper: visible now (used to avoid "blank" on restore/back)
     const inViewportNow = (el: HTMLElement) => {
       const r = el.getBoundingClientRect();
       const vh = window.innerHeight || document.documentElement.clientHeight;
       return r.top < vh * 0.92 && r.bottom > vh * 0.08;
     };
 
+    const makeVisible = (el: HTMLElement) => {
+      if (el.classList.contains("is-visible")) return;
+
+      // Stagger optionnel : data-delay="80" (ms) — desktop only
+      const delay = el.getAttribute("data-delay");
+      if (delay) el.style.transitionDelay = `${Number(delay)}ms`;
+
+      el.classList.add("is-visible");
+    };
+
+    // ✅ Si déjà visible au chargement/retour → visible immédiatement (sans logique scroll)
     els.forEach((el) => {
       if (inViewportNow(el)) makeVisible(el);
     });
 
+    // ✅ Reveal pro : 1 seule fois, uniquement quand ça entre dans le viewport
     const io = new IntersectionObserver(
       (entries) => {
         for (const e of entries) {
-          if (e.isIntersecting) {
-            makeVisible(e.target as HTMLElement);
-            io.unobserve(e.target); // 1 fois, sobre
-          }
+          if (!e.isIntersecting) continue;
+          const el = e.target as HTMLElement;
+          makeVisible(el);
+          io.unobserve(el); // one-shot (pro, stable)
         }
       },
       { threshold: 0.14, rootMargin: "0px 0px -10% 0px" }
@@ -72,8 +82,10 @@ export default function RevealOnScroll() {
       if (!el.classList.contains("is-visible")) io.observe(el);
     });
 
-    return () => io.disconnect();
-  }, [pathname]); // relance à chaque navigation
+    return () => {
+      io.disconnect();
+    };
+  }, [pathname]);
 
   return null;
 }
